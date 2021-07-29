@@ -52,4 +52,4 @@ Route::get('/product_destroy/{id}',[App\Http\Controllers\Admin\buyerseller\Produ
 Route::resource('/buyerseller',App\Http\Controllers\Admin\buyerseller\BuyerSellerController::class);
 Route::get('/buyerseller_approve/{id}',[App\Http\Controllers\Admin\buyerseller\BuyerSellerController::class,'buyersellerAprove'])->name('buyerseller_approve');
 Route::get('/buyerseller_destroy/{id}',[App\Http\Controllers\Admin\buyerseller\BuyerSellerController::class,'buyerseller_destroy'])->name('buyerseller_destroy');
-Route::get('/orders',[App\Http\Controllers\OrdersController::class,'getCarts'])->name('orders');
+Route::get('/orders',[App\Http\Controllers\OrdersController::class,'getOrder'])->name('orders');

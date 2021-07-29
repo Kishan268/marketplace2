@@ -42,11 +42,11 @@ class ProductsContainer extends Component{
 		// console.log(data);
 		if (localStorage.getItem('token')) {
 			data.token = localStorage.getItem('token');
-			
+
 			addToCartHandler(data)
 			axios.post('http://localhost:4000/cart_data',data)
             .then((res)=>{
-				toast("Product added in cart successfully!");
+				toast("Item added successfully!");
 			 console.log(res.data)
 			}).catch((error)=>{
 				toast.error("Product not added in cart!");

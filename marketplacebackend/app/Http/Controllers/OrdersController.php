@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Repositories\OrdersRepository;
-use Auth;
 
 class OrdersController extends Controller
 {
@@ -24,13 +23,13 @@ class OrdersController extends Controller
         return response($ordertData, 200);
     }
     public function getOrder(){
-        $ordertData = $this->getOrderDataRepo->getOrder();
-        return response($ordertData, 200);
+        // dd(Auth::user()->id);
+        $oredrs = $this->getOrderDataRepo->getOrder();
+        return view('admin.order.index',compact('oredrs'));
+        
     }
     public function getCarts(){
-		dd(Auth::user()->id);
 
         $cartsData = $this->getCartsDataRepo->getCarts();
-        return response($cartsData, 200);
     }
 }

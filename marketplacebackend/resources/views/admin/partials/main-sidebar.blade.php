@@ -12,7 +12,7 @@
                   </a>
                 </li>
              
-         
+         @role('super_admin')
                 
                 <li class="treeview">
                   <a href="#">
@@ -23,7 +23,7 @@
                     </span>
                   </a>
                   <ul class="treeview-menu">
-                    <li><a href="order.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Order List</a></li>
+                    <li><a href="{{url('orders')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Order List</a></li>
                     <li><a href="order_details.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Order Details</a></li>
                   </ul>
                 </li>
@@ -72,6 +72,8 @@
                       </li>
                   </ul>
                 </li> 
+         @endrole
+
 
 <!--            
               <li class="treeview">

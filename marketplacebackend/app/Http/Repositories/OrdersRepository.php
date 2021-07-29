@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Http\Repositories\EloquentRepository;
 use App\Models\Orders;
 use App\Models\Cart;
+use Auth;
+use App\Models\User;
 class OrdersRepository extends EloquentRepository{
 
 
@@ -18,7 +20,12 @@ class OrdersRepository extends EloquentRepository{
 	}
 
 	public function getOrder(){
-		return Orders::get();
+         
+        $user = Auth::user()->user_role;
+		// dd($user->hasRole('super_admin'));
+		return Orders::where('seller_id', Auth::user()->id)->get();
+
+
 	}
 	public function getCarts(){
 		return Cart::where('user_id',Auth::user()->id)->get();

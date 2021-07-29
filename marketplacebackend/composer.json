@@ -14,7 +14,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "mews/captcha": "^3.2",
-        "santigarcor/laratrust": "^6.3"
+        "spatie/laravel-permission": "^4.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
