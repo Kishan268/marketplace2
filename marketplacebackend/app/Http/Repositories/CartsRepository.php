@@ -8,7 +8,11 @@ use App\Models\CartItem;
 use App\Models\Cart;
 use App\Models\Orders;
 use App\Models\User;
+use Response;
 use Auth;
+use App\Http\Resources\CartResource;
+use App\Http\Resources\CartItemResource;
+
 
 class CartsRepository extends EloquentRepository{
 
@@ -31,12 +35,11 @@ class CartsRepository extends EloquentRepository{
 					$cartItemData['cart_id'] = $getDuplicatecart->id;
 					CartItem::create($cartItemData);
 					DB::commit();
-					return response()->json('Item Added Successfully...',200);
-				
+					return $this->getCartData();				
 				}
 				else{
 
-					return response()->json('Item already added...',200);
+					return 'false';
 				}
 
 			}else{ 
@@ -49,7 +52,7 @@ class CartsRepository extends EloquentRepository{
 				// return $cartItemData;
 				 CartItem::create($cartItemData);
 				 DB::commit();
-				 return response()->json('Item Added Successfully...',200);
+				 return $this->getCartData();
 
 			}
 		}
@@ -57,16 +60,19 @@ class CartsRepository extends EloquentRepository{
             // dd('sdsds');
             DB::rollback(); 
 
-            return response()->json('Somthing went wrong....',400);
+            return 'Somthing went wrong....';
         
 		}
 
 	}
 
 	public function getCartData(){
+
 		$userId = Auth::guard('api')->user()->id;
-		$data= Cart::with('cart_items')->where('user_id',$userId)->first();
-		return $data;
+		// return $userId;
+		$data= Cart::with('cart_items','cart_items.products_detail')->where('user_id',$userId)->first();
+		$res =  new CartResource($data);
+		return $res;
 	}
 
 	public function cartData($request,$id=null){

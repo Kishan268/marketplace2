@@ -2,21 +2,24 @@ import {Component} from  'react'
 import CartComponent from './CartHeader.component'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import {addToCart} from "../../../store/addToCart/addToCart.action.js"
+
 
 const mapStateToProps = state => ({
-    data:state.cardItems
+    cardData:state.cardItems.cardData
 })
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps=dispatch=>({
+    addToCartHandler:data=>dispatch(addToCart(data))
 })
-
  
 class CartHeader extends Component {
 
     async getCartData (){
+        const {addToCartHandler} = this.props
         const token = localStorage.getItem('token');
         var carts=await axios.get(`http://localhost:4000/get_cart_data/${token}`)
         .then((res)=>{
-            return res.data
+             addToCartHandler(res.data.data)
         })
         .catch((error)=>{
             return error
@@ -31,7 +34,7 @@ class CartHeader extends Component {
     render(){
 		// const{cartData} = this.props
     	
-		// console.log( this.props)
+		console.log( this.props)
         return(
             <CartComponent 
             {...this.state}

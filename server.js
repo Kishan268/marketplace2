@@ -107,10 +107,11 @@ app.get('/get_cart_data/:token',async function(req,res,next){
 	var token = req.params.token;
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 	var data = await axios.get(`http://127.0.0.1:8000/api/get_cart_data/`).then((res)=>{
-	console.log(res.data);
+	// console.log(res.data);
 		return (res.data)
 	}).catch((error)=>{
-		return error
+		console.log(error)
+		
 	})
 
 	return res.json(data)
@@ -123,9 +124,13 @@ app.post('/cart_data',async function(req,res,next){
 
 	var data = await axios.post('http://127.0.0.1:8000/api/cart_data',req.body)
 	.then((res)=>{
+		console.log(res.data)
 		return res.data
 	}).catch((error)=>{
-		return error
+		// console.log(error)
+		 if (error.response) {
+      return (error.response.data);
+    }
 	})
 	console.log(data)
 	return res.json(data)

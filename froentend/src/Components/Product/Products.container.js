@@ -38,18 +38,23 @@ class ProductsContainer extends Component{
 		const{addToCartHandler,handleClickOpen} = this.props
 		const{UserLogin} = this.props
 
-		
 		// console.log(data);
 		if (localStorage.getItem('token')) {
 			data.token = localStorage.getItem('token');
 
-			addToCartHandler(data)
 			axios.post('http://localhost:4000/cart_data',data)
             .then((res)=>{
-				toast("Item added successfully!");
-			 console.log(res.data)
+            	if(typeof res.data.data === 'string'){
+					toast(res.data.data);
+            	}
+            	else{
+            		console.log(res.data)
+					 addToCartHandler(res.data.data)
+					toast("Item added successfully!");
+            	}
+			 	
 			}).catch((error)=>{
-				toast.error("Product not added in cart!");
+				toast.error("Item not added in cart!");
 				console.log(error)
 			})
 			

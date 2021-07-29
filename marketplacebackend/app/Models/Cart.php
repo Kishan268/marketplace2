@@ -13,5 +13,6 @@ class Cart extends Model
 
     public function cart_items(){
     	return $this->hasMany('App\Models\CartItem','cart_id','id');
-    }
+    } 
+    
 }

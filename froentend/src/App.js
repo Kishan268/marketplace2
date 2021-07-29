@@ -30,6 +30,7 @@ import Protected from'./Components/ProtectedComponent';
 import Logout from './Components/Logout/Logout.js';
 import CartComponent from './Components/Cart/Cart.container.js'
 import CheckoutComponent from './Components/Checkout/Checkout.container'
+import './App.css';
 function App() {
   return (
     <>

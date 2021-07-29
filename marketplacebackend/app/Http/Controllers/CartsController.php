@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Repositories\CartsRepository;
 use App\Http\Resources\CartResource;
 use Auth;
+use Response;
+
 
 class CartsController extends Controller
 {
@@ -22,16 +24,26 @@ class CartsController extends Controller
     }
     public function cartDataStore(Request $request)
     { 
+        // return url('/');
         $cartData = $this->postCartsRepo->cartDataStore($request);
-        return response($cartData, 200);
+        if($cartData === 'false'){
+             return Response::json([
+                'data' => 'Item already in cart...'
+            ], 401);   
+        }
+        return Response::json([
+                'data' => $cartData
+            ], 200);
     }
     public function getCartData(){
         // return '$token';
-        
         // return ($this->getCartDataRepo->getCartData());
         $cartData = $this->postCartsRepo->getCartData();
-        // $cartData = CartResource::collection($this->getCartDataRepo->getCartData($token));
-        return response($cartData, 200);
+
+        return Response::json([
+            'data' => $cartData
+        ], 200);
+         
 
     }
     public function postOrder(Request $request){

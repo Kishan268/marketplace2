@@ -72,6 +72,23 @@
     border-radius: 50%;
     color: #fff;
 }
+
+.header-right_area > ul > li.minicart-wrap {
+    background: #ffffff;
+    width: 11% !important;
+    text-align: center;
+    height: 55px;
+    line-height: 55px;
+    margin-right: 0;
+}
+
+.header-right_area > ul > li.minicart-wrap > a.minicart-btn:before {
+    content: "" !imporatnt;
+    font-family: "Ionicons";
+    position: absolute;
+    display: none;
+    right: 20px;
+}
 /*  */
 @keyframes App-logo-spin {
   from {

@@ -8,8 +8,19 @@ import {
 class CartHeader extends Component {
     
     render(){
-         const productPrices = this.props.data.cardData
+         const {cardData} = this.props
+        
         //  console.log(this.props.data.length)
+        console.log(cardData)
+        if(!cardData){
+            return <div>Loding...</div>
+        }
+
+         const {
+            cart_items,
+            item_qty
+        } = cardData
+
         return(
             <>
                <div className="custom-cart_col col-12">
@@ -24,29 +35,11 @@ class CartHeader extends Component {
                             <li class="minicart-wrap">
                                 <Link to="cart" class="minicart-btn toolbar-btn">
                                     <div class="minicart-count_area">
-                                        <span class="item-count">{productPrices?productPrices.length:''}</span>
+                                        <span class="item-count">{item_qty}</span>
                                         <i class="ion-bag"></i>
                                     </div>
-                                    <div class="minicart-front_text" >
-                                        <span>Cart:</span>
-                                        { productPrices != null ? productPrices.map((productPrice,index) => (
-
-                                        <span class="total-price">
-                                            (
-                                            {productPrice.price + productPrice.price}
-
-                                            )
-
-                                        </span>
-                                        )) : <h1>0</h1>
-                                }
-                                    </div>
+                                    
                                 </Link>
-                            </li>
-                           <MiniCartSection />
-                            <li className="contact-us_wrap">
-                                <a href="tel://+123123321345">
-                                <i className="ion-android-call"></i>+123 321 345</a>
                             </li>
                         </ul>
                     </div>

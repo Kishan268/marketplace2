@@ -1,5 +1,6 @@
 export const ADD_TO_CART="ADD_TO_CART"
 export const UPDATE_CART="UPDATE_CART"
+export const ALREADY_IN_CART="ALREADY_IN_CART"
 
 
 export const addToCart =(data)=>{
@@ -15,4 +16,11 @@ export const updateCart =(cardData)=>{
         type:UPDATE_CART,
         cardData:cardData
     }
+}
+
+export const alreadyInCart = (cart)=>{
+ return {
+        type:ALREADY_IN_CART,
+        cardData:cart
+    }   
 }
