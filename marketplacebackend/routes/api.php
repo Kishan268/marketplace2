@@ -46,7 +46,7 @@ Route::get('/email/verify', function () {
 Route::post("login",[UserController::class,'userLogin']);
 Route::post("register",[UserController::class,'userRegister']);
 Route::post("cart_data",[App\Http\Controllers\CartsController::class,'cartDataStore']);
-Route::get("get_cart_data/{token}",[App\Http\Controllers\CartsController::class,'getCartData'])->name('get_cart_data');
+Route::get("get_cart_data/",[App\Http\Controllers\CartsController::class,'getCartData'])->name('get_cart_data');
 Route::post("post_order",[App\Http\Controllers\OrdersController::class,'postOrder']);
 
 

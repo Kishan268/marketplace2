@@ -63,10 +63,9 @@ class CartsRepository extends EloquentRepository{
 
 	}
 
-	public function getCartData($token){
-		// return $token;
-		$userId = User::where('token',$token)->first();
-		$data= Cart::with('cart_items')->where('user_id',$userId->id)->first();
+	public function getCartData(){
+		$userId = Auth::guard('api')->user()->id;
+		$data= Cart::with('cart_items')->where('user_id',$userId)->first();
 		return $data;
 	}
 
