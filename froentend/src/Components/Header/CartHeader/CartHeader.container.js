@@ -12,22 +12,24 @@ const mapDispatchToProps = dispatch => ({
  
 class CartHeader extends Component {
 
-    getCartData(){
-        var token = localStorage.getItem('token')
-        axios.get('http://localhost:4000/get_cart_data/'+token).then((res)=>{ 
-            console.log(res)
-        }).catch((error)=>{
-            console.log(error)
+    async getCartData (){
+        const token = localStorage.getItem('token');
+        var carts=await axios.get(`http://localhost:4000/get_cart_data/${token}`)
+        .then((res)=>{
+            return res.data
+        })
+        .catch((error)=>{
+            return error
         })
     }
     
 	componentDidMount(){
         this.getCartData()
-		const{cartData} = this.props
+		// const{cartData} = this.props
 	}
    
     render(){
-		const{cartData} = this.props
+		// const{cartData} = this.props
     	
 		// console.log( this.props)
         return(
