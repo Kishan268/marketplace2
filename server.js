@@ -105,11 +105,12 @@ app.get('/getUserInfo/:token',async function(req,res,next){
 })
 app.get('/get_cart_data/:token',async function(req,res,next){
 	var token = req.params.token;
-	var data = await axios.get(`http://127.0.0.1:8000/api/get_cart_data/${token}`).then((res)=>{
+	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+	var data = await axios.get(`http://127.0.0.1:8000/api/get_cart_data/`).then((res)=>{
 	console.log(res.data);
 		return (res.data)
 	}).catch((error)=>{
-		return false
+		return error
 	})
 
 	return res.json(data)

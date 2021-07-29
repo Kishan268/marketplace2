@@ -25,11 +25,11 @@ class CartsController extends Controller
         $cartData = $this->postCartsRepo->cartDataStore($request);
         return response($cartData, 200);
     }
-    public function getCartData($token){
-        // return $token;
+    public function getCartData(){
+        // return '$token';
         
         // return ($this->getCartDataRepo->getCartData());
-        $cartData = $this->postCartsRepo->getCartData($token);
+        $cartData = $this->postCartsRepo->getCartData();
         // $cartData = CartResource::collection($this->getCartDataRepo->getCartData($token));
         return response($cartData, 200);
 

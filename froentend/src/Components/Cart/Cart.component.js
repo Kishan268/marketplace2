@@ -39,13 +39,16 @@ class Car extends Component {
                                             <td class="uren-product-name"><a href="javascript:void(0)">{cartData.name}</a></td>
                                             <td class="uren-product-price"><span class="amount">${cartData.price}</span></td>
                                             <td class="quantity">
-                                                <label>Quantity</label>
-                                                <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" value={ cartData.qty}  type="text"/>
-                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                <div class="input-group btn-block" style={{maxWidth: '200px'}}>
+                                                    <input type="text" name="quantity[234]" value="1" size="1" class="form-control"/>
+                                                    <span class="input-group-btn">
+                                                        <button type="submit" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Update">
+                                                            <i class="fa fa-refresh"></i>
+                                                        </button>
+                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Remove">
+                                                            <i class="fa fa-times-circle"></i>
+                                                        </button>
+                                                    </span>  
                                                 </div>
                                             </td>
                                             <td class="product-subtotal"><span class="amount">${cartData.price * cartData.qty}</span></td>
