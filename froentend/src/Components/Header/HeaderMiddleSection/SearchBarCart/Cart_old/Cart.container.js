@@ -15,13 +15,11 @@ class Cart extends Component {
 
     render(){
 		const{cartData} = this.props
-    	
-		console.log( this.props)
-        return(
+    	        return(
            <>
             <CartComponent 
-            {...this.state}
-			{...this.props}
+               {...this.state}
+			      {...this.props}
             />
            </>
         )

@@ -1,35 +1,57 @@
 import {Component} from 'react'
 import NavbareSectionComponent from './NavbarSection.component';
 import {connect} from 'react-redux'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  withRouter,
+  useHistory
+} from "react-router-dom";
+import {Logout} from '../../../store/User/user.action.js'
+import {addToCart,updateLogoutCart} from '../../../store/addToCart/addToCart.action.js'
+
 
 const mapStateToProps = state => ({
-    token:state.UserDetailsReducer.token
+    isLogin:state.UserDetailsReducer.isLogin
 })
 const mapDispatchToProps = dispatch => ({
+	Logout:()=>dispatch(Logout()),
+	updateLogoutCart:()=>dispatch(updateLogoutCart())
 })
 
 class NavbarSection extends Component{
 
-	componentDidMount(){
-		const{token} = this.props
+	logOut(){
+		const{Logout,isLogin,updateLogoutCart} = this.props
+		var cart = {}
+		updateLogoutCart()
+		Logout()
+		
+	}
+
+	componentWillReceiveProps(nextProps){
+		const {isLogin} = nextProps
+		// if(!isLogin){
+		// 	this.props.history.push('/'); 
+		// }
 	}
 	
 	render(){
-		const{token} = this.props
-		if(token){
-			localStorage.setItem('token', token);
-		}else{
-			
-		}
+		const {isLogin} = this.props
+		// console.log(this.props)
 		return (
 				<>
 					<NavbareSectionComponent
 					{...this.state}
 					{...this.props}
+					logOut = {this.logOut.bind(this)}
 					/>
 				</>
 			)
 	}
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(NavbarSection);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(NavbarSection));

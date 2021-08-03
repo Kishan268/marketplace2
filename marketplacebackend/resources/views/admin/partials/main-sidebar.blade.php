@@ -12,7 +12,7 @@
                   </a>
                 </li>
              
-         @role('super_admin')
+         {{-- @role('super_admin') --}}
                 
                 <li class="treeview">
                   <a href="#">
@@ -72,7 +72,7 @@
                       </li>
                   </ul>
                 </li> 
-         @endrole
+         {{-- @endrole --}}
 
 
 <!--            

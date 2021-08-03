@@ -1,7 +1,5 @@
-
-
-
-import React from "react";
+import {PureComponent} from "react";
+import {connect} from 'react-redux'
 import {
     BrowserRouter as Router,Switch,
     Route,
@@ -31,58 +29,63 @@ import Logout from './Components/Logout/Logout.js';
 import CartComponent from './Components/Cart/Cart.container.js'
 import CheckoutComponent from './Components/Checkout/Checkout.container'
 import './App.css';
-function App() {
-  return (
-    <>
-        <div class="main-wrapper">
-          
-            <HeaderMiddleSection/>  
-            <Route exact path="/">
-              <SlidebarSection />
-              <ShiphingAreaSectionComponent />
-       
-              <ProductComponent />               
-              </Route>
-             <Route exact path="/login" >
-              <Login />
-              </Route>
-              
-              <Route exact path="/register">
-                  <RgisterComponent />
-              </Route>   
-              <Route exact path="/user-register">
-                  <UserRgisterComponent />
-              </Route>
-              <Route exact path="/user-login">
-                  <UserLogin />
-              </Route>  
-              <Route exact path="/product-details/:id">
-                  <ProductDetailsComponent />
-              </Route>
-              
-                <Route  exact path="/my-account">
-                   <Protected Cmp={MyAccount} />
-                </Route>
-                <Route  exact path="/logout">
-                   <Logout />
-                </Route>
-                <Route  exact path="/cart">
-                   <CartComponent />
-                </Route>
-              
-                   <Route  exact path="/checkout">
-                    <Protected Cmp={CheckoutComponent} />
 
-                  </Route>
-                  
+
+class App extends PureComponent {
+
+  render(){  
+    return (
+      <>
+          <div class="main-wrapper">
+            
+              <HeaderMiddleSection/>  
+              <Route exact path="/">
+                <SlidebarSection />
+                <ShiphingAreaSectionComponent />
+         
+                <ProductComponent />               
+                </Route>
+               <Route exact path="/login" >
+                <Login />
+                </Route>
                 
-            
-            
-              <FooterSectionComponent />                          
-         </div>
+                <Route exact path="/register">
+                    <RgisterComponent />
+                </Route>   
+                <Route exact path="/user-register">
+                    <UserRgisterComponent />
+                </Route>
+                <Route exact path="/user-login">
+                    <UserLogin />
+                </Route>  
+                <Route exact path="/product-details/:id">
+                    <ProductDetailsComponent />
+                </Route>
+                
+                  <Route  exact path="/my-account">
+                     <Protected Cmp={MyAccount} />
+                  </Route>
+                  <Route  exact path="/logout">
+                     <Logout />
+                  </Route>
+                  <Route  exact path="/cart">
+                     <CartComponent />
+                  </Route>
+                
+                     <Route  exact path="/checkout">
+                      <Protected Cmp={CheckoutComponent} />
 
-    </>
-  );
+                    </Route>
+                    
+                  
+              
+              
+                <FooterSectionComponent />                          
+           </div>
+
+      </>
+    );
+  }
 }
 
 export default App;

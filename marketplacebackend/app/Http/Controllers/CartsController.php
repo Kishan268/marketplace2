@@ -24,7 +24,7 @@ class CartsController extends Controller
     }
     public function cartDataStore(Request $request)
     { 
-        // return url('/');
+
         $cartData = $this->postCartsRepo->cartDataStore($request);
         if($cartData === 'false'){
              return Response::json([
@@ -43,13 +43,36 @@ class CartsController extends Controller
         return Response::json([
             'data' => $cartData
         ], 200);
-         
-
+    }
+    public function updateCartItem(Request $request){
+        // return $request;
+        $itemId = $request->itemId;
+        $qty = $request->qty;
+        $type = $request->type;
+        // try{
+            $cartData = $this->postCartsRepo->updateCartItem($itemId,$qty,$type);
+            return Response::json([
+                'data' => true
+            ], 200);
+        // }
+        // catch{
+        //     return Response::json([
+        //         'data' =>'Somthing went wrong...'
+        //     ], 401);
+        // }
     }
     public function postOrder(Request $request){
         // return ($this->getCartDataRepo->getCartData());
         $ordertData = $this->postOrderDataRepo->postOrder($request);
         return response($ordertData, 200);
 
+    }
+
+    public function deleteCart($itemId){
+        // return response($itemId);
+        $ordertData = $this->postCartsRepo->deleteCartItem($itemId);
+        return Response::json([
+            'data' => $ordertData
+        ], 200);
     }
 }

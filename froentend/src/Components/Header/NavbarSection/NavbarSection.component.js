@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {PureComponent} from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,17 +11,10 @@ import {
 import {Nav,Navbar,NavDropdown} from 'react-bootstrap';
 
 
-class NavbarSection extends Component {
+class NavbarSection extends PureComponent {
 
-     rmoveItem(){
-        localStorage.clear("token")
-            this.props.history.push('/'); 
-     }
-     myAccount(){
-        this.props.history.push('/my-account'); 
-     }
 	render(){
-         const{token,userInfo} = this.props
+         const{isLogin,logOut} = this.props
          const tokenStorage = localStorage.getItem('token');
          console.log(this.props)
 		return(
@@ -142,11 +135,11 @@ class NavbarSection extends Component {
                                 
                                     <ul>
                                     {
-                                    localStorage.getItem('token') ?
+                                    isLogin ?
                                      <div class="top-login3" >
                                          <Nav>
-                                            <NavDropdown title={userInfo ? userInfo.name:'Admin'} style={{textColor:'white'}}>
-                                                <NavDropdown.Item onClick={(()=>this.rmoveItem())}>Logout</NavDropdown.Item>
+                                            <NavDropdown title={'Admin'} style={{textColor:'white'}}>
+                                                <NavDropdown.Item onClick={(()=>logOut())}>Logout</NavDropdown.Item>
                                                 <NavDropdown.Item onClick={(()=>this.myAccount())}>Profile</NavDropdown.Item>
                                             </NavDropdown>
                                         </Nav>

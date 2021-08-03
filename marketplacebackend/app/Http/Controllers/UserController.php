@@ -34,7 +34,8 @@ public function __construct()
                 ], 404);
             }
         	if ($user->email_verified_at !=null) {
-	            $token = $user->createToken('my-app-token')->plainTextToken;
+	            // $token = $user->createToken('my-app-token')->plainTextToken;
+                $token = $user->createToken('my-app-token')->accessToken;
 	            $response = [
 	                'user' => $user,
 	                'token' => $token

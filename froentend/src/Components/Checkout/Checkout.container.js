@@ -2,16 +2,23 @@ import {Component} from  'react'
 import CheckoutComponent from './Checkout.component'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {updateCart} from '../../store/addToCart/addToCart.action.js'
+import { Redirect,withRouter } from 'react-router-dom';
+import {updateCart,fetchCart} from '../../store/addToCart/addToCart.action.js'
 
 const mapStateToProps = state => ({
-    data:state.cardItems
+    cardData:state.cardItems.cardData
 })
 const mapDispatchToProps = dispatch => ({
+    fetchCart:(token)=>dispatch(fetchCart(token))
 })
 
 class Checkout extends Component {
     
+    state = {
+        isopen : false,
+        orderDetails:{}
+    };
+
 	
     async getUserInfo (){
         var token= localStorage.getItem('token');
@@ -23,27 +30,37 @@ class Checkout extends Component {
       }).catch((error)=>{
           return error
       })
-  
-      }
-    async componentDidMount(){
-        this.getUserInfo();
-	}
-     checkOut(event){
-        alert()
+    }
+    
+    checkOut(event,cartId){
+
+        const{fetchCart} = this.props
         event.preventDefault()
-        // var data ={
-        //     id:id
-        // }
-        console.log(event)
-        axios.post('http://localhost:4000/post_order/',3)
-        .then((res)=>{
-        // console.log( res.data)
-         return res.data
+      
+        var address = event.target.address.value
+        var token = localStorage.getItem('token')
+        var checkOut = {address:address ,cart_id:cartId,token:token}
+        axios.post('http://localhost:4000/createOrder/',checkOut).then((res)=>{
+            // fetchCart(token)
+            this.setState({isopen:true,orderDetails:res})
+
         }).catch((error)=>{
          return error
         })
-   
-     }
+    }
+
+    continueShoping(){
+        // this.props.history.push('/')
+        window.location.href = '/'
+    }
+
+    async componentWillMount(){
+        const{fetchCart} = this.props
+        var token = localStorage.getItem('token')
+        fetchCart(token)
+        this.getUserInfo();
+    }
+
     render(){
 		const{cartData} = this.props
         return(
@@ -51,11 +68,12 @@ class Checkout extends Component {
             <CheckoutComponent 
             {...this.state}
             {...this.props}
-           checkOut={this.checkOut.bind(this)}
+             checkOut={this.checkOut.bind(this)}
+             continueShoping={this.continueShoping.bind(this)}
             />
            </>
         )
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Checkout);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Checkout));

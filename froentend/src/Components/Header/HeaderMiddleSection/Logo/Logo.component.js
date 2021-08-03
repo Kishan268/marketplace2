@@ -1,17 +1,13 @@
 import {Component} from 'react'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+
 class Logo extends Component {
     render(){
+        const{home} = this.props
         return (
             <>
                <div className="custom-logo_col col-12">
                     <div className="header-logo_area">
-                        <a href="index.html">
+                        <a onClick={(()=>home())}>
                             <img src="assets/images/menu/logo/1.png" alt="Uren's Logo"/>
                         </a>
                     </div>
