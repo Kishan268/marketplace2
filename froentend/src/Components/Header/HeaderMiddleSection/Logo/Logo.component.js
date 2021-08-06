@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import logo from '../../../../image/1.png'
 
 class Logo extends Component {
     render(){
@@ -8,7 +9,7 @@ class Logo extends Component {
                <div className="custom-logo_col col-12">
                     <div className="header-logo_area">
                         <a onClick={(()=>home())}>
-                            <img src="assets/images/menu/logo/1.png" alt="Uren's Logo"/>
+                            <img src={logo} alt="Uren's Logo"/>
                         </a>
                     </div>
                 </div>

@@ -15,17 +15,30 @@ use Illuminate\Auth\Events\Registered;
 use Mail;
 use App\Mail\VerifyMail;
 use Illuminate\Support\Str;
+
 class UserController extends Controller
 {
     // 
-public function __construct()
-{
-    // $this->middleware('guest');
-    // $this->middleware('VerifyTemplate');
+    public function __construct()
+    {
+        // $this->middleware('guest');
+        // $this->middleware('VerifyTemplate');
 
-}
+    }
+
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
    public function userLogin(Request $request)
     {
+        
 
         $user= User::where('email', $request->email)->first();
             if (!$user || !Hash::check($request->password, $user->password)) {
@@ -35,11 +48,12 @@ public function __construct()
             }
         	if ($user->email_verified_at !=null) {
 	            // $token = $user->createToken('my-app-token')->plainTextToken;
-                $token = $user->createToken('my-app-token')->accessToken;
+                $token = $user->createToken($this->generateRandomString())->accessToken;
 	            $response = [
 	                'user' => $user,
 	                'token' => $token
 	            ];
+                // return $token ;
             User::where('id',$user->id)->update(['api_token'=>$token]);
              return response($response, 200);
         	}else{

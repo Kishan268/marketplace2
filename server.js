@@ -8,6 +8,7 @@ const axios = require('axios').default;
 var configEnv =  require('custom-env').env('development');
 const { Console } = require('console');
 var fs = require('fs');
+	axios.defaults.headers.common['Accept'] = `application/json`;
 
 app.use('/public', express.static(__dirname + '/public'));
 

@@ -58,8 +58,8 @@ class App extends PureComponent {
                 <Route exact path="/user-login">
                     <UserLogin />
                 </Route>  
-                <Route exact path="/product-details/:id">
-                    <ProductDetailsComponent />
+                <Route exact path="/product-details/:id" render={(props) => <ProductDetailsComponent {...props} /> }>
+            
                 </Route>
                 
                   <Route  exact path="/my-account">
@@ -76,10 +76,7 @@ class App extends PureComponent {
                       <Protected Cmp={CheckoutComponent} />
 
                     </Route>
-                    
-                  
-              
-              
+                
                 <FooterSectionComponent />                          
            </div>
 
