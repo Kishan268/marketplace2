@@ -7,7 +7,7 @@ import  { Redirect,useHistory } from 'react-router-dom'
 
 class UserLogin extends PureComponent {
 	render(){
-		const{UserLogin,token} = this.props
+		const{UserLogin,isopen} = this.props
 		return (
 				<>
 					<div className="row">
@@ -16,7 +16,7 @@ class UserLogin extends PureComponent {
 						       <div className="row">
 					           
 					                <div className="col-md-12 form-group error-div">
-					                  <label for="email">Email:{token}</label>
+					                  <label for="email">Email:</label>
 					                   <input 
 								    	type="text" 
 								    	name="email"

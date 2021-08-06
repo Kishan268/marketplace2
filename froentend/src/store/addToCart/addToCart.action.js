@@ -1,26 +1,49 @@
+import axios from 'axios';
 export const ADD_TO_CART="ADD_TO_CART"
 export const UPDATE_CART="UPDATE_CART"
-export const ALREADY_IN_CART="ALREADY_IN_CART"
+export const IS_LOGIN="IS_LOGIN"
+export const LOGIN_CART_UPDATE="LOGIN_CART_UPDATE"
+export const DELETE_ITEM="DELETE_ITEM"
+
+export const fetchCart = (token) => {
+  return (dispatch) => {
+    axios
+      .get(`http://localhost:4000/get_cart_data/${token}`)
+      .then(response => {
+        const users = response.data
+        dispatch(addToCart(users.data))
+      })
+      .catch(error => {
+      })
+  }
+}
 
 
 export const addToCart =(data)=>{
-    console.warn("action",data)
     return {
         type:ADD_TO_CART,
-        data:data
+        data
     }
 }
-export const updateCart =(cardData)=>{
-    // console.warn("action",data)
+export const updateLogoutCart =  () =>{
     return {
-        type:UPDATE_CART,
-        cardData:cardData
+        type:LOGIN_CART_UPDATE
     }
 }
 
-export const alreadyInCart = (cart)=>{
- return {
-        type:ALREADY_IN_CART,
-        cardData:cart
-    }   
+export const updateCart = ({qty,itemId,price,discount}) =>{
+    return{
+        type:UPDATE_CART,
+        qty,
+        itemId,
+        price,
+        discount
+    }
+}
+
+export const deleteCartItem = (itemId) =>{
+    return{
+        type:DELETE_ITEM,
+        itemId
+    }
 }

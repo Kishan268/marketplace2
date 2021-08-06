@@ -2,45 +2,37 @@ import {Component} from  'react'
 import CartComponent from './CartHeader.component'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {addToCart} from "../../../store/addToCart/addToCart.action.js"
+import {addToCart,fetchCart} from "../../../store/addToCart/addToCart.action.js"
 
 
 const mapStateToProps = state => ({
-    cardData:state.cardItems.cardData
+    cardData:state.cardItems.cardData,
+    isLogin:state.UserDetailsReducer.isLogin,
+    randomNumber:state.cardItems.randomNumber,
 })
 const mapDispatchToProps=dispatch=>({
-    addToCartHandler:data=>dispatch(addToCart(data))
+    addToCartHandler:data=>dispatch(addToCart(data)),
+    fetchCart:(token)=>dispatch(fetchCart(token))
 })
  
 class CartHeader extends Component {
 
-    async getCartData (){
-        const {addToCartHandler} = this.props
-        const token = localStorage.getItem('token');
-        var carts=await axios.get(`http://localhost:4000/get_cart_data/${token}`)
-        .then((res)=>{
-             addToCartHandler(res.data.data)
-        })
-        .catch((error)=>{
-            return error
-        })
-    }
-    
 	componentDidMount(){
-        this.getCartData()
-		// const{cartData} = this.props
+        const {fetchCart} = this.props
+        var token = localStorage.getItem('token')
+        fetchCart(token)
 	}
    
     render(){
-		// const{cartData} = this.props
-    	
-		console.log( this.props)
-        return(
-            <CartComponent 
-            {...this.state}
-			{...this.props}
-            />
-        )
+        const{randomNumber} = this.props
+        if(randomNumber >=0){    	
+            return(
+                <CartComponent 
+                {...this.state}
+    			{...this.props}
+                />
+            )
+        }
     }
 }
 

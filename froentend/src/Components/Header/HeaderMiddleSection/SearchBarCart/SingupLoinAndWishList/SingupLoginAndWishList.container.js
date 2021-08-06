@@ -17,7 +17,6 @@ class SingupLoinAndWishList extends Component{
 
     render(){
        const{token} = this.props
-       console.log(token);
         return(
             <>
                 <SingupLoinAndWishListComponent/>

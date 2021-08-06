@@ -1,14 +1,43 @@
 import {Component} from 'react'
 import { BrowserRouter as Router,Link} from "react-router-dom";
+import EmptyCart from '../../image/emptyCart.svg'
+
 class Car extends Component {
     
+    renderEmptyCart(){
+        return(
+                <div class="uren-cart-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <img src={EmptyCart}/>
+                            </div>
+                            <div class="col-12 text-center emptyCart">
+                                Cart is empty
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            )
+    }
+
     render(){
-    const cartDatas = this.props.data.cardData
-// console.log(cartDatas)
+        const{
+            isLoading,
+            cardData,
+            updateCart,
+            isRemove,
+            deleteCartItem
+        } = this.props
+        
+        if(!cardData || cardData.length===0 || isLoading){
+            return this.renderEmptyCart()
+        }
+
         return(
             <>
                <div class="uren-cart-area">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <form action="javascript:void(0)">
@@ -25,33 +54,37 @@ class Car extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    { cartDatas != null ? cartDatas.map((cartData,index) => (
+                                    { cardData != null ? cardData.cart_items.map((value,index) => (
 
                                         <tr>
 
                                             <td class="uren-product-remove">
-                                                <button href="javascript:void(0)"><i class="fa fa-trash" title="Remove"></i></button>
+                                                <button onClick={(()=>deleteCartItem(value.id))} href="javascript:void(0)"><i class="fa fa-trash text-danger" title="Remove"></i></button>
                                             </td>
                                             <td class="uren-product-thumbnail">
                                                 <a href="javascript:void(0)">
-                                                <img src={cartData.image_path} alt="Uren's Cart Thumbnail" width="50px" height ="50px"/></a>
+                                                    <img src={value.image_path} alt="Uren's Cart Thumbnail" width="50px" height ="50px"/>
+                                                </a>
                                             </td>
-                                            <td class="uren-product-name"><a href="javascript:void(0)">{cartData.name}</a></td>
-                                            <td class="uren-product-price"><span class="amount">${cartData.price}</span></td>
+                                            <td class="uren-product-name">
+                                                <a href="javascript:void(0)">{value.name}</a></td>
+                                            <td class="uren-product-price"><span class="amount">${value.unit_price}</span></td>
                                             <td class="quantity">
                                                 <div class="input-group btn-block" style={{maxWidth: '200px'}}>
-                                                    <input type="text" name="quantity[234]" value="1" size="1" class="form-control"/>
                                                     <span class="input-group-btn">
-                                                        <button type="submit" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Update">
-                                                            <i class="fa fa-refresh"></i>
+                                                        <button disabled={value.isRemove ? false : true} onClick={(()=>updateCart('minus',value.id,value.unit_price,value.discount_amount))} data-toggle="tooltip" title="" class="cart-btn  btn btn-primary" data-original-title="Update">
+                                                            <i class="fa fa-minus"></i>
                                                         </button>
-                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Remove">
-                                                            <i class="fa fa-times-circle"></i>
+                                                    </span>
+                                                    <input type="text" name="quantity" disabled="true" value={value.quantity} size="1"  class="cart-input form-control"/>
+                                                    <span class="input-group-btn">
+                                                        <button onClick={(()=>updateCart('plus',value.id,value.unit_price,value.discount_amount))}  data-toggle="tooltip" title="" class="cart-btn btn btn-primary" data-original-title="Update">
+                                                            <i class="fa fa-plus"></i>
                                                         </button>
                                                     </span>  
                                                 </div>
                                             </td>
-                                            <td class="product-subtotal"><span class="amount">${cartData.price * cartData.qty}</span></td>
+                                            <td class="product-subtotal"><span class="amount">${value.total_price}</span></td>
                                         </tr>
                                         )) : <h1>0</h1>
                                     }
@@ -76,8 +109,8 @@ class Car extends Component {
                                     <div class="cart-page-total">
                                         <h2>Cart totals</h2>
                                         <ul>
-                                            <li>Subtotal <span>${cartDatas.price * cartDatas.qty}</span></li>
-                                            <li>Total <span>${cartDatas.price * cartDatas.qty}</span></li>
+                                            <li>Subtotal <span>${cardData.total_price}</span></li>
+                                            <li>Total <span>${cardData.amount }</span></li>
                                         </ul>
                                         <Link to="/checkout">Proceed to checkout</Link>
                                     </div>

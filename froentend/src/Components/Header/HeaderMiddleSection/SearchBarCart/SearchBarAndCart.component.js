@@ -8,9 +8,7 @@ class SearchBarAndCart extends Component {
     render(){
         return(
             <>
-                
                 <SearchBar/>
-
                            
             </>
         )

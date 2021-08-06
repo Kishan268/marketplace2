@@ -8,19 +8,17 @@ import {
 class CartHeader extends Component {
     
     render(){
-         const {cardData} = this.props
-        
-        //  console.log(this.props.data.length)
-        console.log(cardData)
-        if(!cardData){
-            return <div>Loding...</div>
-        }
-
+        var item_qty = 0;
          const {
-            cart_items,
-            item_qty
-        } = cardData
-
+                cardData,
+                isLogin,
+                } = this.props
+        if(cardData){        
+            item_qty = cardData.total_item
+        }
+        else{
+            var item_qty = 0
+        }
         return(
             <>
                <div className="custom-cart_col col-12">
@@ -35,7 +33,7 @@ class CartHeader extends Component {
                             <li class="minicart-wrap">
                                 <Link to="cart" class="minicart-btn toolbar-btn">
                                     <div class="minicart-count_area">
-                                        <span class="item-count">{item_qty}</span>
+                                        <span class="item-count">{isLogin ? item_qty:0}</span>
                                         <i class="ion-bag"></i>
                                     </div>
                                     
@@ -44,7 +42,6 @@ class CartHeader extends Component {
                         </ul>
                     </div>
                 </div>
-                 <MiniCartSection />
             </>
         )
     }

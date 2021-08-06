@@ -15,12 +15,11 @@ const mapDispatchToProps = dispatch => ({
     saveToken: state => dispatch(saveToken(state))
 })
 
-
-
 class UserLogin extends PureComponent{
 	state = {
 		redirect: false // add a redirect flag
 	};
+	
 	UserLogin(event){
 		const{saveToken,handleClickOpen} = this.props
 
@@ -32,12 +31,12 @@ class UserLogin extends PureComponent{
 				
 		axios.post('http://localhost:4000/login/',data).then((result)=>{
 			toast("Login successfully!");
-
 			saveToken(result.data.token)
 		const tokenStore = localStorage.getItem('token');
+
 		if (result.data.token ) {
 			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
-			this.props.history.push('/my-account');
+			// this.props.history.push('/my-account');
 
 		}
 			

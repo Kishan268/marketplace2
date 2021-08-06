@@ -15,8 +15,12 @@ use Illuminate\Auth\Events\Registered;
 use Mail;
 use App\Mail\VerifyMail;
 use Illuminate\Support\Str;
+use Laravel\Passport\HasApiTokens;
+
 class RegisterController extends Controller
 {
+    use HasApiTokens;
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -53,6 +57,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -67,30 +72,23 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
+
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
     protected function create(array $data)
     {
        
-// dd( $data);
-        // return User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
+
         $role_id = $data['user_role'] == 'buyer' ? '3' : ($data['user_role'] == 'seller' ? '4' : '5');
-    //     $data->validate([
-    //        'name' 		=> 'required', 'string', 'max:255',
-    //        'email' 	=> 'required', 'string', 'email', 'max:255', 'unique:users',
-    //        'password'  => 'required', 'string', 'min:8', 'confirmed',
-    //        'country' 	=> 'required',
-    //        'f_name' 	=> 'required',
-    //        'l_name' 	=> 'required',
-    //        'dob' 		=> 'required',
-    //        'phone_no' 	=> 'required',
-    //        'gender' 	=> 'required',
-    //        'address' 	=> 'required',
-    //        'district_town' => 'required',
-    //        'user_role' => 'required'
-    //    ]);
+  
         $data = [
             'name' 		=>  $data['f_name'].' '.$data['l_name'],
            'email' 	=> $data['email'],
@@ -114,7 +112,8 @@ class RegisterController extends Controller
        ];
     //   dd($data);
        $user = User::create($data);
-        $token = $user->createToken('my-app-token')->plainTextToken;
+       $token = $user->createToken($this->generateRandomString())->accessToken;
+
         $response = [
             'user' => $user,
             'token' => $token
@@ -139,4 +138,5 @@ class RegisterController extends Controller
 
 
   }
+
 }
