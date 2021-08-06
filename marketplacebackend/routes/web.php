@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::post("register",[UserController::class,'userRegister']);
+Route::get("verify/{token}",[App\Http\Controllers\VerifyController::class,'verifyUser']);
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

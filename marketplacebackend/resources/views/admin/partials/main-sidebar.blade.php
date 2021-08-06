@@ -12,7 +12,7 @@
                   </a>
                 </li>
              
-         @role('seller')
+         @role('super_admin')
          {{-- @role('super_admin') --}}
                 
                 <li class="treeview">
@@ -41,11 +41,23 @@
                     <li><a href="{{route('products.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add Product</a></li>
                   </ul>
                 </li> 
-                 
+              <li class="treeview">
+                <a href="#">
+                  <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                  <span>Seller/Buyer</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{{route('buyerseller.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> List</a></li>
+                  <li><a href="{{route('buyerseller.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add </a></li>
+                </ul>
+              </li> 
                 
          @endrole
 
-         @role('super_admin')
+         @role('seller')
                 
                 <li class="treeview">
                   <a href="#">
@@ -73,19 +85,7 @@
                     <li><a href="{{route('products.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add Product</a></li>
                   </ul>
                 </li> 
-                <li class="treeview">
-                <a href="#">
-                  <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                  <span>Seller/Buyer</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-right pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="{{route('buyerseller.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> List</a></li>
-                  <li><a href="{{route('buyerseller.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add </a></li>
-                </ul>
-              </li> 
+            
                
                
          @endrole

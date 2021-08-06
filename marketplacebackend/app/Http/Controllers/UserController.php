@@ -38,15 +38,13 @@ class UserController extends Controller
 
    public function userLogin(Request $request)
     {
-        
-
         $user= User::where('email', $request->email)->first();
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response([
                     'message' => ['These credentials do not match our records.']
                 ], 404);
             }
-        	if ($user->email_verified_at !=null) {
+        	if ($user->email_verified_at !=null && $user->user_role ==3) {
 	            // $token = $user->createToken('my-app-token')->plainTextToken;
                 $token = $user->createToken($this->generateRandomString())->accessToken;
 	            $response = [
@@ -95,31 +93,33 @@ class UserController extends Controller
     		'zip'=> $request['zip']
 
         ];
-// return($data);
        
-        $user = User::create($data);
-         $token = $user->createToken('my-app-token')->plainTextToken;
-            $response = [
-                'user' => $user,
-                'token' => $token
-            ];
+       $user = User::create($data);
+       $token = $user->createToken($this->generateRandomString())->accessToken;
 
-        // $user->update($response); 
-        // $user->attachRole($role_id);
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+       // $user->update($response); 
+       $user->attachRole($role_id);
 // return $user;
-        Mail::to($user->email)->send(new VerifyMail($user));
-        return response($response, 200);
+ Mail::to($user->email)->send(new VerifyMail($user));
+    //    return view('home');
+    return $response;
+
 
     }
-    // public function register(Request $request)
-    // {
-    //     $this->validator($request->all())->validate();
-    //     event(new Registered($user = $this->create($request->all())));
-    //     return $this->registered($request, $user)
-    //                     ?: redirect('/login')->with('success','We sent activation link, Check your email and click on the link to verify your email');
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        return $this->registered($request, $user)
+                        ?: redirect('http://localhost:3000/login')->with('success','We sent activation link, Check your email and click on the link to verify your email');
 
 
-    // }
+    }
     public function getUserInfo($token){
         $userInfo = User::where('token',$token)->first();
         return response($userInfo, 200);

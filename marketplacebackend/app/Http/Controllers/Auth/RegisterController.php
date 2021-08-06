@@ -21,43 +21,15 @@ class RegisterController extends Controller
 {
     use HasApiTokens;
 
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    // protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+   
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-
+ 
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -66,12 +38,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
+   
 
     function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -120,11 +87,11 @@ class RegisterController extends Controller
         ];
 
        // $user->update($response); 
-       // $user->attachRole($role_id);
-// return $user;
- Mail::to($user->email)->send(new VerifyMail($user));
+       $user->attachRole($role_id);
+    // return $user;
+     Mail::to($user->email)->send(new VerifyMail($user));
     //    return view('home');
-    return $response;
+    return $user;
 
 
     }

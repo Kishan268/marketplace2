@@ -25,12 +25,20 @@ class VerifyController extends Controller
     public function verifyUser($token)
     {
       	$user = User::where('remember_token',$token)->first();
-        if($user->email_verified_at == null){
+
+        if($user->email_verified_at == null && $user->user_role == 4){
         	$user->email_verified_at = date('Y-m-d h:i:s');
+            $user->status = 'A';
         	$user->save();
         	return redirect()->route('login')->with('success','Your e-mail is verified. You can now login.'); 
+        }else if($user->email_verified_at == null && $user->user_role == 3){
+            $user->email_verified_at = date('Y-m-d h:i:s');
+            $user->status = 'A';
+            $user->save();
+            return redirect('http://localhost:3000/login')->with('success','Your e-mail is verified. You can now login.');
         }else{
-        	return redirect()->route('login')->with('success','Your e-mail is already verified. You can now login.'); 
+            return redirect()->route('login')->with('success','Your e-mail is already verified. You can now login.'); 
+
         }
 
     }

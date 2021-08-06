@@ -85,23 +85,23 @@ import ProductImageComponent from '../productImage/ProductImage.container.js'
 				</section>
 				<div class="card mt-3">
 					<div class="card-body">
-								<div data-aut-id="profileTitle" class="">Seller description</div>
-									<div class="" data-aut-id="profileCard">
-										<a rel="nofollow" href="/profile/512017806">
-											<figure class="rui-1gV1x _186ru" style={{width: '68px', height: '68px'}}>
-												<img src="https://images.app.goo.gl/yznVpKjfUXTs8QwZ8" />
-											</figure>
-										</a>
-										<a rel="nofollow" href="/profile/512017806">
-											<div class="_3oOe9">  {userDetails?userDetails.name:''}</div>
-										</a>
-										<div data-aut-id="memberSince">
-											<div class="">
-												<span>Member since {userDetails?userDetails.created_at:''} </span>
-											</div>
-										</div>
-									<button type="button" data-aut-id="btnChat" class="btn btn-primary btn-sm"><span>Chat with seller</span></button>
+						<div data-aut-id="profileTitle" class="">Seller description</div>
+							<div class="" data-aut-id="profileCard">
+								<a rel="nofollow" href="/profile/512017806">
+									<figure class="rui-1gV1x _186ru" style={{width: '68px', height: '68px'}}>
+										<img src="https://images.app.goo.gl/yznVpKjfUXTs8QwZ8" />
+									</figure>
+								</a>
+								<a rel="nofollow" href="/profile/512017806">
+									<div class="_3oOe9">  {userDetails?userDetails.name:''}</div>
+								</a>
+								<div data-aut-id="memberSince">
+									<div class="">
+										<span>Member since {userDetails?userDetails.created_at:''} </span>
+									</div>
 								</div>
+							<button type="button" data-aut-id="btnChat" class="btn btn-primary btn-sm"><span>Chat with seller</span></button>
+						</div>
 					</div>
 				</div>
 				</div>
