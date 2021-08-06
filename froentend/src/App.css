@@ -149,6 +149,40 @@
     margin: 0 auto;
   }
 
+  .minicart-count_area{
+    font-size: 41px;
+    margin-right: 25px;
+  }
+
+  .cartUl{
+    float: right;
+  }
+
+  .header-main_area .custom-cart_col {
+     max-width: 100%; 
+}
+
+
+
+  .item-count1{
+       position: absolute;
+    background: #e52e06;
+    font-size: 16px;
+    top: -3px;
+    margin-left: 38px;
+    /* line-height: 2rem; */
+    /* font-size: 1.2rem; */
+    width: 22px;
+    height: 23px;
+    top: 1px;
+    text-align: center;
+    color: #fff;
+    border-radius: 100%;
+
+  }
+.ion-bag{
+  color: #fff !important;
+}
 /*end Cart*/
 /*  */
 @keyframes App-logo-spin {
