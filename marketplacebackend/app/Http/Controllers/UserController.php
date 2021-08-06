@@ -102,11 +102,8 @@ class UserController extends Controller
             'token' => $token
         ];
 
-       // $user->update($response); 
        $user->attachRole($role_id);
-// return $user;
- Mail::to($user->email)->send(new VerifyMail($user));
-    //    return view('home');
+         Mail::to($user->email)->send(new VerifyMail($user));
     return $response;
 
 

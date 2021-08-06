@@ -15,7 +15,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 class UserRegister extends Component{
-
+	state = {
+		redirect: false // add a redirect flag
+	};
+		
 	UserRegister(event){
 		const{saveToken,handleClickOpen} = this.props
 
@@ -33,14 +36,18 @@ class UserRegister extends Component{
 					password:event.target.password.value,
 					password_confirmation:event.target.password_confirmation.value,
 					}
-		// alert(event.target.f_name.value);
 		axios.post('http://localhost:4000/register/',data).then((result)=>{
-			saveToken(result.data.token)
+			// saveToken(result.data.token)
       		const tokenStore = localStorage.getItem('token');
-      		if (result.data.token ) {
-			toast("Login successfully!");
+      		if (result.data.status==200) {
+				// this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
+      			this.props.history.push(''); 
+					toast("Registration successfully! We sent activation link, Check your email and click on the link to verify your email'");
+					return result.data
 
-      			this.props.history.push('/my-account'); 
+      		}else if (result.data.status==201) {
+				toast("Something went wrong!");
+					return result.data
       		}
 			
 		}).catch((error)=>{

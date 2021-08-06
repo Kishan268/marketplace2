@@ -22,6 +22,9 @@ class PopupContainer extends PureComponent{
 				{...this.props}
 				{...this.state}
 				handleCancel = {this.handleCancel.bind(this)}
+				 overlayStyle={{
+				    width: "50vw"
+				  }}
 			/>
 			)
 	}
