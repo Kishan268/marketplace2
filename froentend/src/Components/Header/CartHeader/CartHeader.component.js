@@ -31,7 +31,7 @@ class CartHeader extends Component {
                                 </a>
                             </li>
                             <li class="minicart-wrap">
-                                <Link to="cart" class="minicart-btn toolbar-btn">
+                                <Link to="/cart" class="minicart-btn toolbar-btn">
                                     <div class="minicart-count_area">
                                         <span class="item-count1">{isLogin ? item_qty:0}</span>
                                         <i class="ion-bag"></i>

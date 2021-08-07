@@ -10,11 +10,10 @@ import ProductImageComponent from '../productImage/ProductImage.container.js'
 
 	 	render(){
 
-	 		const{products,productsImg,userDetails,addToCartHandler} = this.props
+	 		const{products,productsImg,userDetails,addToCartHandler,addAndRemoveProduct,isRemove,showError} = this.props
 	 		const API_URL = 'http://localhost:8000/storage/'
 
 	 		const{bid_option} = products
-
 			return (
 				<>
 				<div class ="container" >
@@ -33,51 +32,85 @@ import ProductImageComponent from '../productImage/ProductImage.container.js'
 						<div class="col-md-4" style={{ fontSize: '130%'}}>
 							<div class="card  " >
 								<div class="card-body" >
-									<h5>{products ? products.name :''}</h5>
+								<i class="favoratButtn ion-android-favorite btn-sm pr-2"></i>
+
+									<h5 className="productDetails_proName">{products ? products.name :''}
+									</h5>
 								
-								<p><span class="mr-1"><strong>${products ? products.discounted_price : ''}</strong></span>
-								</p>
-								</div>
-							</div>
-						
-							<div class="card  mt-2" >
-								<div class="card-body" >
-									<button type="button" class="btn btn-warning   mb-2">
-										<i class="ion-android-favorite btn-sm pr-2"></i>Add to Watchlist</button>
-									
+							
 								</div>
 							</div>
 							<div class="card mt-2">
-								{ bid_option ==="Both" ?
-								<div class="card-body">
-									<div className="row" >
-									<Link to="/checkout" type="button" class="btn btn-info sm mb-2 btn-sm">Buy now</Link>
-									<button onClick={()=>{addToCartHandler({pro_id:products.pro_id,name:products.name,price:products.price})}} type="button" class="btn btn-warning qty-cart_btn btn-sm  mb-2">
-									<i class="fa fa-shopping-cart btn-sm pr-2"></i>Add to cart</button>
-									<button  type="button" class="btn btn-warning btn-sm qty-cart_btn  mb-2">
-									<i class="fa fa-gavel pr-2"></i>Place bid</button>
-									</div>
+								<div className="text-center mt-3">
+									<strong className="productPrice">${products ? products.discounted_price : ''}</strong>
 								</div>
-								:'' 
-								}
-								{ bid_option =="Yes" ?
-								<div class="card-body">
-									<button  type="button" class="btn btn-warning qty-cart_btn btn-sm  mb-2">
+								<div className="card-body">
+										<div className="row mt-5">
+											<div className="col-sm-6 productQty">{products ? products.qty:0} available</div>
+											<div className="col-sm-6">
+												<div class="input-group btn-block" style={{maxWidth: '200px'}}>
+													<span class="input-group-btn">
+														<button disabled={!isRemove ? true : ''}  data-toggle="tooltip" title="" onClick={(()=>addAndRemoveProduct('minus',1))} class="cart-btn  btn btn-primary" data-original-title="Update">
+															<i class="fa fa-minus"></i>
+														</button>
+													</span>
+													<input type="text" name="quantity" value={products.buyQty}  disabled="true" size="1"  class="cart-input form-control"/>
+													<span class="input-group-btn">
+														<button disabled={isRemove ? false : ''}  data-toggle="tooltip" title="" onClick={(()=>addAndRemoveProduct('plus',1))} class="cart-btn btn btn-primary" data-original-title="Update">
+															<i class="fa fa-plus"></i>
+														</button>
+													</span>  
+												</div>
+											</div>
+											<div className="row text-center text-danger">
+												<div style={{fontSize:'11px'}} className="col-sm-12">
+													{showError}
+												</div>
+											</div>
+										</div>
+									{ bid_option ==="Both" ?
+									<>
+										<div className="row">
+											<div className="col-sm-6">{products ? products.qty:0}</div>
+										</div>
+										<div className="row" >
+										<Link to="/checkout" type="button" class="btn btn-info sm mb-2 btn-sm">Buy now</Link>
+										<button onClick={()=>{addToCartHandler({pro_id:products.pro_id,name:products.name,price:products.price})}} type="button" class="btn btn-warning qty-cart_btn btn-sm  mb-2">
+										<i class="fa fa-shopping-cart btn-sm pr-2"></i>Add to cart</button>
+										<button  type="button" class="btn btn-warning btn-sm qty-cart_btn  mb-2">
 										<i class="fa fa-gavel pr-2"></i>Place bid</button>
-								</div>:
-								'' 
-								}
-								{ bid_option =="No" ?
-								<div class="card-body">
-									<div className = "row" >
-									<Link to="/checkout" type="button" class="btn btn-info sm mb-2 btn-sm">Buy now</Link>
-
-									<button onClick={()=>{addToCartHandler({pro_id:products.pro_id,name:products.name,price:products.price,qty:1})}} type="button" class="btn btn-warning qty-cart_btn btn-sm  mb-2">
-										<i class="fa fa-shopping-cart  pr-2"></i>Add to cart</button>
-									</div>
-								</div>
-								:'' 
-								}
+										</div>
+									</>
+									:'' 
+									}
+									{ bid_option =="Yes" ?
+									<>
+										<div className="row">
+											<div className="col-sm-6 productQty">{products ? products.qty:0}</div>
+										</div>
+										<button  type="button" class="btn btn-warning qty-cart_btn btn-sm  mb-2">
+											<i class="fa fa-gavel pr-2"></i>Place bid
+										</button>
+									</>:
+									'' 
+									}
+									{ bid_option =="No" ?
+									<>
+										
+										<div className = "row mt-5" >
+											<div className = "col-sm-5">
+												<Link to="/checkout" type="button" class="btn btn-info sm mb-2 btn-sm">Buy now</Link>
+											</div>
+											<div className = "col-sm-7">
+												<button onClick={()=>{addToCartHandler({pro_id:products.pro_id,name:products.name,price:products.price,qty:1})}} type="button" class="btn btn-warning qty-cart_btn btn-sm float-right mb-2">
+													<i class="fa fa-shopping-cart  pr-2"></i>Add to cart
+												</button>
+											</div>	
+										</div>
+									</>
+									:'' 
+									}
+								</div>	
 							</div>
 							<hr/>
 						</div>
