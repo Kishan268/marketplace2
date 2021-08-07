@@ -104,7 +104,7 @@ import ProductImageComponent from '../productImage/ProductImage.container.js'
 						</div>
 					</div>
 				</div>
-				</div>
+			</div>
 				<section>
 				<div class="card mt-3">
 					<div class="card-body">

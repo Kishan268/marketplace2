@@ -26,6 +26,14 @@ class UserController extends Controller
 
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed']
+            
+        ]);
+    }
     function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -62,20 +70,20 @@ class UserController extends Controller
 
     public function userRegister(Request $request){
         $role_id =  '3' ;
-    	//  $request->validate([
-        //     'email' 	=> 'required', 'string', 'email', 'max:255', 'unique:users',
-        //     'password'  => 'required', 'string', 'min:8', 'confirmed',
-        //     'country' 	=> 'required',
-        //     'f_name' 	=> 'required',
-        //     'l_name' 	=> 'required',
-        //     'dob' 		=> 'required',
-        //     'phone_no' 	=> 'required',
-        //     'gender' 	=> 'required',
-        //     'address' 	=> 'required',
-        //     'district_town' => 'required'
-        // ]);
+    	 // $request->validate([
+      //       'email' 	=> 'required', 'string', 'email', 'max:255', 'unique:users',
+      //       'password'  => 'required', 'string', 'min:6', 'confirmed',
+      //       'country' 	=> 'required',
+      //       'f_name' 	=> 'required',
+      //       'l_name' 	=> 'required',
+      //       'dob' 		=> 'required',
+      //       'phone_no' 	=> 'required',
+      //       'gender' 	=> 'required',
+      //       'address' 	=> 'required',
+      //       'district_town' => 'required'
+      //   ]);
         $data = [
-            'name' 		=> $request['country'] .' '.$request['l_name'],
+            'name' 		=> $request['f_name'],
             'email' 	=> $request['email'],
             'password' 	=> Hash::make($request['password']),
             'country' 	=> $request['country'],
@@ -93,8 +101,10 @@ class UserController extends Controller
     		'zip'=> $request['zip']
 
         ];
-       
+       // return($data);
        $user = User::create($data);
+       if(!empty($user)){
+
        $token = $user->createToken($this->generateRandomString())->accessToken;
 
         $response = [
@@ -104,7 +114,10 @@ class UserController extends Controller
 
        $user->attachRole($role_id);
          Mail::to($user->email)->send(new VerifyMail($user));
-    return $response;
+         return $response;
+       }else{
+         return Response::json('status',201);
+       }
 
 
     }

@@ -47,9 +47,9 @@ class Login extends Component{
 			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
 			// this.props.history.push('/my-account');
 		}else if(result.data.message == 'Request failed with status code 404'){
-			alert("Email and Password not match!")
+			toast.error("Email and Password not match!");
 		}else{
-			alert(result.data)
+			toast(result.data);
 		}
 			
 		}).catch((error)=>{

@@ -38,19 +38,22 @@ class UserRegister extends Component{
 					}
 		axios.post('http://localhost:4000/register/',data).then((result)=>{
 			// saveToken(result.data.token)
-      		const tokenStore = localStorage.getItem('token');
-      		if (result.data.status==200) {
-				// this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
-      			this.props.history.push(''); 
-					toast("Registration successfully! We sent activation link, Check your email and click on the link to verify your email'");
-					return result.data
+      		// const tokenStore = localStorage.getItem('token');
+      		if (result.data.user) {
+				this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
+					alert("Registration successfully! We sent activation link, Check your email and click on the link to verify your email'");
+					toast("Registration successfully! We sent activation link, Check your email and click on the link to verify your email");
+      				this.props.history.push('/login');
+					return "Registration successfully! We sent activation link, Check your email and click on the link to verify your email"
 
-      		}else if (result.data.status==201) {
-				toast("Something went wrong!");
-					return result.data
+      		}else if (result.data.message==="Request failed with status code 500") {
+      			// alert("Something went wrong!")
+				toast.error("Something went wrong!");
+				return result.data
       		}
 			
 		}).catch((error)=>{
+			// toast.error("Something went wrong!");
 			console.log(error)
 		})
 	}
@@ -65,6 +68,7 @@ class UserRegister extends Component{
 					 UserRegister = {this.UserRegister.bind(this)}
 					 />
 			        <ToastContainer />
+
 
 				</>
 			)
