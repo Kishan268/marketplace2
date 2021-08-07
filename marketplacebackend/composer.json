@@ -16,7 +16,7 @@
         "laravel/ui": "^3.2",
         "mews/captcha": "^3.2",
         "nesbot/carbon": "^2.51",
-        "spatie/laravel-permission": "^4.2"
+        "santigarcor/laratrust": "^6.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

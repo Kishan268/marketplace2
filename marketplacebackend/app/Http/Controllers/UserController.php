@@ -26,6 +26,14 @@ class UserController extends Controller
 
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed']
+            
+        ]);
+    }
     function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -38,15 +46,13 @@ class UserController extends Controller
 
    public function userLogin(Request $request)
     {
-        
-
         $user= User::where('email', $request->email)->first();
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response([
                     'message' => ['These credentials do not match our records.']
                 ], 404);
             }
-        	if ($user->email_verified_at !=null) {
+        	if ($user->email_verified_at !=null && $user->user_role ==3) {
 	            // $token = $user->createToken('my-app-token')->plainTextToken;
                 $token = $user->createToken($this->generateRandomString())->accessToken;
 	            $response = [
@@ -64,20 +70,20 @@ class UserController extends Controller
 
     public function userRegister(Request $request){
         $role_id =  '3' ;
-    	//  $request->validate([
-        //     'email' 	=> 'required', 'string', 'email', 'max:255', 'unique:users',
-        //     'password'  => 'required', 'string', 'min:8', 'confirmed',
-        //     'country' 	=> 'required',
-        //     'f_name' 	=> 'required',
-        //     'l_name' 	=> 'required',
-        //     'dob' 		=> 'required',
-        //     'phone_no' 	=> 'required',
-        //     'gender' 	=> 'required',
-        //     'address' 	=> 'required',
-        //     'district_town' => 'required'
-        // ]);
+    	 // $request->validate([
+      //       'email' 	=> 'required', 'string', 'email', 'max:255', 'unique:users',
+      //       'password'  => 'required', 'string', 'min:6', 'confirmed',
+      //       'country' 	=> 'required',
+      //       'f_name' 	=> 'required',
+      //       'l_name' 	=> 'required',
+      //       'dob' 		=> 'required',
+      //       'phone_no' 	=> 'required',
+      //       'gender' 	=> 'required',
+      //       'address' 	=> 'required',
+      //       'district_town' => 'required'
+      //   ]);
         $data = [
-            'name' 		=> $request['country'] .' '.$request['l_name'],
+            'name' 		=> $request['f_name'],
             'email' 	=> $request['email'],
             'password' 	=> Hash::make($request['password']),
             'country' 	=> $request['country'],
@@ -95,31 +101,35 @@ class UserController extends Controller
     		'zip'=> $request['zip']
 
         ];
-// return($data);
-       
-        $user = User::create($data);
-         $token = $user->createToken('my-app-token')->plainTextToken;
-            $response = [
-                'user' => $user,
-                'token' => $token
-            ];
+       // return($data);
+       $user = User::create($data);
+       if(!empty($user)){
 
-        // $user->update($response); 
-        // $user->attachRole($role_id);
-// return $user;
-        Mail::to($user->email)->send(new VerifyMail($user));
-        return response($response, 200);
+       $token = $user->createToken($this->generateRandomString())->accessToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+       $user->attachRole($role_id);
+         Mail::to($user->email)->send(new VerifyMail($user));
+         return $response;
+       }else{
+         return Response::json('status',201);
+       }
+
 
     }
-    // public function register(Request $request)
-    // {
-    //     $this->validator($request->all())->validate();
-    //     event(new Registered($user = $this->create($request->all())));
-    //     return $this->registered($request, $user)
-    //                     ?: redirect('/login')->with('success','We sent activation link, Check your email and click on the link to verify your email');
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        return $this->registered($request, $user)
+                        ?: redirect('http://localhost:3000/login')->with('success','We sent activation link, Check your email and click on the link to verify your email');
 
 
-    // }
+    }
     public function getUserInfo($token){
         $userInfo = User::where('token',$token)->first();
         return response($userInfo, 200);

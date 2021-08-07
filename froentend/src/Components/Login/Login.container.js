@@ -37,16 +37,19 @@ class Login extends Component{
 		}
 				
 		axios.post('http://localhost:4000/login/',data).then((result)=>{
-			toast("Login successfully!");
+
+		if (result.data.token ) {
 			saveToken(result.data.token)
 			this.setState({isopen:false})
 			const tokenStore = localStorage.setItem('token',result.data.token);
 			updateCart(result.data.token)
-
-		if (result.data.token ) {
+			toast("Login successfully!");
 			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
 			// this.props.history.push('/my-account');
-
+		}else if(result.data.message == 'Request failed with status code 404'){
+			toast.error("Email and Password not match!");
+		}else{
+			toast(result.data);
 		}
 			
 		}).catch((error)=>{
@@ -64,6 +67,7 @@ class Login extends Component{
 						UserLogin = {this.UserLogin.bind(this)}
 						handleClickOpen = {this.handleClickOpen.bind(this)}
 					/>
+					<ToastContainer />
 				</>
 			)
 	}

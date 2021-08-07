@@ -7,6 +7,7 @@ use App\Models\Orders;
 use App\Models\Cart;
 use Auth;
 use App\Models\User;
+
 class OrdersRepository extends EloquentRepository{
 
 
@@ -22,7 +23,6 @@ class OrdersRepository extends EloquentRepository{
 	public function getOrder(){
          
         $user = Auth::user()->user_role;
-		// dd($user->hasRole('super_admin'));
 		return Orders::where('seller_id', Auth::user()->id)->get();
 
 

@@ -15,82 +15,52 @@ use Illuminate\Auth\Events\Registered;
 use Mail;
 use App\Mail\VerifyMail;
 use Illuminate\Support\Str;
+use Laravel\Passport\HasApiTokens;
+
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
+    use HasApiTokens;
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    // protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+   
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+ 
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'captcha'  => ['required','captcha']
+            
+        ],
+        [
+            'captcha.captcha'=>'Invalid captcha code.'
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
+   
+
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
     protected function create(array $data)
     {
        
-// dd( $data);
-        // return User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
+
         $role_id = $data['user_role'] == 'buyer' ? '3' : ($data['user_role'] == 'seller' ? '4' : '5');
-    //     $data->validate([
-    //        'name' 		=> 'required', 'string', 'max:255',
-    //        'email' 	=> 'required', 'string', 'email', 'max:255', 'unique:users',
-    //        'password'  => 'required', 'string', 'min:8', 'confirmed',
-    //        'country' 	=> 'required',
-    //        'f_name' 	=> 'required',
-    //        'l_name' 	=> 'required',
-    //        'dob' 		=> 'required',
-    //        'phone_no' 	=> 'required',
-    //        'gender' 	=> 'required',
-    //        'address' 	=> 'required',
-    //        'district_town' => 'required',
-    //        'user_role' => 'required'
-    //    ]);
+  
         $data = [
             'name' 		=>  $data['f_name'].' '.$data['l_name'],
            'email' 	=> $data['email'],
@@ -114,18 +84,19 @@ class RegisterController extends Controller
        ];
     //   dd($data);
        $user = User::create($data);
-        $token = $user->createToken('my-app-token')->plainTextToken;
+       $token = $user->createToken($this->generateRandomString())->accessToken;
+
         $response = [
             'user' => $user,
             'token' => $token
         ];
 
        // $user->update($response); 
-       // $user->attachRole($role_id);
-// return $user;
- Mail::to($user->email)->send(new VerifyMail($user));
+       $user->attachRole($role_id);
+    // return $user;
+     Mail::to($user->email)->send(new VerifyMail($user));
     //    return view('home');
-    return $response;
+    return $user;
 
 
     }
@@ -139,4 +110,5 @@ class RegisterController extends Controller
 
 
   }
+
 }
