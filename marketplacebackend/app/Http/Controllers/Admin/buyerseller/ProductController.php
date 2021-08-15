@@ -59,6 +59,7 @@ class ProductController extends Controller
     {
         $categories = $this->categoryRepo->all();
         $product = $this->productsRepo->singleProduct($id);
+        // dd($categories );
         $brands = $this->brandRepo->all();
 
         return view('admin.products.edit',compact('product','categories','brands'));

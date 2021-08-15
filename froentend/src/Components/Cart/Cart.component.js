@@ -1,7 +1,10 @@
 import {Component} from 'react'
 import { BrowserRouter as Router,Link} from "react-router-dom";
 import EmptyCart from '../../image/emptyCart.svg'
-
+import { ToastContainer, toast } from 'react-toastify';
+import Popup from '../Popup/Popup.container.js'
+import BuyNowComponent from '../BuyNow/BuyNow.container.js';
+import CheckOutComponent from '../Checkout/Checkout.container.js';
 class Car extends Component {
     
     renderEmptyCart(){
@@ -27,7 +30,11 @@ class Car extends Component {
             cardData,
             updateCart,
             isRemove,
-            deleteCartItem
+            deleteCartItem,
+            isopen,
+            closeBideModel,
+            getCartData,
+            handleClickOpenCheckOut
         } = this.props
         
         if(!cardData || cardData.length===0 || isLoading){
@@ -112,7 +119,7 @@ class Car extends Component {
                                             <li>Subtotal <span>${cardData.total_price}</span></li>
                                             <li>Total <span>${cardData.amount }</span></li>
                                         </ul>
-                                        <Link to="/checkout">Proceed to checkout</Link>
+                                        <a onClick={()=>{handleClickOpenCheckOut()}}>Proceed to checkout</a>
                                     </div>
                                 </div>
                             </div>
@@ -121,6 +128,15 @@ class Car extends Component {
                 </div>
             </div>
         </div>
+         <Popup
+                width="800px"
+                margin-left="-100px"
+                isopen= {isopen}
+                title= {'Buy Now'}
+                content = {<CheckOutComponent {...this.props}/> } 
+              />
+                <ToastContainer />
+        
             </>
         )
     }

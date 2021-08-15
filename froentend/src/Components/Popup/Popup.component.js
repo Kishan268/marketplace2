@@ -5,11 +5,10 @@ import { Modal, Button } from 'antd';
 class Popup extends PureComponent{
 	
 	render(){
-		const{isopen,content,handleCancel} = this.props
-
+		const{isopen,content,handleCancel,title} = this.props
 		return(
 			<Modal  
-	            title="User Sign In" 
+	            title={title} 
 	            okText="Submit"
 	            footer={null}                       
 	            visible={isopen}

@@ -9,12 +9,14 @@ let Cmp=props.Cmp
 var history =useHistory();
 	
 useEffect(()=>{
-	if (!localStorage.getItem('token')) {
-    toast("Product added in cart successfully!");
-		history.push('./login')
+	if (localStorage.getItem('token')!=null) {
+      // toast("Login successfully!");
+		  // history.push('./my-account')
     // alert('Login First!')
 
-	}
+	}else{
+    history.push('./login')
+  }
 },[])
 
   return (

@@ -19,31 +19,19 @@ class UserRegister extends Component{
 		redirect: false // add a redirect flag
 	};
 		
-	UserRegister(event){
-		const{saveToken,handleClickOpen} = this.props
+	UserSignUp(values){
+		const{saveToken,handleClickOpen,closeBideModel} = this.props
 
-		event.preventDefault()
-		console.log(event.target.f_name.value)
-		var data = {
-					f_name:event.target.f_name.value,
-					l_name:event.target.l_name.value,
-					dob:event.target.dob.value,
-					phone_no:event.target.phone_no.value,
-					gender:event.target.gender.value,
-					address:event.target.address.value,
-					district_town:event.target.district_town.value,
-					email:event.target.email.value,
-					password:event.target.password.value,
-					password_confirmation:event.target.password_confirmation.value,
-					}
-		axios.post('http://localhost:4000/register/',data).then((result)=>{
+		axios.post('http://localhost:4000/register/',values).then((result)=>{
 			// saveToken(result.data.token)
       		// const tokenStore = localStorage.getItem('token');
       		if (result.data.user) {
 				this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
 					alert("Registration successfully! We sent activation link, Check your email and click on the link to verify your email'");
 					toast("Registration successfully! We sent activation link, Check your email and click on the link to verify your email");
-      				this.props.history.push('/login');
+      				this.props.history.push('/');
+					closeBideModel()
+
 					return "Registration successfully! We sent activation link, Check your email and click on the link to verify your email"
 
       		}else if (result.data.message==="Request failed with status code 500") {
@@ -59,13 +47,12 @@ class UserRegister extends Component{
 	}
 
 	render(){
-		const {token} = this.props
 
 		return (
 				<>
 					<UserRegisterComponent
 					{...this.props}
-					 UserRegister = {this.UserRegister.bind(this)}
+					 UserSignUp = {this.UserSignUp.bind(this)}
 					 />
 			        <ToastContainer />
 

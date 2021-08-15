@@ -28,30 +28,43 @@ import Protected from'./Components/ProtectedComponent';
 import Logout from './Components/Logout/Logout.js';
 import CartComponent from './Components/Cart/Cart.container.js'
 import CheckoutComponent from './Components/Checkout/Checkout.container'
+import WishListComponent from './Components/WishList/WishList.container.js'
+import ItemSearchComponent from './Components/ItemsSearch/SearchByCategories.container.js'
 import './App.css';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 
 class App extends PureComponent {
 
   render(){  
+    // console.log(this.props)
     return (
       <>
           <div class="main-wrapper">
-            
+          
               <HeaderMiddleSection/>  
+                                
+
+
               <Route exact path="/">
                 <SlidebarSection />
                 <ShiphingAreaSectionComponent />
          
                 <ProductComponent />               
                 </Route>
-               <Route exact path="/login" >
-                <Login />
+                <Route  exact path="/wish-list" > 
+                <WishListComponent /> 
                 </Route>
-                
-                <Route exact path="/register">
-                    <RgisterComponent />
-                </Route>   
+                <Route  exact path="/Items/:id" render={(props) => <ItemSearchComponent {...props} /> } > 
+                </Route>
+
+               {/* <Route exact path="/login" >
+                                     <Protected Cmp={Login} />
+                                 </Route>
+                                 
+                                 <Route exact path="/register">
+                                     <RgisterComponent />
+                                 </Route> */}  
                 <Route exact path="/user-register">
                     <UserRgisterComponent />
                 </Route>
@@ -71,13 +84,14 @@ class App extends PureComponent {
                   <Route  exact path="/cart">
                      <CartComponent />
                   </Route>
+                 <Route  exact path="/checkout">
+                  <Protected Cmp={CheckoutComponent} />
+                </Route>
                 
-                     <Route  exact path="/checkout">
-                      <Protected Cmp={CheckoutComponent} />
+                <Route>
+                    <FooterSectionComponent />                          
+                </Route>
 
-                    </Route>
-                
-                <FooterSectionComponent />                          
            </div>
 
       </>

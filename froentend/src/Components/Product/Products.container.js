@@ -21,7 +21,9 @@ const mapDispatchToProps=dispatch=>({
 class ProductsContainer extends Component{
 
 	state = {
-		products:[]
+		products:[],
+		addWishList:'',
+		user_information:''
 	}
 
 	async getProducts(){
@@ -37,42 +39,77 @@ class ProductsContainer extends Component{
 	addToCart(data){
 		const{addToCartHandler,handleClickOpen} = this.props
 		const{UserLogin} = this.props
-
-		// console.log(data);
 		if (localStorage.getItem('token')) {
 			data.token = localStorage.getItem('token');
 
 			axios.post('http://localhost:4000/cart_data',data)
             .then((res)=>{
             	if(typeof res.data.data === 'string'){
-					toast(res.data.data);
+					toast.warning(res.data.data);
             	}
             	else{
-            		console.log(res.data)
+            		//console.log(res.data)
 					 addToCartHandler(res.data.data)
 					toast("Item added successfully!");
             	}
 			 	
 			}).catch((error)=>{
 				toast.error("Item not added in cart!");
-				console.log(error)
+				console.log(error) 
 			})
 			
 		}else{
-      		this.props.history.push('/login');
+      		// this.props.history.push('/login');
+      		this.LoginModelOpen()
 		}
 	}
+	async getUserInfo (){
+        var token= localStorage.getItem('token');
+        var userInfo=await axios.get(`http://localhost:4000/get_user_info/${token}`).then((res)=>{
+       this.setState({user_information:res.data})	
+        return res.data
+      }).catch((error)=>{
+          return error
+      })
+    }
+	addWishList(data){
+        var token= localStorage.getItem('token');
+        if (token) {
+  		var wishListData= {
+			user_id:data.user_id,
+			product_id:data.product_id,
+			token:token
+		}
+		var result= axios.post('http://localhost:4000/add_wishlist/',wishListData).then((res)=>{
+		this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
+		
+		toast(res.data.data);
+
+		}).catch((error)=>{
+			toast.error(error);
+			console.log(error)
+		});
+		}else{
+			this.LoginModelOpen();
+		}
+	}
+	LoginModelOpen(data){
+		 this.setState({isopen:true})
+    } 
 	
 	componentDidMount(){
-		this.getProducts()
-
+		this.getProducts();
+		this.getUserInfo();
 	}
-
-	
+	closeBideModel(){
+		this.setState({
+			isopen:false
+		})
+	}
 
 	
 	render(){
-		const{products,cart} = this.state
+		const{products,cart,addWishList,user_information} = this.state
 		if(!products){
 			return 	<Loader />
 		}
@@ -81,7 +118,11 @@ class ProductsContainer extends Component{
 				<>
 					<ProductsComponent
 						{...this.state}
+						{...this.props}
 						addToCart = {this.addToCart.bind(this)}
+						addWishList = {this.addWishList.bind(this)}
+						LoginModelOpen = {this.LoginModelOpen.bind(this)}
+						closeBideModel = {this.closeBideModel.bind(this)}
 					/>
 			        <ToastContainer />
 					

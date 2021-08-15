@@ -6,11 +6,13 @@ export const LOGIN_CART_UPDATE="LOGIN_CART_UPDATE"
 export const DELETE_ITEM="DELETE_ITEM"
 
 export const fetchCart = (token) => {
+    // alert(token)
   return (dispatch) => {
     axios
       .get(`http://localhost:4000/get_cart_data/${token}`)
       .then(response => {
         const users = response.data
+        console.log(users)
         dispatch(addToCart(users.data))
       })
       .catch(error => {

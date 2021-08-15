@@ -10,5 +10,5 @@ class ShipingAddress extends Model
     use HasFactory;
 
     protected $table = 'shiping_address';
-    protected $guarede = [];
+    protected $guarded = [];
 }

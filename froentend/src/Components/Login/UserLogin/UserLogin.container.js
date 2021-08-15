@@ -1,43 +1,50 @@
-import {PureComponent} from 'react'
+import {Component} from 'react'
+import LoginComponent from './UserLogin.component.js';
+import axios from 'axios';
 import {connect} from 'react-redux';
-import axios from 'axios'
-import UserLoginComponent from './UserLogin.component.js';
-import PropTypes from 'prop-types';
-import {saveToken} from '../../../store/User/user.action.js'
 import { Redirect,withRouter } from 'react-router-dom';
+
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {saveToken} from '../../../store/User/user.action.js'
+import {updateCart,fetchCart} from '../../../store/addToCart/addToCart.action.js'
 
 const mapStateToProps = state => ({
 
 })
 const mapDispatchToProps = dispatch => ({
-    saveToken: state => dispatch(saveToken(state))
+    saveToken: state => dispatch(saveToken(state)),
+    updateCart: (token) => dispatch(fetchCart(token))
 })
 
-class UserLogin extends PureComponent{
-	state = {
-		redirect: false // add a redirect flag
-	};
-	
-	UserLogin(event){
-		const{saveToken,handleClickOpen} = this.props
+class UserLogin extends Component{
 
-		event.preventDefault()
-		var data= {
-			email:event.target.email.value,
-			password:event.target.password.value,
-		}
-				
-		axios.post('http://localhost:4000/login/',data).then((result)=>{
-			toast("Login successfully!");
-			saveToken(result.data.token)
-			const tokenStore = localStorage.getItem('token');
+	state = {
+		redirect: false,
+		isopen : false
+	};
+
+    handleClickOpen(){ 
+        this.setState({isopen:true})
+    } 
+
+	UserLogin1(values){
+		const{saveToken,handleClickOpen,updateCart,closeBideModel} = this.props
+			
+		axios.post('http://localhost:4000/login/',values).then((result)=>{
 
 		if (result.data.token ) {
+			saveToken(result.data.token)
+			this.setState({isopen:false})
+			const tokenStore = localStorage.setItem('token',result.data.token);
+			updateCart(result.data.token)
+			toast("Login successfully!");
 			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
-			// this.props.history.push('/my-account');
-
+			closeBideModel()
+			// this.props.history.push('/');
+		}else if(result.data.message == 'Request failed with status code 404'){
+			toast.error("Email and Password not match!");
+		}else{
+			toast(result.data);
 		}
 			
 		}).catch((error)=>{
@@ -47,18 +54,15 @@ class UserLogin extends PureComponent{
 	}
 
 	render(){
-		const {token} = this.props
-
 		return (
 				<>
-					<UserLoginComponent 
-					{...this.props}
-					UserLogin = {this.UserLogin.bind(this)
-
-					}
+					<LoginComponent
+						{...this.props}
+						{...this.state}
+						UserLogin1 = {this.UserLogin1.bind(this)}
+						handleClickOpen = {this.handleClickOpen.bind(this)}
 					/>
-			        <ToastContainer />
-
+					<ToastContainer />
 				</>
 			)
 	}

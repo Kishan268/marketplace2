@@ -4,11 +4,6 @@ import MiniCartSection from '../../../../MiniCart/MiniCart.container.js'
 class Cart extends Component {
     
     render(){
-    function openPopup()
-    {
-        alert();
-    }
- 
 
          const productPrices = this.props.data
          console.log(this.props.data.length)

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 class MyAccount extends Component{
 	render(){
-        const userInfo = this.props.userInfo;
+        const {userInfo,Logout} = this.props;
+        const ordersDetails = userInfo.order_details
 		return (
 				<>
 			<main class="page-content">
@@ -25,7 +26,7 @@ class MyAccount extends Component{
                                     <a class="nav-link" id="account-details-tab" data-toggle="tab" href="#account-details" role="tab" aria-controls="account-details" aria-selected="false">Account Details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <Link class="nav-link" id="account-logout-tab" to="/logout" role="tab" aria-selected="false">Logout</Link>
+                                    <Link class="nav-link" id="account-logout-tab" onClick={()=>{Logout()}} role="tab" aria-selected="false">Logout</Link>
                                 </li>
                             </ul>
                         </div>
@@ -33,7 +34,7 @@ class MyAccount extends Component{
                             <div class="tab-content myaccount-tab-content" id="account-page-tab-content">
                                 <div class="tab-pane fade active show" id="account-dashboard" role="tabpanel" aria-labelledby="account-dashboard-tab">
                                     <div class="myaccount-dashboard">
-                                        <p>Hello <b>{userInfo.name}</b> (not {userInfo.f_name}{userInfo.l_name}? <a href="login-register.html">Sign
+                                        <p>Hello <b>{userInfo.name}</b> (not {userInfo.f_name}{userInfo.l_name}? <a href="#" onClick={()=>{Logout()}}>Sign
                                                 out</a>)</p>
                                         <p>From your account dashboard you can view your recent orders, manage your shipping and
                                             billing addresses and <a href="javascript:void(0)">edit your password and account details</a>.</p>
@@ -52,14 +53,17 @@ class MyAccount extends Component{
                                                         <th>TOTAL</th>
                                                         <th></th>
                                                     </tr>
+                                                    {ordersDetails ? ordersDetails.map((ordersDetail,index)=>(
+
                                                     <tr>
-                                                        <td><a class="account-order-id" href="javascript:void(0)">#5364</a></td>
-                                                        <td>Mar 27, 2019</td>
+                                                        <td><a class="account-order-id" href="javascript:void(0)">{ordersDetail.invoice_number}</a></td>
+                                                        <td>{ordersDetail.created_at}</td>
                                                         <td>On Hold</td>
-                                                        <td>£162.00 for 2 items</td>
+                                                        <td>{ordersDetail.total_price} for {ordersDetail.total_item} items</td>
                                                         <td><a href="javascript:void(0)" class="uren-btn uren-btn_dark uren-btn_sm"><span>View</span></a>
                                                         </td>
                                                     </tr>
+                                                    )) : ''}
                                                     <tr>
                                                         <td><a class="account-order-id" href="javascript:void(0)">#5356</a></td>
                                                         <td>Mar 27, 2019</td>

@@ -14,7 +14,7 @@
 		<select class="form-control" name="parent_id">
 			<option value="">{{__('Root')}}</option>
 			@foreach($categories as $category)
-			<option class="root" value="{{isset($category->catg_id) }}" {{isset($category1->parent_id) == $category->catg_id ? 'selected' : ''}} >{{$category->catg_name}}</option>
+			<option class="root" value="{{$category->catg_id }}" {{isset($category1->parent_id) == $category->catg_id ? 'selected' : ''}} >{{$category->catg_name}}</option>
 					@if($category->subcategories !=null)
 						@include('admin.master.category.subCategoryList',['subcategorie' => $category->subcategories, 'dataSpace' => 2,'oldCatgId' => null])
 					@endif

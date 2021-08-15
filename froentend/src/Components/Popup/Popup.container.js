@@ -13,7 +13,6 @@ class PopupContainer extends PureComponent{
 
 	componentWillReceiveProps(nextProps){
 		const{isopen} = nextProps
-		console.log(nextProps)
 		this.setState({isopen:isopen})
 	}
 	render(){

@@ -54,6 +54,19 @@
                   <li><a href="{{route('buyerseller.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add </a></li>
                 </ul>
               </li> 
+              <li class="treeview">
+                <a href="#">
+                  <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                  <span>Master</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{{route('category.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Categories</a></li>
+                  <li><a href="{{route('brands.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Brands </a></li>
+                </ul>
+              </li> 
                 
          @endrole
 

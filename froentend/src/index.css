@@ -153,3 +153,28 @@ img.primary-img {
   height: 280px;
 }
 
+.ant-modal-content {
+   
+    width: 800px;
+    margin-left: -100px;
+}
+span.old-price.text-danger {
+    text-decoration: line-through;
+}
+
+button.qty_place_bid_btn{
+    width: 100%;
+}
+
+.header-top_area.header-sticky {
+    display: none;
+}
+
+.header-main_area .header-sticky.sticky.sticky {
+    -webkit-animation: 800ms ease-in-out 0s normal none 1 running slideInDown;
+    animation: 800ms ease-in-out 0s normal none 1 running slideInDown;
+    display: block;
+}
+.header-middle_area {
+    margin-top: 80px;
+}

@@ -1,11 +1,17 @@
 import {Component} from 'react'
 import { Button } from 'react-bootstrap';
 import {useHistory , useParams,Link} from "react-router-dom";
+import LoginComponent from '../Login/UserLogin/UserLogin.container.js';
+import Popup from '../Popup/Popup.container.js'
+
 class Products extends Component{
    
+   
     render(){
+        const{isopen} = this.props
+
         const API_URL ='http://localhost:8000/storage/';
-        const{products,addToCart} = this.props
+        const{products,addToCart,addWishList,user_information,closeBideModel} = this.props
         return (
             <>
                 <div class="uren-product_area">
@@ -33,7 +39,7 @@ class Products extends Component{
                         <div col-lg-12>
                            <div className="row">
                               { products != null ? products.map((product,index) => (
-                                <div className="col-lg-3">
+                                <div className="col-lg-3" key={index}>
                                     <div className="row">
                                     <div class="  product-slide_item" style={{width: '100%', display: 'inlineBlock'}}>
                                     <div class="inner-slide">
@@ -54,14 +60,14 @@ class Products extends Component{
                                                     <li>
                                                         <a class="uren-add_cart" 
                                                         onClick={()=>{addToCart({product_id:product.pro_id,quantity:1,price:product.price,discount:product.discount})}}
-                                                         data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Add To Cart"><i class="ion-bag"></i></a>
+                                                         data-toggle="tooltip" data-placement="top" title="Add To Cart" tabindex="0" data-original-title="Add To Cart"><i class="ion-bag"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a class="uren-wishlist" href="" data-toggle="tooltip" data-placement="top" title="Wishlist" tabindex="0" data-original-title="Add To Wishlist">
-                                                        <i class="ion-android-favorite-outline"></i></a>
+                                                        <Link class="uren-wishlist" onClick={()=>{addWishList({product_id:product.pro_id,user_id:user_information.id})}} data-toggle="tooltip" data-placement="top" title="Wishlist" tabindex="0" data-original-title="Add To Wishlist" >
+                                                        <i class="ion-android-favorite-outline"></i></Link>
                                                     </li>
                                                     <li>
-                                                        <a class="uren-add_compare" href="compare.html" data-toggle="tooltip" data-placement="top" title="Compare" tabindex="0" data-original-title="Compare This Product"><i class="ion-android-options"></i></a>
+                                                        <a class="uren-add_compare" href="#" data-toggle="tooltip" data-placement="top" title="Compare" tabindex="0" data-original-title="Compare This Product"><i class="ion-android-options"></i></a>
                                                     </li>
                                                     <li class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Quick" tabindex="0" data-original-title="Quick View"><i class="ion-android-open"></i></a></li>
                                                 </ul>
@@ -389,6 +395,13 @@ class Products extends Component{
                         </div>
                     </div>
                 </div>
+                 <Popup
+                    width="800px"
+                    margin-left="-100px"
+                    isopen= {isopen}
+                    title= {'Login'}
+                    content = { <LoginComponent {...this.props}/>} 
+              />
                     </>
                 )
             }

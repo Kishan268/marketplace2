@@ -9,7 +9,12 @@ use Auth;
 class ProductsRepository extends EloquentRepository{
 
 	public function all(){
-		return Product::where('user_id',Auth::user()->id)->get();
+		if (Auth::user()->user_role==1) {
+			return Product::get();
+		}else{
+			return Product::where('user_id',Auth::user()->id)->get();
+
+		}
 	}
 	public function productStore($request){
 		
@@ -41,9 +46,8 @@ class ProductsRepository extends EloquentRepository{
 		$data = $this->validation($request);
 		// dd($request);
         $data['user_id'] = Auth::user()->id;
-        $product = Product::find($id);
+        $product = Product::where('pro_id',$id)->update($data);
 
-        $product->update($data);
         // $product->categories()->sync($request->catg_id);
         if(!empty($request->image)){
          foreach ($request->image as $key => $image) {
@@ -84,13 +88,14 @@ class ProductsRepository extends EloquentRepository{
 	}
 	 public function validation($request,$id=null){
 
+// dd($request->all());
         $data = $request->validate([
 			'name'=>'required',
 			'shrt_name'=>'required',
 			'price'=>'required',
 			//'catg_id'=>'required',
 			// 'sub_catg_id'=>'required',
-			'brand'=>'required',
+			// 'brand'=>'required',
 			'qty'=>'required',
 			'discount'=>'required',
 			// 'size'=>'required',
@@ -102,7 +107,9 @@ class ProductsRepository extends EloquentRepository{
 		$discontedPrice = $data['price']*$data['discount']/100;
 		$data['discounted_price'] = $data['price']-$discontedPrice;
 
+		$data['catg_id'] = $request->catg_id;
 		$data['sub_catg_id'] = $request->sub_catg_id;
+		$data['brand'] = $request->brand;
 		$data['short_des'] = $request->short_des;
 		$data['type'] = $request->type;
 		$data['color'] = json_encode($request->color);

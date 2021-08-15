@@ -11,21 +11,21 @@ use Response;
 
 class CartsController extends Controller
 {
-    private $postCartsRepo;
+    private $cartsRepo;
     private $getCartDataRepo;
     private $postOrderDataRepo;
 
         
-    public function __construct(CartsRepository $postCartsRepo ,CartsRepository $getCartDataRepo,CartsRepository $postOrderDataRepo)
+    public function __construct(CartsRepository $cartsRepo ,CartsRepository $getCartDataRepo,CartsRepository $postOrderDataRepo)
     {
-        $this->postCartsRepo = $postCartsRepo;
+        $this->cartsRepo = $cartsRepo;
         $this->getCartDataRepo = $getCartDataRepo;
         $this->postOrderDataRepo = $postOrderDataRepo;
     }
     public function cartDataStore(Request $request)
     { 
 
-        $cartData = $this->postCartsRepo->cartDataStore($request);
+        $cartData = $this->cartsRepo->cartDataStore($request);
         if($cartData === 'false'){
              return Response::json([
                 'data' => 'Item already in cart...'
@@ -38,7 +38,7 @@ class CartsController extends Controller
     public function getCartData(){
         // return '$token';
         // return ($this->getCartDataRepo->getCartData());
-        $cartData = $this->postCartsRepo->getCartData();
+        $cartData = $this->cartsRepo->getCartData();
 
         return Response::json([
             'data' => $cartData
@@ -50,7 +50,7 @@ class CartsController extends Controller
         $qty = $request->qty;
         $type = $request->type;
         // try{
-            $cartData = $this->postCartsRepo->updateCartItem($itemId,$qty,$type);
+            $cartData = $this->cartsRepo->updateCartItem($itemId,$qty,$type);
             return Response::json([
                 'data' => true
             ], 200);
@@ -70,7 +70,7 @@ class CartsController extends Controller
 
     public function deleteCart($itemId){
         // return response($itemId);
-        $ordertData = $this->postCartsRepo->deleteCartItem($itemId);
+        $ordertData = $this->cartsRepo->deleteCartItem($itemId);
         return Response::json([
             'data' => $ordertData
         ], 200);

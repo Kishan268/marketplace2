@@ -14,7 +14,7 @@ class CartHeader extends Component {
                 isLogin,
                 } = this.props
         if(cardData){        
-            item_qty = cardData.total_item
+            item_qty = cardData.item_qty
         }
         else{
             var item_qty = 0

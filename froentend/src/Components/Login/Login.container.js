@@ -27,16 +27,10 @@ class Login extends Component{
         this.setState({isopen:true})
     } 
 
-	UserLogin(event){
-		const{saveToken,handleClickOpen,updateCart} = this.props
+	UserLogin(value){
+		const{saveToken,handleClickOpen,updateCart,closeBideModel} = this.props
 
-		event.preventDefault()
-		var data= {
-			email:event.target.email.value,
-			password:event.target.password.value,
-		}
-				
-		axios.post('http://localhost:4000/login/',data).then((result)=>{
+		axios.post('http://localhost:4000/login/',value).then((result)=>{
 
 		if (result.data.token ) {
 			saveToken(result.data.token)
@@ -45,7 +39,8 @@ class Login extends Component{
 			updateCart(result.data.token)
 			toast("Login successfully!");
 			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
-			// this.props.history.push('/my-account');
+			closeBideModel()
+			this.props.history.push('/');
 		}else if(result.data.message == 'Request failed with status code 404'){
 			toast.error("Email and Password not match!");
 		}else{
@@ -57,6 +52,11 @@ class Login extends Component{
 			console.log(error)
 		})
 	}
+	closeBideModel(){
+		this.setState({
+			isopen:false
+		})
+	}
 
 	render(){
 		return (
@@ -66,6 +66,7 @@ class Login extends Component{
 						{...this.state}
 						UserLogin = {this.UserLogin.bind(this)}
 						handleClickOpen = {this.handleClickOpen.bind(this)}
+						closeBideModel = {this.closeBideModel.bind(this)}
 					/>
 					<ToastContainer />
 				</>

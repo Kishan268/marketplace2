@@ -25,7 +25,9 @@ Route::post("register",[UserController::class,'userRegister']);
 
 Route::get("all_products",[App\Http\Controllers\ProductsController::class,'allProducts'])->name('all_products');
 Route::get("product_details/{id}",[App\Http\Controllers\ProductsController::class,'productDetails'])->name('product_details');
-
+Route::get("get_all_categories",[App\Http\Controllers\API\ItemsAndCategoriesController::class,'getAllCategories']);
+Route::get("get_categories",[App\Http\Controllers\API\ItemsAndCategoriesController::class,'getCategories']);
+Route::get("get_items_by_category/{itemName}",[App\Http\Controllers\API\ItemsAndCategoriesController::class,'getItemsByCategory']);
 Route::group(['middleware' => 'auth:api'], function(){
 
     Route::get("get_user_info/{id}",[UserController::class,'getUserInfo'])->name('get_user_info');
@@ -44,6 +46,11 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::post("post_order",[App\Http\Controllers\OrdersController::class,'postOrder']);
     Route::post("createOrder",[App\Http\Controllers\API\OrdersApiController::class,'createOrder']);
+    Route::post("place_bid",[App\Http\Controllers\API\PlaceBidController::class,'placeBid']);
+    Route::post("add_wishlist",[App\Http\Controllers\API\WishListController::class,'addWishList']);
+    Route::post("get_wishlist",[App\Http\Controllers\API\WishListController::class,'getWishlist']);
+    
+    Route::get("delete_wishlist_item/{id?}",[App\Http\Controllers\API\WishListController::class,'deleteWishlistItem']);
 
     Route::get("verify/{token}",[App\Http\Controllers\VerifyController::class,'verifyUser']);
 });

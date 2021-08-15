@@ -3,6 +3,7 @@ import CartComponent from './Cart.component'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import { Redirect,withRouter } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 import {
         fetchCart,
@@ -23,6 +24,9 @@ const mapDispatchToProps = dispatch => ({
 
 class Cart extends Component {
 
+    state={
+        isopen:''
+    }
     async getCartData (){
         const{fetchCart} = this.props
         const token = localStorage.getItem('token');
@@ -55,9 +59,10 @@ class Cart extends Component {
     deleteCartItem(itemId){
         const{deleteCartItem,fetchCart} = this.props
         var token = localStorage.getItem('token')
-
         axios.post('http://localhost:4000/delete_item/',{itemId:itemId,token:token}).then((result)=>{
             fetchCart(token)
+            toast('Item deleted successfully');
+
         }).catch((error)=>{
             return error
         })
@@ -66,16 +71,34 @@ class Cart extends Component {
     async componentWillMount(){
         await this.getCartData();
 	}
-
+    async handleClickOpenCheckOut(data){
+         await this.setState({isopen:true})
+       
+    }
+    closeBideModel(){
+        this.setState({
+            isopen:false
+        })
+    }
     render(){
-        const{randomNumber} = this.props   
+        const{randomNumber,isopen} = this.props   
         if(randomNumber >= 0){
             return(
+                <>
                 <CartComponent 
                 {...this.state}
     			{...this.props}
                 updateCart = {this.updateCart.bind(this)}
-                deleteCartItem = {this.deleteCartItem.bind(this)}                />
+                deleteCartItem = {this.deleteCartItem.bind(this)} 
+                handleClickOpenCheckOut = {this.handleClickOpenCheckOut.bind(this)} 
+                closeBideModel = {this.closeBideModel.bind(this)}
+                getCartData = {this.getCartData.bind(this)}
+
+                />
+
+                </>
+                
+
             )
         }    
     }

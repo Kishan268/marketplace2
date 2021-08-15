@@ -3,6 +3,9 @@ import Logo from './Logo/Logo.container'
 import SearchBarAndCart from './SearchBarCart/SearchBarAndCart.container.js'
 import NavbarSection from './../NavbarSection/NavbarSection.container.js'
 import SliderSection from '../../Slidebar/SlidebarSection.container.js'
+import 'react-sticky-header/styles.css';
+import StickyHeader from 'react-sticky-header';
+ 
 
 class HeaderMiddleSection extends Component {
 	render(){
@@ -11,7 +14,10 @@ class HeaderMiddleSection extends Component {
        
 		<header className="header-main_area bg--sapphire">
             <div className="header-top_area d-lg-block d-none">
-                <NavbarSection />
+                <div class="header-top_area header-sticky bg--sapphire sticky">
+                
+                    <NavbarSection />
+                </div>
            		<SearchBarAndCart />
  
             </div>

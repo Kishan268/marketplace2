@@ -131,7 +131,9 @@ class UserController extends Controller
 
     }
     public function getUserInfo($token){
-        $userInfo = User::where('token',$token)->first();
+        $userId = Auth::guard('api')->user()->id;
+
+        $userInfo = User::where('id',$userId)->with('order_details')->first();
         return response($userInfo, 200);
 
     }

@@ -23,31 +23,53 @@ const mapDispatchToProps = dispatch => ({
 })
 
 class NavbarSection extends Component{
-
+state = {
+		redirect: false,
+		isopen: false
+	};
 	logOut(){
 		const{Logout,isLogin,updateLogoutCart} = this.props
 		var cart = {}
 		updateLogoutCart()
 		Logout()
+			this.props.history.push('/'); 
+		
 		
 	}
 
-	componentWillReceiveProps(nextProps){
-		const {isLogin} = nextProps
-		// if(!isLogin){
-		// 	this.props.history.push('/'); 
-		// }
+
+	myAccount(){
+       this.props.history.push('/my-account');
+    }
+	handleClickOpen(){ 
+	    this.setState({isopen:true})
+	} 
+	 LoginModelOpen(data){
+		 this.setState({isopen:true,popupStatus:'loginModel'})
+	} 
+	SignUpModelOpen(data){
+		 this.setState({isopen:true,popupStatus:'signUpModel'})
+	} 
+	closeBideModel(){
+		this.setState({
+			isopen:false
+		})
 	}
-	
+
+
 	render(){
-		const {isLogin} = this.props
-		// console.log(this.props)
+		const {isLogin,myAccount,handleClickOpen,isopen} = this.props
 		return (
 				<>
 					<NavbareSectionComponent
 					{...this.state}
 					{...this.props}
 					logOut = {this.logOut.bind(this)}
+					myAccount = {this.myAccount.bind(this)}
+					handleClickOpen = {this.handleClickOpen.bind(this)}
+					LoginModelOpen = {this.LoginModelOpen.bind(this)}
+					SignUpModelOpen = {this.SignUpModelOpen.bind(this)}
+					closeBideModel = {this.closeBideModel.bind(this)}
 					/>
 				</>
 			)

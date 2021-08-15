@@ -41,62 +41,27 @@ class OrderDetails extends PureComponent{
                             </tfoot>
                         </table>
                     </div>
-                    <div className="payment-method">
+                   <div className="payment-method">
                         <div className="payment-accordion">
                             <div id="accordion">
                                 <div className="card">
                                     <div className="card-header" id="#payment-1">
+                                    <h4>Payment Methode </h4>
                                         <h5 className="panel-title">
-                                            <a href="javascript:void(0)" className="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                Direct Bank Transfer.
-                                            </a>
+                                        {/* <a href="javascript:void(0)" className="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                           Direct Bank Transfer.
+                                       </a>*/}
+                                            <label> Case on Delivery</label>
+                                            <input type="radio" name="type_of_shiping" value="case_on_delivery" />
                                         </h5>
                                     </div>
-                                    <div id="collapseOne" className="collapse" data-parent="#accordion">
-                                        <div className="card-body">
-                                            <p>Make your payment directly into our bank account. Please use your Order
-                                                ID as the payment
-                                                reference. Your order won’t be shipped until the funds have cleared in
-                                                our account.</p>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
-                                <div className="card actives">
-                                    <div className="card-header" id="#payment-2">
-                                        <h5 className="panel-title">
-                                            <a href="javascript:void(0)" className="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                                Cheque Payment
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseTwo" className="collapse show" data-parent="#accordion">
-                                        <div className="card-body">
-                                            <p>Make your payment directly into our bank account. Please use your Order
-                                                ID as the payment
-                                                reference. Your order won’t be shipped until the funds have cleared in
-                                                our account.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card">
-                                    <div className="card-header" id="#payment-3">
-                                        <h5 className="panel-title">
-                                            <a href="javascript:void(0)" className="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                PayPal
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseThree" className="collapse" data-parent="#accordion">
-                                        <div className="card-body">
-                                            <p>Make your payment directly into our bank account. Please use your Order
-                                                ID as the payment
-                                                reference. Your order won’t be shipped until the funds have cleared in
-                                                our account.</p>
-                                        </div>
-                                    </div>
-                                </div>
+                               
+                                
                             </div>
                             <div className="order-button-payment">
+
                                 <input value="Place order" type="submit"  />
                             </div>
                         </div>

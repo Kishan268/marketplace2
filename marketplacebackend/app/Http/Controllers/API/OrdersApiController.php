@@ -17,6 +17,8 @@ class OrdersApiController extends Controller
     }
 
     public function createOrder(Request $request){
+
+        // return  $request;
         $data = $this->order->createOrder($request);
         return Response::json([
                 'data' => $data

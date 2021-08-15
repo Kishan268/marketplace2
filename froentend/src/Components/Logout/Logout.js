@@ -3,7 +3,7 @@ import {Redirect,useHistory,withRouter} from 'react-router-dom';
   const Logout = ()=>{
 	const history =useHistory();
         localStorage.clear("token")
-      	history.push('/'); 
+      	this.history.push('/'); 
         
      }
  export default withRouter(Logout);    

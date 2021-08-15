@@ -20,7 +20,6 @@ class CategoriesConroller extends Controller
     {
         //
         $categories = $this->categoryRepo->all();
-        // dd($categories);
         return view('admin.master.category.index',compact('categories'));
     }
 

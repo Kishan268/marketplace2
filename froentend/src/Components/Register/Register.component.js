@@ -26,38 +26,39 @@ class Rgister  extends Component {
     } 
    
 	render(){
+		const {closeBideModel} = this.props
 	return (
 			<>
-			<div className="container">
-			<div className="col-md-12 seller-signup">
-				<div className="row">
-					<div className="" style={{marginTop: '50px',marginBottom:'100px'}}>
-					<h3>Sign Up</h3>
-					<span>What's the main purpose for the account you're creating?</span>
-
-                 		<div class="top-form top-form-minicart flashmart-minicart2 mt-3">
-
-                 			<div class="top-minicart-icon ">
-                 			<a onClick={(()=>this.handleClickOpen())} className="btn btn-primary btn-lg btn-block"  size="lg">Personal use</a>
-                 			<a href="http://localhost:8000/register"  className="btn btn-secondary btn-lg btn-block"  size="lg"> Business membership</a>
-                 			</div>
-							 <div className="row mt-2">
-								 <span>Already have an account? </span>
-								 <Link to="/login">Log In</Link>
-							 </div>
-              		 	</div>
+				<div className="container">
+					<div className="col-md-12 ">
+						<div className="row">
+			                <div className="col-md-6 ">
+			                  <img className="login-image" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"/>
+			                </div>
+			                <div className="col-md-6 ">
+			                  <span>What's the main purpose for the account you're creating?</span>
+			                    <div class="top-form top-form-minicart flashmart-minicart2 mt-3">
+			                      <div class="top-minicart-icon ">
+			                       	<a onClick={(()=>this.handleClickOpen())} className="btn btn-primary btn-lg btn-block"  size="lg">Personal use</a>
+			                 		<a href="http://localhost:8000/register"  className="btn btn-secondary btn-lg btn-block"  size="lg"> Business membership</a>
+			                       </div>
+			                       <div className="row mt-2">
+									 <span>Already have an account? </span>
+									 <Link to="/login">Log In</Link>
+								 </div>
+			                    </div>
+			                </div>
+						</div>
 					</div>
 				</div>
-			</div>
-			</div>
+			
 			 <Modal  
-                      title="User Sign In" 
-                      okText="Submit"
-                      footer={null}                       
-                      visible={this.state.isopen} onCancel={this.handleClickOpen}
-                    >
-                    <RegisterComponent />
-                  </Modal>
+              okText="Submit"
+              footer={null}                       
+              visible={this.state.isopen} onCancel={this.handleClickOpen}
+            >
+            <RegisterComponent />
+          </Modal>
 		</>
 		)
 	}
