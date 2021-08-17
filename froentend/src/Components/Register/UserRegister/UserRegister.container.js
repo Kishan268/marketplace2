@@ -1,11 +1,12 @@
 import {Component} from 'react'
 import UserRegisterComponent from './UserRegister.component';
-import axios from 'axios'
+// import axios from 'axios'
 import {saveToken} from '../../../store/User/user.action.js'
 import { Redirect,withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from '../../../Utils/axios.config.js'
 
 const mapStateToProps = state => ({
 
@@ -22,7 +23,7 @@ class UserRegister extends Component{
 	UserSignUp(values){
 		const{saveToken,handleClickOpen,closeBideModel} = this.props
 
-		axios.post('http://localhost:4000/register/',values).then((result)=>{
+		axios.post('/register/',values).then((result)=>{
 			// saveToken(result.data.token)
       		// const tokenStore = localStorage.getItem('token');
       		if (result.data.user) {
@@ -30,9 +31,9 @@ class UserRegister extends Component{
 					alert("Registration successfully! We sent activation link, Check your email and click on the link to verify your email'");
 					toast("Registration successfully! We sent activation link, Check your email and click on the link to verify your email");
       				this.props.history.push('/');
-					closeBideModel()
 
 					return "Registration successfully! We sent activation link, Check your email and click on the link to verify your email"
+					closeBideModel()
 
       		}else if (result.data.message==="Request failed with status code 500") {
       			// alert("Something went wrong!")

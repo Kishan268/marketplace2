@@ -23,12 +23,15 @@ class OrdersRepository extends EloquentRepository{
 	public function getOrder(){
          
         $user = Auth::user()->user_role;
-		return Orders::where('seller_id', Auth::user()->id)->get();
+		$order =  Orders::where('seller_id', Auth::user()->id)->with('get_order_items.get_product','get_user')->get();
+		// dd($order[0]->get_user->f_name);
+		return $order;
+
 
 
 	}
 	public function getCarts(){
-		return Cart::where('user_id',Auth::user()->id)->get();
+	return Cart::where('user_id',Auth::user()->id)->get();
 	}
 	
 }

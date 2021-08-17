@@ -17,10 +17,10 @@ const { Panel } = Collapse;
 
 class Checkout extends Component {
     
-renderAddress(user_information){
+renderAddress(user_information,cartDatas){
     return(
             <>
-            <input type="hidden" name="address_type"  value="default_address"/>
+            <Radio name="cart_id"  value={cartDatas.id}/>
                {user_information.f_name} {user_information.l_name}
                 {user_information.billing_address}
                 {user_information.city}
@@ -40,17 +40,17 @@ renderAddress(user_information){
             <>
                 <div className="container-fluid">
                     <form  onSubmit={((event)=>billingAddress(event))}>
-                         <input type="hidden" name="quantity" value={cartDatas.item_qty} />
-                         <input type="hidden" name="user_id" value={user_information.id} />
-                         <input type="hidden" name="cart_id" value={cartDatas.id} />
+                        <input type="hidden" name="order_type" value="check_out" />
                         <div className="row">
                             <div className="col-lg-6 col-12">
                                 <Collapse defaultActiveKey={['1']} >
                                      <Panel header="Default Address" key="1">
-                                      {this.renderAddress(user_information)}
+                                      {this.renderAddress(user_information,cartDatas)}
                                     </Panel> 
                                     <Panel header="Add a new address" key="2">
-                                    <AddressForm/>
+                                    {
+                                        /*<AddressForm/>*/
+                                    }
                                     <input type="hidden" name="address_type" value="custome_address" />
                                     
                                     </Panel>

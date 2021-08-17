@@ -1,10 +1,9 @@
 import {Component} from  'react'
 import BuyNowComponent from './BuyNow.component.js'
 import {connect} from 'react-redux'
-import axios from 'axios'
 import { Redirect,withRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-
+import axios from '../../Utils/axios.config.js'
 class BuyNow extends Component {
 	
 	state={
@@ -16,7 +15,7 @@ class BuyNow extends Component {
 
 	getUserInformation(){
 		 const token = localStorage.getItem('token');
-         var result= axios.get(`http://localhost:4000/get_user_info/${token}`).then((res)=>{
+         var result= axios.get(`/get_user_info/${token}`).then((res)=>{
          	this.setState({
 						user_information:res.data
 					})
@@ -35,22 +34,20 @@ class BuyNow extends Component {
     } 
   	billingAddress(event){
 		const{handleClickOpen,closeBideModel} = this.props
-
 		event.preventDefault()
 		 const token = localStorage.getItem('token');
-		alert(event.target.address_type.value)
-		if (event.target.address_type.value =="default_address") {
+		// if (event.target.address_type.value =="default_address") {
 			var data= {
 				user_id:event.target.user_id.value,
 				product_id:event.target.product_id.value,
-				quantity:event.target.quantity.value,
-				address_type:'default_address',
 				type_of_shiping:event.target.type_of_shiping.value,
 				order_type:event.target.order_type.value,
 				token:token,
 			
 			}
-		}else{
+		console.log(data)
+		// }
+		/*else{
 			var data= {
 				user_id:event.target.user_id.value,
 				product_id:event.target.product_id.value,
@@ -72,18 +69,18 @@ class BuyNow extends Component {
 			
 			}
 			
-		}
-		// var result= axios.post('http://localhost:4000/createOrder/',data).then((res)=>{
+		}*/
+		var result= axios.post('/createOrder/',data).then((res)=>{
 
-		// 	toast(res.data.data);
-		// 	closeBideModel()
-		// 	this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
-		// 	return res.data
-		// }).catch((error)=>{
-		// 	toast.error(error);
+			toast(res.data.data);
+			closeBideModel()
+			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
+			return res.data
+		}).catch((error)=>{
+			toast.error(error);
 
-		// 	console.log(error)
-		// });			
+			console.log(error)
+		});			
 				
 	}
     render(){

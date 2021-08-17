@@ -48,7 +48,7 @@ class UserRegister extends Component {
                    gender: '',
                    address: '',
                    city: '',
-                   district_town: '',
+                   // district_town: '',
                    state: '',
                    country: '',
                    phone_no: '',
@@ -74,7 +74,7 @@ class UserRegister extends Component {
 										    	type="text" 
 										    	name="f_name"
 										    	className="form-control form-control-lg" 
-									    		placeholder="Enter First name" />
+									    		placeholder="Enter First name" / >
                         <p style={{color:"red",fontSize:"14px"}}>{errors.f_name}</p>
 
 			               </div> 
@@ -110,9 +110,13 @@ class UserRegister extends Component {
 			               </div> 
 			                <div className="col-md-6 form-group error-div">
 			                  <label>Gender: </label>
-			                    <Select options = {genderOptions} name="gender"  value={this.state.value} 
-			                    onChange={this.handleChange}
-			                    />
+			                    <Field as="select"  name="gender"  
+			                     className="form-control">
+			                     <option value="">Select Gender</option>
+			                     <option value="Male">Male</option>
+							             <option value="Female">Female</option>
+							             <option value="Gender diverse">Gender diverse</option>
+			                      </Field>
                         <p style={{color:"red",fontSize:"14px"}}>{errors.gender}</p>
 
 			               </div>
@@ -123,13 +127,17 @@ class UserRegister extends Component {
 										    	name="address"
 										    	className="form-control form-control-lg" 
 										    	placeholder="Enter Address" />
+										    	 
                         <p style={{color:"red",fontSize:"14px"}}>{errors.address}</p>
 
 			               </div> 
 			              
 			                <div className="col-md-6 form-group error-div">
 			                  <label> Select City: </label>
-			                   <Select options = {cityOptions} name="city"/>
+			                  <Field as="select" name="city" className="form-control">
+			                  	<option value="">Select City</option>
+			                  	<option value="Kaikohe">Kaikohe</option>
+							          </Field>
                         <p style={{color:"red",fontSize:"14px"}}>{errors.city}</p>
 			               </div>
 			               {/*<div className="col-md-6 form-group error-div">
@@ -139,13 +147,21 @@ class UserRegister extends Component {
 			               			              </div>*/}
 									   <div className="col-md-6 form-group error-div">
 			                  <label> State: </label>
-			                  <Select options = {stateOptions} name="state" />
+			                  <Field as="select" name="state" className="form-control">
+			                  <option value="">Select State</option>
+			                  <option value="Auckland">Auckland</option>
+							            
+			                  </Field>
 			                  <p style={{color:"red",fontSize:"14px"}}>{errors.state}</p>
 			               </div>
 										
 										<div className="col-md-6 form-group error-div">
 			                <label>Country: </label>
-			               	<Select options = {countryOptions} name="country" />
+			               	<Field as="select"  name="country" className="form-control">
+	               				<option value="">Select Country</option>
+	               				<option value="NZ">NZ</option>
+
+			               	</Field>
 			               
 			                <p style={{color:"red",fontSize:"14px"}}>{errors.country}</p>
 			             </div>

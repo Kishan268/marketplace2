@@ -1,13 +1,14 @@
 import {Component} from 'react'
 import ProductsComponent from './Products.component';
 import {connect} from 'react-redux'
-import axios from 'axios';
+// import axios from 'axios';
 import {addToCart} from '../../store/addToCart/addToCart.action.js'
 import {withRouter} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import axios from '../../Utils/axios.config.js'
 
 const mapStateToProps=state=>({
     data:state.cardItems
@@ -27,7 +28,7 @@ class ProductsContainer extends Component{
 	}
 
 	async getProducts(){
-		var products = await axios.get('http://localhost:4000/all_products')
+		var products = await axios.get('/all_products')
 		.then((res)=>{
 		return res.data
 		}).catch((error)=>{
@@ -42,7 +43,7 @@ class ProductsContainer extends Component{
 		if (localStorage.getItem('token')) {
 			data.token = localStorage.getItem('token');
 
-			axios.post('http://localhost:4000/cart_data',data)
+			axios.post('/cart_data',data)
             .then((res)=>{
             	if(typeof res.data.data === 'string'){
 					toast.warning(res.data.data);
@@ -65,7 +66,7 @@ class ProductsContainer extends Component{
 	}
 	async getUserInfo (){
         var token= localStorage.getItem('token');
-        var userInfo=await axios.get(`http://localhost:4000/get_user_info/${token}`).then((res)=>{
+        var userInfo=await axios.get(`/get_user_info/${token}`).then((res)=>{
        this.setState({user_information:res.data})	
         return res.data
       }).catch((error)=>{
@@ -80,7 +81,7 @@ class ProductsContainer extends Component{
 			product_id:data.product_id,
 			token:token
 		}
-		var result= axios.post('http://localhost:4000/add_wishlist/',wishListData).then((res)=>{
+		var result= axios.post('/add_wishlist/',wishListData).then((res)=>{
 		this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
 		
 		toast(res.data.data);

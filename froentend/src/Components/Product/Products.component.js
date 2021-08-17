@@ -38,8 +38,8 @@ class Products extends Component{
                                     
                         <div col-lg-12>
                            <div className="row">
-                              { products != null ? products.map((product,index) => (
-                                <div className="col-lg-3" key={index}>
+                              { products  ? products.map((product,index) => (
+                                <div className="col-lg-2" key={index}>
                                     <div className="row">
                                     <div class="  product-slide_item" style={{width: '100%', display: 'inlineBlock'}}>
                                     <div class="inner-slide">
@@ -53,7 +53,7 @@ class Products extends Component{
                                             <div class="sticker-area-2">
                                                 {product.discount ? <span class="sticker-2">-{product.discount}%</span> : '' }
 
-                                               {products.type ? <span class="sticker">{products.type}</span> :'' }
+                                               {product.type ? <span class="sticker">{product.type}</span> :'' }
                                             </div>
                                             <div class="add-actions">
                                                 <ul>
@@ -62,6 +62,8 @@ class Products extends Component{
                                                         onClick={()=>{addToCart({product_id:product.pro_id,quantity:1,price:product.price,discount:product.discount})}}
                                                          data-toggle="tooltip" data-placement="top" title="Add To Cart" tabindex="0" data-original-title="Add To Cart"><i class="ion-bag"></i></a>
                                                     </li>
+                                                  
+
                                                     <li>
                                                         <Link class="uren-wishlist" onClick={()=>{addWishList({product_id:product.pro_id,user_id:user_information.id})}} data-toggle="tooltip" data-placement="top" title="Wishlist" tabindex="0" data-original-title="Add To Wishlist" >
                                                         <i class="ion-android-favorite-outline"></i></Link>
@@ -102,7 +104,7 @@ class Products extends Component{
                         </div>
                             
                         )) :   <img src="https://demofree.sirv.com/nope-not-here.jpg" class="img-fluid z-depth-1"/>
-                           }
+                    }
                        </div>
                     </div>
                                     
@@ -110,47 +112,7 @@ class Products extends Component{
                             <div>
                                 <div class="product-slide_item" style={{width: '100%', display: 'inlineBlock'}}>
                                     <div class="inner-slide">
-                                        <div class="single-product">
-                                            <div class="product-img">
-                                                <a href="single-product.html" tabindex="0">
-                                                    <img class="primary-img" src="assets/images/product/medium-size/2-1.jpg" alt="Uren's Product Image"/>
-                                                    <img class="secondary-img" src="assets/images/product/medium-size/2-2.jpg" alt="Uren's Product Image"/>
-                                                </a>
-                                                <div class="sticker-area-2">
-                                                    <span class="sticker-2">-20%</span>
-                                                    <span class="sticker">New</span>
-                                                </div>
-                                                <div class="add-actions">
-                                                    <ul>
-                                                        <li><a class="uren-add_cart" href="cart.html" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Add To Cart"><i class="ion-bag"></i></a>
-                                                        </li>
-                                                        <li><a class="uren-wishlist" href="wishlist.html" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Add To Wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                        </li>
-                                                        <li><a class="uren-add_compare" href="compare.html" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Compare This Product"><i class="ion-android-options"></i></a>
-                                                        </li>
-                                                        <li class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Quick View"><i class="ion-android-open"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="product-desc_info">
-                                                    <div class="rating-box">
-                                                        <ul>
-                                                            <li><i class="ion-android-star"></i></li>
-                                                            <li><i class="ion-android-star"></i></li>
-                                                            <li><i class="ion-android-star"></i></li>
-                                                            <li class="silver-color"><i class="ion-android-star"></i></li>
-                                                            <li class="silver-color"><i class="ion-android-star"></i></li>
-                                                        </ul>
-                                                    </div>
-                                                    <h6><a class="product-name" href="single-product.html" tabindex="0">Corporis sed excepturi</a></h6>
-                                                    <div class="price-box">
-                                                        <span class="new-price new-price-2">$194.00</span>
-                                                        <span class="old-price">$241.00</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
 
                                  </div>
@@ -176,71 +138,74 @@ class Products extends Component{
                                 }" data-slick-responsive="[
                                                         {&quot;breakpoint&quot;:768, &quot;settings&quot;: {&quot;slidesToShow&quot;: 1}}
                                                     ]"><button class="tty-slick-text-btn tty-slick-text-prev slick-arrow slick-disabled" aria-disabled="true" style={{display: 'block'}}><i class="ion-ios-arrow-back"></i></button><div class="slick-list draggable"><div class="slick-track" style={{opacity: '1' , width: '1941px' , transform: "translate3d('0px', '0px', '0px')"}}><div class="slick-slide slick-current slick-active first-active" data-slick-index="0" aria-hidden="false" style={{width: '647px'}}><div><div class="slide-item" style={{width: '100%', display: 'inlineBlock'}}>
-                                        <div class="inner-slide">
-                                            <div class="single-product">
-                                                <div class="product-img">
-                                                    <a href="single-product.html" tabindex="0">
-                                                        <img class="primary-img" src="assets/images/product/medium-size/1-1.jpg" alt="Uren's Product Image"/>
-                                                        <img class="secondary-img" src="assets/images/product/medium-size/4-1.jpg" alt="Uren's Product Image"/>
-                                                    </a>
-                                                    <div class="sticker-area-2">
-                                                        <span class="sticker-2">-33%</span>
-                                                        <span class="sticker">New</span>
-                                                    </div>
+                                    <div class="inner-slide">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <a href="single-product.html" tabindex="0">
+                                                    <img class="primary-img" src="assets/images/product/medium-size/1-1.jpg" alt="Uren's Product Image"/>
+                                                    <img class="secondary-img" src="assets/images/product/medium-size/4-1.jpg" alt="Uren's Product Image"/>
+                                                </a>
+                                                <div class="sticker-area-2">
+                                                    <span class="sticker-2">-33%</span>
+                                                    <span class="sticker">New</span>
                                                 </div>
-                                                <div class="product-content">
-                                                    <div class="product-desc_info">
-                                                        <div class="uren-countdown_area">
-                                                            <span class="product-offer">Hurry up!  Offer ends in:</span>
-                                                            <div class="countdown-wrap">
-                                                                <div class="countdown item-4" data-countdown="2020/10/01" data-format="short">
-                                                                    <div class="countdown__item">
-                                                                        <span class="countdown__time daysLeft">0-285</span>
-                                                                        <span class="countdown__text daysText">day</span>
-                                                                    </div>
-                                                                    <div class="countdown__item">
-                                                                        <span class="countdown__time hoursLeft">05</span>
-                                                                        <span class="countdown__text hoursText">hrs</span>
-                                                                    </div>
-                                                                    <div class="countdown__item">
-                                                                        <span class="countdown__time minsLeft">34</span>
-                                                                        <span class="countdown__text minsText">mins</span>
-                                                                    </div>
-                                                                    <div class="countdown__item">
-                                                                        <span class="countdown__time secsLeft">44</span>
-                                                                        <span class="countdown__text secsText">secs</span>
-                                                                    </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <div class="product-desc_info">
+                                                    <div class="uren-countdown_area">
+                                                        <span class="product-offer">Hurry up!  Offer ends in:</span>
+                                                        <div class="countdown-wrap">
+                                                            <div class="countdown item-4" data-countdown="2020/10/01" data-format="short">
+                                                                <div class="countdown__item">
+                                                                    <span class="countdown__time daysLeft">0-285</span>
+                                                                    <span class="countdown__text daysText">day</span>
+                                                                </div>
+                                                                <div class="countdown__item">
+                                                                    <span class="countdown__time hoursLeft">05</span>
+                                                                    <span class="countdown__text hoursText">hrs</span>
+                                                                </div>
+                                                                <div class="countdown__item">
+                                                                    <span class="countdown__time minsLeft">34</span>
+                                                                    <span class="countdown__text minsText">mins</span>
+                                                                </div>
+                                                                <div class="countdown__item">
+                                                                    <span class="countdown__time secsLeft">44</span>
+                                                                    <span class="countdown__text secsText">secs</span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="rating-box">
-                                                            <ul>
-                                                                <li><i class="ion-android-star"></i></li>
-                                                                <li><i class="ion-android-star"></i></li>
-                                                                <li><i class="ion-android-star"></i></li>
-                                                                <li class="silver-color"><i class="ion-android-star"></i></li>
-                                                                <li class="silver-color"><i class="ion-android-star"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                        <h6 class="product-name"><a href="single-product.html" tabindex="0">Veniam officiis voluptates</a></h6>
-                                                        <div class="price-box">
-                                                            <span class="new-price new-price-2">$98.00</span>
-                                                            <span class="old-price">$146.00</span>
-                                                        </div>
-                                                        <div class="add-actions">
-                                                            <ul>
-                                                                <li><a class="uren-add_cart" href="cart.html" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Add To Cart"><i class="ion-bag"></i>Add To Cart</a>
-                                                                </li>
-                                                                <li><a class="uren-wishlist" href="wishlist.html" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Add To Wishlist"><i class="ion-android-favorite-outline"></i></a>
-                                                                </li>
-                                                                <li class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Quick View"><i class="ion-android-open"></i></a></li>
-                                                            </ul>
-                                                        </div>
+                                                    </div>
+                                                    <div class="rating-box">
+                                                        <ul>
+                                                            <li><i class="ion-android-star"></i></li>
+                                                            <li><i class="ion-android-star"></i></li>
+                                                            <li><i class="ion-android-star"></i></li>
+                                                            <li class="silver-color"><i class="ion-android-star"></i></li>
+                                                            <li class="silver-color"><i class="ion-android-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                    <h6 class="product-name"><a href="single-product.html" tabindex="0">Veniam officiis voluptates</a></h6>
+                                                    <div class="price-box">
+                                                        <span class="new-price new-price-2">$98.00</span>
+                                                        <span class="old-price">$146.00</span>
+                                                    </div>
+                                                    <div class="add-actions">
+                                                        <ul>
+                                                            <li><a class="uren-add_cart" href="cart.html" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Add To Cart"><i class="ion-bag"></i>Add To Cart</a>
+                                                            </li>
+                                                            <li><a class="uren-wishlist" href="wishlist.html" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Add To Wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                            </li>
+                                                            <li class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" tabindex="0" data-original-title="Quick View"><i class="ion-android-open"></i></a></li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div></div></div><div class="slick-slide slick-active last-active" data-slick-index="1" aria-hidden="false" style={{width: '647px'}}><div><div class="slide-item" style={{width: '100%', display: 'inlineBlock'}}>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                    <div class="slick-slide slick-active last-active" data-slick-index="1" aria-hidden="false" style={{width: '647px'}}><div><div class="slide-item" style={{width: '100%', display: 'inlineBlock'}}>
                                         <div class="inner-slide">
                                             <div class="single-product">
                                                 <div class="product-img">
@@ -305,7 +270,10 @@ class Products extends Component{
                                                 </div>
                                             </div>
                                         </div>
-                                    </div></div></div><div class="slick-slide" data-slick-index="2" aria-hidden="true" style={{width: '647px'}} tabindex="-1"><div><div class="slide-item" style={{width: '100%', display: 'inlineBlock'}}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slick-slide" data-slick-index="2" aria-hidden="true" style={{width: '647px'}} tabindex="-1"><div><div class="slide-item" style={{width: '100%', display: 'inlineBlock'}}>
                                         <div class="inner-slide">
                                             <div class="single-product">
                                                 <div class="product-img">
@@ -370,11 +338,15 @@ class Products extends Component{
                                                 </div>
                                             </div>
                                         </div>
-                                    </div></div></div></div></div><button class="tty-slick-text-btn tty-slick-text-next slick-arrow" style={{display: 'block'}} aria-disabled="false"><i class="ion-ios-arrow-forward"></i></button></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </div><button class="tty-slick-text-btn tty-slick-text-next slick-arrow" style={{display: 'block'}} aria-disabled="false"><i class="ion-ios-arrow-forward"></i></button></div>
                 </div>
+            </div>
+        </div>
+    </div>
 
                 <div className="uren-banner_area uren-banner_area-3">
                     <div className="container-fluid">
@@ -401,7 +373,7 @@ class Products extends Component{
                     isopen= {isopen}
                     title= {'Login'}
                     content = { <LoginComponent {...this.props}/>} 
-              />
+                />
                     </>
                 )
             }

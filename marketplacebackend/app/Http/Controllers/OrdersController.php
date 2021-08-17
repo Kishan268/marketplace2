@@ -24,8 +24,8 @@ class OrdersController extends Controller
     }
     public function getOrder(){
         // dd(Auth::user()->id);
-        $oredrs = $this->getOrderDataRepo->getOrder();
-        return view('admin.order.index',compact('oredrs'));
+        $orders = $this->getOrderDataRepo->getOrder();
+        return view('admin.order.index',compact('orders'));
         
     }
     public function getCarts(){

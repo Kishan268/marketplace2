@@ -1,7 +1,8 @@
 import {Component} from 'react'
 import CategoriesComponent from './Categories.component';
-import axios from 'axios'
+// import axios from 'axios'
 import { Redirect,withRouter } from 'react-router-dom';
+import axios from '../../../Utils/axios.config.js'
 
 class Categories extends Component{
 
@@ -13,7 +14,7 @@ class Categories extends Component{
 async getAllCategories(){
 	var token = localStorage.getItem('token');
 	
-	var result = await axios.get('http://localhost:4000/get_categories' ).then((res)=>{
+	var result = await axios.get('/get_categories' ).then((res)=>{
 		// console(res.data)
 		return res.data
 	}).catch((error)=>{

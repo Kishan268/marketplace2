@@ -1,10 +1,10 @@
 import {Component} from  'react'
 import CheckoutComponent from './Checkout.component'
 import {connect} from 'react-redux'
-import axios from 'axios'
 import { Redirect,withRouter } from 'react-router-dom';
 import {updateCart,fetchCart} from '../../store/addToCart/addToCart.action.js'
 import { ToastContainer, toast } from 'react-toastify';
+import axios from '../../Utils/axios.config.js'
 
 const mapStateToProps = state => ({
     cardData:state.cardItems.cardData
@@ -21,7 +21,7 @@ class Checkout extends Component {
     };
     async getUserInfo (){
         var token= localStorage.getItem('token');
-        var userInfo=await axios.get(`http://localhost:4000/get_user_info/${token}`).then((res)=>{
+        var userInfo=await axios.get(`/get_user_info/${token}`).then((res)=>{
        this.setState({user_information:res.data})		
       }).catch((error)=>{
           return error
@@ -34,7 +34,7 @@ class Checkout extends Component {
         var address = event.target.address.value
         var token = localStorage.getItem('token')
         var checkOut = {address:address ,cart_id:cartId,token:token}
-        axios.post('http://localhost:4000/createOrder/',checkOut).then((res)=>{
+        axios.post('/createOrder/',checkOut).then((res)=>{
             // fetchCart(token)
             this.setState({isopen:true,orderDetails:res})
 
@@ -52,16 +52,15 @@ class Checkout extends Component {
         event.preventDefault()
         
          const token = localStorage.getItem('token');
-        if (event.target.address_type.value =="default_address") {
+        // if (event.target.address_type.value =="default_address") {
             var data= {
-                quantity:event.target.quantity.value,
-                address_type:event.target.address_type.value,
-                type_of_shiping:event.target.type_of_shiping.value,
                 cart_id:event.target.cart_id.value,
+                order_type:event.target.order_type.value,
+                type_of_shiping:event.target.type_of_shiping.value,
                 token:token,
-            
             }
-        }else{
+            console.log(data)
+       /* }else{
             var data= {
                 quantity:event.target.quantity.value,
                 f_name:event.target.f_name.value,
@@ -81,12 +80,12 @@ class Checkout extends Component {
             
             }
             
-        }
-        var result= axios.post('http://localhost:4000/createOrder/',data).then((res)=>{
+        }*/
+        var result= axios.post('/createOrder/',data).then((res)=>{
+            closeBideModel()
+            getCartData()
             toast(res.data.data);
             this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
-            // closeBideModel()
-            getCartData()
             return res.data
         }).catch((error)=>{
             toast.error(error);

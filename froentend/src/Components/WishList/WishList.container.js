@@ -1,8 +1,9 @@
 import {Component} from  'react'
 import WishListComponent from './WishList.component.js'
-import axios from 'axios'
+// import axios from 'axios'
 import {addToCart} from '../../store/addToCart/addToCart.action.js'
 import { ToastContainer, toast } from 'react-toastify';
+import axios from '../../Utils/axios.config.js'
 
 
 const mapStateToProps=state=>({
@@ -22,7 +23,7 @@ class WishList extends Component {
 		 var data = {
 		 	token:token
 		 }
-         var result= axios.post('http://localhost:4000/get_wishlist/',data).then((res)=>{
+         var result= axios.post('/get_wishlist/',data).then((res)=>{
          	console.log(res.data)
 			 this.setState({wish_list:res.data})		
 			return res.data

@@ -35,7 +35,6 @@ class BuyNow extends Component {
                         <form onSubmit={((event)=>billingAddress(event))}>
                             <input type="hidden" name="order_type" value="buy_now" />
                             <input type="hidden" name="product_id" value={products.pro_id} />
-                            <input type="hidden" name="quantity" value={products.buyQty} />
                             <input type="hidden" name="user_id" value={user_information.id} />
 
 
@@ -46,8 +45,8 @@ class BuyNow extends Component {
                                           {this.renderAddress(user_information)}
                                         </Panel> 
                                         <Panel header="Add a new address" key="2">
-                                        <AddressForm/>
-                                        <input type="hidden" name="address_type" value="custome_address" />
+                                        {/*<AddressForm/>*/}
+                                       {/* <input type="hidden" name="address_type" value="custome_address" />*/}
                                         
                                         </Panel>
                                     </Collapse>       

@@ -2,13 +2,14 @@ import {Component} from 'react'
 import ProductDetailsComponent from './ProductDetails.component.js';
 import {connect} from 'react-redux'
 import { Redirect,withRouter } from 'react-router-dom';
-import  axios from 'axios';
+
 import {addProduct} from '../../../store/product/product.action'
 import {addToCart} from '../../../store/addToCart/addToCart.action.js'
 import { ToastContainer, toast } from 'react-toastify';
 import Popup from '../../Popup/Popup.container.js'
 
 import LoginComponent from '../../Login/Login.container.js';
+import axios from '../../../Utils/axios.config.js'
 
 
 const mapStateToProps=state=>({
@@ -58,7 +59,7 @@ class ProductDetails extends Component{
 		var id = this.props.match.params.id
 		const{addProduct} = this.props
 
-		const result = await axios.get(`http://localhost:4000/product_details/${id}`).then((res)=>{
+		const result = await axios.get(`/product_details/${id}`).then((res)=>{
 			var data = res.data
 			var products = {...res.data,buyQty:1}
 			this.setState({
@@ -84,7 +85,7 @@ class ProductDetails extends Component{
 		if (localStorage.getItem('token')) {
 			data.token = localStorage.getItem('token');
 
-			axios.post('http://localhost:4000/cart_data',data)
+			axios.post('/cart_data',data)
             .then((res)=>{
             	if(typeof res.data.data === 'string'){
 					toast.warning(res.data.data);

@@ -1,7 +1,8 @@
 import {Component} from  'react'
 import CartComponent from './Cart.component'
 import {connect} from 'react-redux'
-import axios from 'axios'
+import axios from '../../Utils/axios.config.js'
+
 import { Redirect,withRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -41,7 +42,7 @@ class Cart extends Component {
         var qty = 1
         var token = localStorage.getItem('token')
         
-        axios.post('http://localhost:4000/update_item/',{qty,itemId,type,token}).then((result)=>{
+        axios.post('/update_item/',{qty,itemId,type,token}).then((result)=>{
 
             if(type === 'plus'){
                 qty = 1
@@ -59,7 +60,7 @@ class Cart extends Component {
     deleteCartItem(itemId){
         const{deleteCartItem,fetchCart} = this.props
         var token = localStorage.getItem('token')
-        axios.post('http://localhost:4000/delete_item/',{itemId:itemId,token:token}).then((result)=>{
+        axios.post('/delete_item/',{itemId:itemId,token:token}).then((result)=>{
             fetchCart(token)
             toast('Item deleted successfully');
 

@@ -1,7 +1,7 @@
 import {Component} from  'react'
 import PlaceBidComponent from './PlaceBid.component.js'
 import {connect} from 'react-redux'
-import axios from 'axios'
+import axios from '../../Utils/axios.config.js'
 import { Redirect,withRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -17,7 +17,7 @@ class PlaceBid extends Component {
   
    	getUserInformation(){
 		 const token = localStorage.getItem('token');
-         var result= axios.get(`http://localhost:4000/get_user_info/${token}`).then((res)=>{
+         var result= axios.get(`/get_user_info/${token}`).then((res)=>{
          	this.setState({
 						user_information:res.data
 					})
@@ -43,7 +43,7 @@ class PlaceBid extends Component {
 				reminder_email:event.target.reminder_email.value,
 				token:token,
 			}
-			var result= axios.post('http://localhost:4000/place_bid/',data).then((res)=>{
+			var result= axios.post('/place_bid/',data).then((res)=>{
 			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
 			toast(res.data.data);
 			closeBideModel()

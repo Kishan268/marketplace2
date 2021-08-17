@@ -4,6 +4,7 @@ import SearchBarComponent from './SearchBar.component'
 import {saveToken} from '../../../../../store/User/user.action.js'
 import axios from 'axios'
 import { Redirect,withRouter } from 'react-router-dom';
+// import axios from '../../Utils/axios.config.js'
 
 const mapStateToProps = state => ({
     token:state.UserDetailsReducer.token

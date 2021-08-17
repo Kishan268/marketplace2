@@ -20,6 +20,7 @@ module.exports = function(app) {
     createProxyMiddleware({
       target: 'http://localhost:4000',
       changeOrigin: true,
+      secure: false,
     })
   );
 };
@@ -36,6 +37,8 @@ var corsOptions = {
   optionsSuccessStatus: 204,
 };
 
+const base_url = 'http://3.20.234.60/api'
+
 app.use(express.urlencoded());
 app.use(express.json());
  // parse application/json
@@ -50,7 +53,7 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.get('/all_products',async function(req,res,next){
-	var data = await axios.get('http://127.0.0.1:8000/api/all_products/')
+	var data = await axios.get(base_url+'/all_products/')
 	.then((res)=>{
 		return (res.data)
 	}).catch((error)=>{
@@ -61,7 +64,7 @@ app.get('/all_products',async function(req,res,next){
 })
 
 app.post('/login',async function(req,res,next){
-	var data = await axios.post('http://127.0.0.1:8000/api/login',req.body).then((res)=>{
+	var data = await axios.post(base_url+'/login',req.body).then((res)=>{
 		return res.data
 	}).catch((error)=>{
 		return error
@@ -69,7 +72,7 @@ app.post('/login',async function(req,res,next){
 	return res.json(data)
 })
 app.post('/register',async function(req,res,next){
-	var data = await axios.post('http://127.0.0.1:8000/api/register',req.body).then((res)=>{
+	var data = await axios.post(base_url+'/register',req.body).then((res)=>{
 		return res.data
 	}).catch((error)=>{
 		return error
@@ -80,7 +83,7 @@ app.post('/register',async function(req,res,next){
 app.get('/product_details/:id',async function(req,res,next){
 	// return res;
 	var id = req.params.id;
-	var data = await axios.get(`http://127.0.0.1:8000/api/product_details/${id}`).then((res)=>{
+	var data = await axios.get(base_url+`/product_details/${id}`).then((res)=>{
 		return (res.data)
 	}).catch((error)=>{
 		return false
@@ -92,7 +95,7 @@ app.get('/product_details/:id',async function(req,res,next){
 app.get('/get_cart_data/:token',async function(req,res,next){
 	var token = req.params.token;
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-	var data = await axios.get(`http://127.0.0.1:8000/api/get_cart_data/`).then((res)=>{
+	var data = await axios.get(base_url+`/get_cart_data/`).then((res)=>{
 		return (res.data)
 	}).catch((error)=>{
 		console.log(error)
@@ -104,7 +107,7 @@ app.get('/get_cart_data/:token',async function(req,res,next){
 app.get('/get_user_info/:token',async function(req,res,next){
 	var token = req.params.token;
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-	var data = await axios.get(`http://127.0.0.1:8000/api/get_user_info/${token}`).then((res)=>{
+	var data = await axios.get(base_url+`/get_user_info/${token}`).then((res)=>{
 		return (res.data)
 	}).catch((error)=>{
 		console.log(error)
@@ -117,7 +120,7 @@ app.post('/cart_data',async function(req,res,next){
 	delete req.body.token
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-	var data = await axios.post('http://127.0.0.1:8000/api/cart_data',req.body)
+	var data = await axios.post(base_url+'/cart_data',req.body)
 	.then((res)=>{
 		return res.data
 	}).catch((error)=>{
@@ -133,7 +136,7 @@ app.post('/update_item/',async function(req,res){
 	delete req.body.token
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-	var updateCart = await axios.post('http://localhost:8000/api/update_cart_item/',req.body).then((result)=>{
+	var updateCart = await axios.post(base_url+'/update_cart_item/',req.body).then((result)=>{
 		return (result.data)
 	}).catch((error)=>{
 			console.log(error)
@@ -147,7 +150,7 @@ app.post('/delete_item/',async function(req,res){
 	var token = req.body.token
 		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-	var updateCart = await axios.get('http://localhost:8000/api/delete_cart_item/'+id).then((result)=>{
+	var updateCart = await axios.get(base_url+'/delete_cart_item/'+id).then((result)=>{
 		return (result.data)
 	}).catch((error)=>{
 			console.log(error)
@@ -157,7 +160,7 @@ app.post('/delete_item/',async function(req,res){
 })
 
 app.post('/post_order',async function(req,res,next){
-	var data = await axios.post('http://127.0.0.1:8000/api/post_order',req.body)
+	var data = await axios.post(base_url+'/post_order',req.body)
 	.then((res)=>{
 		return res.data
 	}).catch((error)=>{
@@ -170,7 +173,7 @@ app.post('/createOrder',async function(req,res,next){
 	var token = req.body.token
 // dd('sads');
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-	var data = await axios.post('http://127.0.0.1:8000/api/createOrder',req.body)
+	var data = await axios.post(base_url+'/createOrder',req.body)
 	.then((res)=>{
 		return res.data
 	}).catch((error)=>{
@@ -183,7 +186,7 @@ app.post('/createOrder',async function(req,res,next){
 app.post('/place_bid',async function(req,res,next){
 	var token = req.body.token
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-	var data = await axios.post('http://127.0.0.1:8000/api/place_bid',req.body)
+	var data = await axios.post(base_url+'/place_bid',req.body)
 	.then((res)=>{
 		return res.data
 	}).catch((error)=>{
@@ -197,7 +200,7 @@ app.post('/add_wishlist',async function(req,res,next){
 	delete req.body.token
 
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-	var data = await axios.post('http://127.0.0.1:8000/api/add_wishlist',req.body)
+	var data = await axios.post(base_url+'/add_wishlist',req.body)
 	.then((res)=>{
 		return res.data
 	}).catch((error)=>{
@@ -210,7 +213,7 @@ app.post('/get_wishlist',async function(req,res,next){
 	var token = req.body.token
 	delete req.body.token
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-	var data = await axios.post('http://127.0.0.1:8000/api/get_wishlist',req.body)
+	var data = await axios.post(base_url+'/get_wishlist',req.body)
 	.then((res)=>{
 		return res.data
 	}).catch((error)=>{
@@ -224,7 +227,7 @@ app.post('/delete_wishlist_item/',async function(req,res){
 	var id = req.body.wishListId
 	var token = req.body.token
 		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-	var deleteWishlist = await axios.get('http://localhost:8000/api/delete_wishlist_item/'+id).then((result)=>{
+	var deleteWishlist = await axios.get(base_url+'/delete_wishlist_item/'+id).then((result)=>{
 		return (result.data)
 	}).catch((error)=>{
 			console.log(error)
@@ -236,7 +239,7 @@ app.post('/delete_wishlist_item/',async function(req,res){
 	var id = req.body.wishListId
 	var token = req.body.token
 		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-	var deleteWishlist = await axios.get('http://localhost:8000/api/delete_wishlist_item/'+id).then((result)=>{
+	var deleteWishlist = await axios.get(base_url+'/delete_wishlist_item/'+id).then((result)=>{
 		return (result.data)
 	}).catch((error)=>{
 			console.log(error)
@@ -245,7 +248,7 @@ app.post('/delete_wishlist_item/',async function(req,res){
 	return res.json(deleteWishlist)
 })
 app.get('/get_categories/',async function(req,res){
-	var get_categories = await axios.get('http://localhost:8000/api/get_categories/').then((result)=>{
+	var get_categories = await axios.get(base_url+'/get_categories/').then((result)=>{
 		return (result.data)
 	}).catch((error)=>{
 			console.log(error)
@@ -254,7 +257,7 @@ app.get('/get_categories/',async function(req,res){
 	return res.json(get_categories)
 })
 app.get('/get_all_categories/',async function(req,res){
-	var get_all_categories = await axios.get('http://localhost:8000/api/get_all_categories/').then((result)=>{
+	var get_all_categories = await axios.get(base_url+'/get_all_categories/').then((result)=>{
 		return (result.data)
 	}).catch((error)=>{
 			console.log(error)
@@ -264,7 +267,7 @@ app.get('/get_all_categories/',async function(req,res){
 })
 app.post('/get_items_by_category/',async function(req,res){
 	var itemName = req.body.itemName
-	var get_items_by_category = await axios.get(`http://localhost:8000/api/get_items_by_category/${itemName}`).then((result)=>{
+	var get_items_by_category = await axios.get(base_url+`/get_items_by_category/${itemName}`).then((result)=>{
 		return (result.data)
 	}).catch((error)=>{
 			console.log(error)

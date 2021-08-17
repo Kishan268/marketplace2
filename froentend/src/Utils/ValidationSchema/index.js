@@ -8,12 +8,12 @@ export const SignupSchema = Yup.object().shape({
     .max(50, 'Too Long!')
     .required('Please Enter Last Name!'),
     dob: Yup.string().required('Please Enter Date of Birth!'),
-     // gender: Yup.string().required('Select the Gender!'),
+     gender: Yup.string().required('Select the Gender!'),
     address: Yup.string().required('Please Enter Address!'),
-    // city: Yup.string().required('Please Select City!'),
+    city: Yup.string().required('Please Select City!'),
     // district_town: Yup.string().required('Please Select District!'),
-    // state: Yup.string().required('Please Select State!'),
-    // country: Yup.string().required('Please Select Country!'),
+    state: Yup.string().required('Please Select State!'),
+    country: Yup.string().required('Please Select Country!'),
     phone_no: Yup.string()
     .min(10, 'Mobile Number should be 10 digits!')
     .max(12, 'Mobile Number should be 10 digits!')

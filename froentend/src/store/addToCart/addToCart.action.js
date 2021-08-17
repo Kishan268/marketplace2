@@ -1,4 +1,5 @@
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../../Utils/axios.config.js'
 export const ADD_TO_CART="ADD_TO_CART"
 export const UPDATE_CART="UPDATE_CART"
 export const IS_LOGIN="IS_LOGIN"
@@ -9,7 +10,7 @@ export const fetchCart = (token) => {
     // alert(token)
   return (dispatch) => {
     axios
-      .get(`http://localhost:4000/get_cart_data/${token}`)
+      .get(`/get_cart_data/${token}`)
       .then(response => {
         const users = response.data
         console.log(users)

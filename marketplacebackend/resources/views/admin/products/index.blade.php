@@ -34,7 +34,9 @@
 										<td>{{$product->price}}</td>
 										
 										<td>
-											<a href="javascript:void(0)"  class="{{$product->status == 'P' ? 'bg-secondary' : 'bg-success'}} text-white p-2 ml-2 rounded-circle approval" data-id="{{$product->pro_id}}"><i class="fa fa-key" title="{{$product->status == 'P' ? 'Unapprove' : 'Approve'}}" ></i></a>   
+											@role('super_admin')
+											 <a href="javascript:void(0)"  class="{{$product->status == 'P' ? 'bg-secondary' : 'bg-success'}} text-white p-2 ml-2 rounded-circle approval" data-id="{{$product->pro_id}}"><i class="fa fa-key" title="{{$product->status == 'P' ? 'Unapprove' : 'Approve'}}" ></i></a> 
+											 @endrole
 											<a href="{{route('products.edit',$product->pro_id)}}" class="bg-info text-white p-2 ml-2 rounded-circle" title="Edit"><i class="fa fa-edit"></i></a>            
 								            <a href="{{route('products.show',$product->pro_id)}}" class="bg-warning text-white p-2 ml-2 rounded-circle" title="View"><i class="fa fa-eye"></i></a>            
 								            <a href="{{route('product_destroy',$product->pro_id)}}" class="bg-danger text-white p-2 ml-2 rounded-circle" title="Delete" onclick="return confirm('Are you sure you want to delete user?');"><i class="fa fa-trash"></i></a> 

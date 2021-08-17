@@ -1,12 +1,13 @@
 import {Component} from 'react'
 import LoginComponent from './Login.component';
-import axios from 'axios';
+
 import {connect} from 'react-redux';
 import { Redirect,withRouter } from 'react-router-dom';
 
 import { ToastContainer, toast } from 'react-toastify';
 import {saveToken} from '../../store/User/user.action.js'
 import {updateCart,fetchCart} from '../../store/addToCart/addToCart.action.js'
+import axios from '../../Utils/axios.config.js'
 
 const mapStateToProps = state => ({
 
@@ -30,7 +31,7 @@ class Login extends Component{
 	UserLogin(value){
 		const{saveToken,handleClickOpen,updateCart,closeBideModel} = this.props
 
-		axios.post('http://localhost:4000/login/',value).then((result)=>{
+		axios.post('/login/',value).then((result)=>{
 
 		if (result.data.token ) {
 			saveToken(result.data.token)

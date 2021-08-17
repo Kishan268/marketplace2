@@ -22,15 +22,14 @@ class OrderApiRepository extends EloquentRepository{
 	}
 
 	public function createOrder(Request $request){
+
 		if ($request->order_type == 'buy_now') {
 			// if ($request->address_type == 'custome_address') {
 			$shipingAddress = $this->shippingAddress($request);
 			$shippingAdrId = ShipingAddress::create($shipingAddress)->id;
-
 			$products = Product::where('pro_id',$request->product_id)->first();
-
-			$total_discounted_price = $products->discounted_price*$request->quantity;
-			$totalAmount = $products->price*$request->quantity;
+			$total_discounted_price = $products->discounted_price*1;
+			$totalAmount = $products->price*1;
 
 			$order['user_id'] = $request->user_id;
 			$order['seller_id'] = $products->user_id;
@@ -39,8 +38,8 @@ class OrderApiRepository extends EloquentRepository{
 			$order['total_price'] =$total_discounted_price;
 			$order['discounted_price'] = $totalAmount - $total_discounted_price;
 			$order['shiping_charges'] = 0;
-			$order['total_item'] = $request->quantity;
-			$order['item_qty'] = $request->quantity;
+			$order['total_item'] = 1;
+			$order['item_qty'] = 1;
 			$order['address_id'] = $shippingAdrId;
 			$order['type_of_shiping'] = $request->type_of_shiping;
 
@@ -64,7 +63,6 @@ class OrderApiRepository extends EloquentRepository{
 			return 'Order successfully Placed...';
 
 		}else{
-			
 			$shipingAddress = $this->shippingAddress($request);
 			$shippingAdrId = ShipingAddress::create($shipingAddress)->id;
 
@@ -72,14 +70,13 @@ class OrderApiRepository extends EloquentRepository{
 			$address = $request->address;
 			$shipping_charges = $request->shipping_charges;
 			$cart = Cart::find($cartId);
-			// return $cart;
 			$cartItem = CartItem::where('cart_id',$cart->id)->with('products_detail.user_details')->get();
 			$marchentIds = [];
 			$orderId = 0;
 			foreach($cartItem as $item){
 				if(!in_array($item->products_detail->user_id,$marchentIds)){
 					$marchentIds[] = $item->products_detail->user_id;
-					$order['user_id'] = $request->user_id;
+					$order['user_id'] = $cart->user_id;
 					$order['invoice_number'] = '#'.(string)$cart->id.(string)rand();
 					$order['seller_id'] = $item->products_detail->user_id;
 					$order['total_price'] = $cart->total_price;
@@ -89,6 +86,7 @@ class OrderApiRepository extends EloquentRepository{
 					$order['total_item'] = $cart->total_item;
 					$order['item_qty'] = $cart->item_qty;
 					$order['address_id'] = $shippingAdrId;
+					$order['type_of_shiping'] = $request->type_of_shiping;
 					$orderId = Order::create($order)->id;
 				}
 

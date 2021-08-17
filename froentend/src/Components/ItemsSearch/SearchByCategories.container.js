@@ -2,10 +2,11 @@ import {Component} from 'react'
 import SearchByCategoriesComponent from './SearchByCategories.component.js'
 import CategorySectionComponent from '../Header/Categories/Categories.container.js'
 import {connect} from 'react-redux'
-import axios from 'axios';
+
 import {addToCart} from '../../store/addToCart/addToCart.action.js'
 import { ToastContainer, toast } from 'react-toastify';
 import {withRouter} from 'react-router-dom';
+import axios from '../../Utils/axios.config.js'
 
 const mapStateToProps=state=>({
     data:state.cardItems
@@ -24,7 +25,7 @@ class SearchByCategories extends Component{
 
 async getItemsSearchByCategory(itemName){
 	
-	var result = await axios.post('http://localhost:4000/get_items_by_category',{itemName:itemName} ).then((res)=>{
+	var result = await axios.post('/get_items_by_category',{itemName:itemName} ).then((res)=>{
 		console.log(res.data)
 	 // this.setState({Items:res.data})
 		return res.data
@@ -54,7 +55,7 @@ this.getItemsSearchByCategory(lastSegment);
 		const{UserLogin} = this.props
 		if (localStorage.getItem('token')) {
 			data.token = localStorage.getItem('token');
-			axios.post('http://localhost:4000/cart_data',data)
+			axios.post('/cart_data',data)
             .then((res)=>{
             	if(typeof res.data.data === 'string'){
 					toast.warning(res.data.data);
@@ -83,7 +84,7 @@ this.getItemsSearchByCategory(lastSegment);
 				product_id:data.product_id,
 				token:token
 			}
-			var result= axios.post('http://localhost:4000/add_wishlist/',data).then((res)=>{
+			var result= axios.post('/add_wishlist/',data).then((res)=>{
 			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
 			toast(res.data.data);
 	  		// this.props.history.push('/wish-list');
@@ -99,7 +100,7 @@ this.getItemsSearchByCategory(lastSegment);
 	}
 	async getUserInfo (){
         var token= localStorage.getItem('token');
-        var userInfo=await axios.get(`http://localhost:4000/get_user_info/${token}`).then((res)=>{
+        var userInfo=await axios.get(`/get_user_info/${token}`).then((res)=>{
         // console.log( res.data)
        this.setState({user_information:res.data})	
         return res.data
