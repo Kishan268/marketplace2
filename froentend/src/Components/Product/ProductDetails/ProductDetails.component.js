@@ -17,7 +17,7 @@ import LoginComponent from '../../Login/UserLogin/UserLogin.container.js';
 	 	render(){
 
 	 		const{closeBideModel,LoginModelOpen,products,productsImg,userDetails,addToCartHandler,addAndRemoveProduct,isRemove,showError,handleClickOpenBuyNow,isopen,placeBidClickOpen,popupStatus} = this.props
-	 		const API_URL = 'http://localhost:8000/storage/'
+	 		const API_URL = 'http://3.20.234.60/storage/'
 	 		const{bid_option} = products
 			return (
 				<>

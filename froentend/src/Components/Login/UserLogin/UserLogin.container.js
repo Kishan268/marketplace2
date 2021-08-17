@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {PureComponent} from 'react'
 import LoginComponent from './UserLogin.component.js';
 // import axios from 'axios';
 import {connect} from 'react-redux';
@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import {saveToken} from '../../../store/User/user.action.js'
 import {updateCart,fetchCart} from '../../../store/addToCart/addToCart.action.js'
 import axios from '../../../Utils/axios.config.js'
+import LoginContainer from '../Login.container.js'
 
 const mapStateToProps = state => ({
 
@@ -17,21 +18,24 @@ const mapDispatchToProps = dispatch => ({
     updateCart: (token) => dispatch(fetchCart(token))
 })
 
-class UserLogin extends Component{
+class UserLogin extends PureComponent{
 
-	state = {
-		redirect: false,
-		isopen : false
-	};
+	constructor(props){
+	    super(props);
+	    this.state = {
+			redirect: false,
+			isopen : false
+		};
+	}
 
     handleClickOpen(){ 
         this.setState({isopen:true})
     } 
 
-	UserLogin1(values){
+	UserLogin(value){
 		const{saveToken,handleClickOpen,updateCart,closeBideModel} = this.props
-			
-		axios.post('/login/',values).then((result)=>{
+
+		axios.post('/login/',value).then((result)=>{
 
 		if (result.data.token ) {
 			saveToken(result.data.token)
@@ -41,7 +45,7 @@ class UserLogin extends Component{
 			toast("Login successfully!");
 			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
 			closeBideModel()
-			// this.props.history.push('/');
+			this.props.history.push('/');
 		}else if(result.data.message == 'Request failed with status code 404'){
 			toast.error("Email and Password not match!");
 		}else{
@@ -55,12 +59,13 @@ class UserLogin extends Component{
 	}
 
 	render(){
+
 		return (
 				<>
 					<LoginComponent
 						{...this.props}
 						{...this.state}
-						UserLogin1 = {this.UserLogin1.bind(this)}
+						UserLogin = {this.UserLogin.bind(this)}
 						handleClickOpen = {this.handleClickOpen.bind(this)}
 					/>
 					<ToastContainer />

@@ -109,7 +109,7 @@ class Login extends Component{
                     <div class="top-form top-form-minicart flashmart-minicart2 mt-3">
                       <div class="top-minicart-icon ">
                         <a onClick={(()=>handleClickOpen())}  className="btn btn-primary btn-lg btn-block"  size="lg">Personal use</a>
-                        <a  href="http://localhost:8000/login" className="btn btn-secondary btn-lg btn-block"  size="lg">Business membership</a>
+                        <a  href="http://3.20.234.60/login" className="btn btn-secondary btn-lg btn-block"  size="lg">Business membership</a>
                       </div>
                     </div>
                 </div>

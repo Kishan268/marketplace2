@@ -10,7 +10,7 @@ class Products extends Component{
     render(){
         const{isopen} = this.props
 
-        const API_URL ='http://localhost:8000/storage/';
+        const API_URL ='http://3.20.234.60/storage/';
         const{products,addToCart,addWishList,user_information,closeBideModel} = this.props
         return (
             <>

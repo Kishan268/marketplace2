@@ -3,7 +3,7 @@ import {PureComponent} from 'react'
 class ProductImage extends PureComponent{
 	
 	render(){
-		const API_URL = 'http://localhost:8000/storage/'
+		const API_URL = 'http://3.20.234.60/storage/'
 		const{products,productsImg} = this.props
 
 		return(
