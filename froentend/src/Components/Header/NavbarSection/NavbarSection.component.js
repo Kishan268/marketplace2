@@ -113,11 +113,11 @@ class NavbarSection extends PureComponent {
                                     </div> :
                                         <li>
 
-                                        <a>Sing In/Sing Up<i className="fa fa-chevron-down"></i></a>
+                                        <a>Sign In/Sign Up<i className="fa fa-chevron-down"></i></a>
                                             <ul className="ht-dropdown ht-my_account dropleft">
                                                 <li className="active">
                                                     <a  onClick={()=>{LoginModelOpen()}}>Personal Use</a>
-                                                 {/*   <Link to='/login'>Sing In</Link>*/}
+                                                 {/*   <Link to='/login'>Sign In</Link>*/}
 
                                                 </li>
                                                 <li>

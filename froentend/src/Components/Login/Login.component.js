@@ -109,8 +109,8 @@ class Login extends Component{
                   <span>What's the main purpose for the account you're creating?</span>
                     <div class="top-form top-form-minicart flashmart-minicart2 mt-3">
                       <div class="top-minicart-icon ">
-                        <a onClick={(()=>handleClickOpen())}  className="btn btn-primary btn-lg btn-block"  size="lg">Sing In</a>
-                        <a onClick={(()=>SingUpOpen())}  className="btn btn-secondary btn-lg btn-block"  size="lg">Sing Up</a>
+                        <a onClick={(()=>handleClickOpen())}  className="btn btn-primary btn-lg btn-block"  size="lg">Sign In</a>
+                        <a onClick={(()=>SingUpOpen())}  className="btn btn-secondary btn-lg btn-block"  size="lg">Sign Up</a>
                         {
                           /*<a  href="http://localhost:8000/login" className="btn btn-secondary btn-lg btn-block"  size="lg">Sing Up</a>*/
                         }

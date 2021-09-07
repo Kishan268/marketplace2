@@ -25,6 +25,7 @@ class ItemsAndCategoriesRepository extends EloquentRepository{
 		return $res;
 	}
 	public function getItemsByCategory($catg_name){
+
 		$categoryId = Category::where('catg_name',$catg_name)->with('subcategories')->first();
 		if(!empty($categoryId)){
 			$data = Product::where('catg_id',$categoryId->catg_id)
@@ -35,7 +36,7 @@ class ItemsAndCategoriesRepository extends EloquentRepository{
 			$data = Product::with('subcategories','pro_images','categories')
 					->orWhere('name', 'like', '%' . $catg_name . '%')
 					->get();
-			if ($data) {
+			if (empty($data)) {
 				$data = Product::with('subcategories','pro_images','categories')
 					->get();
 			return $data;

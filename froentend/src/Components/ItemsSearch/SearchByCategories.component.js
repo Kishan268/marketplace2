@@ -33,22 +33,24 @@ class SearchByCategories extends Component{
                             <div class="category-module uren-sidebar_categories">
                                 <div class="category-module_heading">
                                     <h5>Categories ({subcategoryData ? subcategoryData.categories[0].catg_name : ''})</h5>
+                                    <Link to={`/Items/all-products`}>Get all product list</Link>
                                 </div>
                                 <div class="module-body">
                                     <ul class="module-list_item">
+
                        			 	{subcategoryData ? subcategoryData.subcategories.map((subcategory,index)=>(
 
                                         <li>
-                                            <a href="javascript:void(0)">{subcategory.catg_name} <span>()</span></a>
+                                            <a href="javascript:void(0)">{subcategory.catg_name} <span>(0)</span></a>
                                             
-                                            <ul class="module-sub-list_item">
+                                          {/*  <ul class="module-sub-list_item">
 
-                                                <li>
-                                                    <a href="javascript:void(0)"> -<span>()</span></a>
-                                                    
-                                                </li>
-                                                
-                                            </ul>
+                                              <li>
+                                                  <a href="javascript:void(0)"> -<span>(0)</span></a>
+                                                  
+                                              </li>
+                                              
+                                          </ul>*/}
                                         </li>
                                         )):''}
                                        {/* <li>
