@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {PureComponent} from 'react'
 import LoginComponent from './Login.component';
 
 import {connect} from 'react-redux';
@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
     updateCart: (token) => dispatch(fetchCart(token))
 })
 
-class Login extends Component{
+class Login extends PureComponent{
 
 	state = {
 		redirect: false,
@@ -94,4 +94,4 @@ class Login extends Component{
 	}
 }
 
-export default withRouter (connect(mapStateToProps,mapDispatchToProps)(Login));
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

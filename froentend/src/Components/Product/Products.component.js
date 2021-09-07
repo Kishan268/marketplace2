@@ -21,6 +21,7 @@ class Products extends Component{
         const{products,addToCart,addWishList,user_information,closeBideModel,get_template} = this.props
         var templates = get_template.data
         // var templates = templates[1].pro
+
         return (
             <>
             <div class="uren-product_area">

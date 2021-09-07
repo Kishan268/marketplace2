@@ -36,8 +36,9 @@ render(){
         <>
           {this.loginForm()}  
         </>
-      )
-  }
+
+			)
+	}
 }
 
 

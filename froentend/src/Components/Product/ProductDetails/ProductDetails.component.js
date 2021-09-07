@@ -63,6 +63,7 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 
 	render(){
 	 		const{user_information,place,ChatWithSeller,closeBideModel,LoginModelOpen,products,productsImg,userDetails,addToCartHandler,addAndRemoveProduct,isRemove,showError,handleClickOpenBuyNow,isopen,placeBidClickOpen,popupStatus} = this.props
+	 		// const{closeBideModel,LoginModelOpen,products,productsImg,userDetails,addToCartHandler,addAndRemoveProduct,isRemove,showError,handleClickOpenBuyNow,isopen,placeBidClickOpen,popupStatus} = this.props
 	 		const API_URL = 'http://3.20.234.60/storage/'
 	 		const{bid_option} = products
 	 		const { latitude, longitude } = this.state

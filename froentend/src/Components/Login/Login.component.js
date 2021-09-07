@@ -114,6 +114,7 @@ class Login extends Component{
                         {
                           /*<a  href="http://localhost:8000/login" className="btn btn-secondary btn-lg btn-block"  size="lg">Sing Up</a>*/
                         }
+
                       </div>
                     </div>
                 </div>

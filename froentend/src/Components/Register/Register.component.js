@@ -36,6 +36,7 @@ class Rgister  extends Component {
 			                       	{/*<a onClick={(()=>this.handleClickOpen())} className="btn btn-primary btn-lg btn-block"  size="lg">Personal use</a>*/}
 			                 		<a href="http://localhost:8000/login"  className="btn btn-primary btn-lg btn-block"  size="lg" target="_blank"> Sing In</a>
 			                 		<a href="http://localhost:8000/register"  className="btn btn-secondary btn-lg btn-block"  size="lg" target="_blank"> Sing Up</a>
+
 			                       </div>
 			                       <div className="row mt-2">
 									 <span>Already have an account? </span>
