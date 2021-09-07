@@ -67,7 +67,7 @@ class SearchByCategories extends Component{
                                     </ul>
                                 </div>
                             </div>
-                            <div class="uren-sidebar_categories">
+                            {/*<div class="uren-sidebar_categories">
                                 <div class="uren-categories_title">
                                     <h5>Price</h5>
                                 </div>
@@ -81,8 +81,8 @@ class SearchByCategories extends Component{
                                         <button type="button">Filter</button> 
                                     </div>
                                 </div>
-                            </div>
-                            <div class="uren-sidebar_categories">
+                            </div>*/}
+{/*                            <div class="uren-sidebar_categories">
                                 <div class="uren-categories_title">
                                     <h5>Color</h5>
                                 </div>
@@ -122,15 +122,15 @@ class SearchByCategories extends Component{
                                         <a href="javascript:void(0)">Walton <span>(0)</span></a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div>*/}
                         </div>
-                        <div class="sidebar-banner_area">
+                        {/*<div class="sidebar-banner_area">
                             <div class="banner-item img-hover_effect">
                                 <a href="javascript:void(0)">
                                     <img src="assets/images/shop/1.jpg" alt="Uren's Shop Banner Image" />
                                 </a>
                             </div>
-                        </div>
+                        </div>*/}
                     </div>
                     <div class="col-lg-9 col-md-7 order-1 order-lg-2 order-md-2">
                        {/* <div class="shop-toolbar">
