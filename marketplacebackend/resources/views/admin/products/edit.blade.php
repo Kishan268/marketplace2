@@ -16,6 +16,7 @@
 			            </div>
 			        	@endif
 					</div>
+        			 <div class="card-body">
 					<form action="{{route('products.update',$product->pro_id)}}" method="post" autocomplete="off" enctype="multipart/form-data">
 						@csrf
 						@method('PUT')
@@ -274,6 +275,7 @@
 		    			</div>
 		    		</div>
 		    	</form>
+				</div>
 				</div>
 			</div>		
 		</div> 

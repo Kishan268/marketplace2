@@ -11,14 +11,8 @@ import { Modal, Button } from 'antd';
 import RegisterComponent from '../Register/UserRegister/UserRegister.container.js'
 
 class Rgister  extends Component {
-	 constructor(props) {
-        super(props);
-
-        this.state = {
-            isopen : false
-        };
-
-        this.handleClickOpen = this.handleClickOpen.bind(this);
+    state = {
+        isopen : false
     }
 
     handleClickOpen(){ 
@@ -26,7 +20,7 @@ class Rgister  extends Component {
     } 
    
 	render(){
-		const {closeBideModel} = this.props
+	const {closeBideModel} = this.props
 	return (
 			<>
 				<div className="container">
@@ -39,12 +33,13 @@ class Rgister  extends Component {
 			                  <span>What's the main purpose for the account you're creating?</span>
 			                    <div class="top-form top-form-minicart flashmart-minicart2 mt-3">
 			                      <div class="top-minicart-icon ">
-			                       	<a onClick={(()=>this.handleClickOpen())} className="btn btn-primary btn-lg btn-block"  size="lg">Personal use</a>
-			                 		<a href="http://localhost:8000/register"  className="btn btn-secondary btn-lg btn-block"  size="lg"> Business membership</a>
+			                       	{/*<a onClick={(()=>this.handleClickOpen())} className="btn btn-primary btn-lg btn-block"  size="lg">Personal use</a>*/}
+			                 		<a href="http://localhost:8000/login"  className="btn btn-primary btn-lg btn-block"  size="lg" target="_blank"> Sing In</a>
+			                 		<a href="http://localhost:8000/register"  className="btn btn-secondary btn-lg btn-block"  size="lg" target="_blank"> Sing Up</a>
 			                       </div>
 			                       <div className="row mt-2">
 									 <span>Already have an account? </span>
-									 <Link to="/login">Log In</Link>
+									 <Link to="/login">Sing In</Link>
 								 </div>
 			                    </div>
 			                </div>

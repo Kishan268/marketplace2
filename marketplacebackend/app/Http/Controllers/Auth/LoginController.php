@@ -48,6 +48,7 @@ class LoginController extends Controller
         if (!empty($getUser)) {
             if($getUser->user_role == 4 || $getUser->user_role == 1 || $getUser->user_role == 2 && (!empty($getUser->email_verified_at)) ){
                 if($getUser->status!="P"){
+                    user::where('id',$getUser->id)->update(['online_status'=>1]);
                     if (method_exists($this, 'hasTooManyLoginAttempts') &&
                         $this->hasTooManyLoginAttempts($request)) {
                         $this->fireLockoutEvent($request);

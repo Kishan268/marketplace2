@@ -1,14 +1,14 @@
 import {Component} from 'react'
 import ProductsComponent from './Products.component';
 import {connect} from 'react-redux'
-// import axios from 'axios';
+import axios from 'axios';
 import {addToCart} from '../../store/addToCart/addToCart.action.js'
 import {withRouter} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import axios from '../../Utils/axios.config.js'
+// import axios from '../../Utils/axios.config.js'
 
 const mapStateToProps=state=>({
     data:state.cardItems
@@ -24,7 +24,8 @@ class ProductsContainer extends Component{
 	state = {
 		products:[],
 		addWishList:'',
-		user_information:''
+		user_information:'',
+		get_template:''
 	}
 
 	async getProducts(){
@@ -73,6 +74,14 @@ class ProductsContainer extends Component{
           return error
       })
     }
+    async getTemplate(){
+        var userInfo=await axios.get(`/get_template/`).then((res)=>{
+       this.setState({get_template:res.data})	
+        return res.data
+      }).catch((error)=>{
+          return error
+      })
+    }
 	addWishList(data){
         var token= localStorage.getItem('token');
         if (token) {
@@ -101,6 +110,7 @@ class ProductsContainer extends Component{
 	componentDidMount(){
 		this.getProducts();
 		this.getUserInfo();
+		this.getTemplate();
 	}
 	closeBideModel(){
 		this.setState({
@@ -110,11 +120,10 @@ class ProductsContainer extends Component{
 
 	
 	render(){
-		const{products,cart,addWishList,user_information} = this.state
+		const{products,cart,addWishList,user_information,get_template} = this.state
 		if(!products){
 			return 	<Loader />
 		}
-
 		return (
 				<>
 					<ProductsComponent

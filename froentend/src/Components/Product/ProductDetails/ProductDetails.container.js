@@ -1,5 +1,7 @@
 import {Component} from 'react'
 import ProductDetailsComponent from './ProductDetails.component.js';
+import './ProductDetails.css'
+
 import {connect} from 'react-redux'
 import { Redirect,withRouter } from 'react-router-dom';
 
@@ -34,6 +36,7 @@ class ProductDetails extends Component{
 		isopen : false,
 		showError:'',
 		popupStatus:'',
+		user_information:{},
 	}
 		
     handleClickOpenBuyNow(data){
@@ -53,6 +56,9 @@ class ProductDetails extends Component{
 
     LoginModelOpen(data){
 		 this.setState({isopen:true,popupStatus:"login_form"})
+    } 
+    ChatWithSeller(data){
+		 this.setState({isopen:true,popupStatus:"chat_with_seller"})
     } 
 
 	async getProduct(){
@@ -131,6 +137,15 @@ class ProductDetails extends Component{
 
 		await this.setState({products,isRemove,showError});
 	}
+	async getUserInfo (){
+        var token= localStorage.getItem('token');
+        var userInfo=await axios.get(`/get_user_info/${token}`).then((res)=>{
+        return res.data
+      }).catch((error)=>{
+          return error
+      })
+       	await this.setState({user_information:userInfo})	
+    }
 
 	closeBideModel(){
 		this.setState({
@@ -140,9 +155,14 @@ class ProductDetails extends Component{
 	componentWillMount(){
 		this.getProduct()
 	}
+	componentDidMount(){
+		this.getUserInfo()
+
+	}
 
 	render(){
-		const {isLoading,productData,isopen,LoginModelOpen} = this.state
+		const {isLoading,productData,isopen,LoginModelOpen,ChatWithSeller} = this.state
+		// console.log(this.state)
 		if(isLoading){
 			return (
 					<div>Loading</div>
@@ -159,6 +179,7 @@ class ProductDetails extends Component{
 						placeBidClickOpen = {this.placeBidClickOpen.bind(this)}
 						closeBideModel = {this.closeBideModel.bind(this)}
 						LoginModelOpen = {this.LoginModelOpen.bind(this)}
+						ChatWithSeller = {this.ChatWithSeller.bind(this)}
 					/>
 					  
 				</>

@@ -15,6 +15,7 @@
 				            </div>
 				        @endif
 						</div>
+        			 <div class="card-body">
 						<form action="{{route('category.update',$category1->catg_id)}}" method="post" autocomplete="off" enctype="multipart/form-data">
 							@csrf
 							@method('PUT')
@@ -26,6 +27,7 @@
 			    		</div>
 			    	</form>
 					</div>
+				</div>
 				</div>		
 			</div> 
 		</section>

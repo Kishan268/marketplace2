@@ -8,6 +8,7 @@ class BuyNow extends Component {
 	
 	state={
 		user_information:'',
+		get_shipping_address:'',
 		redirect: false,
 		isopen : false
 	}
@@ -16,75 +17,80 @@ class BuyNow extends Component {
 	getUserInformation(){
 		 const token = localStorage.getItem('token');
          var result= axios.get(`/get_user_info/${token}`).then((res)=>{
-         	this.setState({
-						user_information:res.data
-					})
-
+         	this.setState({user_information:res.data})
 			return res.data
 		}).catch((error)=>{
 			console.log(error)
 		});
 	}
     
-  	 componentDidMount() {
+  	componentDidMount() {
      	this.getUserInformation()
   	}
-  	 handleClickOpen(){ 
+  	handleClickOpen(){ 
         this.setState({isopen:true})
-    } 
-  	billingAddress(event){
-		const{handleClickOpen,closeBideModel} = this.props
-		event.preventDefault()
+   } 
+  	billingAddress(values){
+		const{handleClickOpen,closeBideModel,products} = this.props
 		 const token = localStorage.getItem('token');
-		// if (event.target.address_type.value =="default_address") {
-			var data= {
-				user_id:event.target.user_id.value,
-				product_id:event.target.product_id.value,
-				type_of_shiping:event.target.type_of_shiping.value,
-				order_type:event.target.order_type.value,
-				token:token,
-			
-			}
-		console.log(data)
-		// }
-		/*else{
-			var data= {
-				user_id:event.target.user_id.value,
-				product_id:event.target.product_id.value,
-				quantity:event.target.quantity.value,
-				f_name:event.target.f_name.value,
-				l_name:event.target.l_name.value,
-				country:event.target.country.value,
-				city:event.target.city.value,
-				state:event.target.state.value,
-				zip_code:event.target.zip_code.value,
-				email:event.target.email.value,
-				phone_no:event.target.phone_no.value,
-				alternative_phone_no:event.target.alternative_phone_no.value,
-				notes:event.target.notes.value,
-				address_type:'custome_address',
-				type_of_shiping:event.target.type_of_shiping.value,
-				order_type:event.target.order_type.value,
-				token:token,
-			
-			}
-			
-		}*/
+		var data= {
+          address_id:values.address_id,
+          type_of_shiping:values.type_of_shiping,
+          product_id:products.pro_id,
+          order_type:'buy_now',
+          token:token,
+      }
 		var result= axios.post('/createOrder/',data).then((res)=>{
-
 			toast(res.data.data);
 			closeBideModel()
 			this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
 			return res.data
 		}).catch((error)=>{
 			toast.error(error);
-
 			console.log(error)
-		});			
+		});
 				
 	}
+	getShippingAddress(){
+     	const {cardData} = this.props
+     	var token= localStorage.getItem('token');
+     	var result = axios.post(`/get_shipping_address/`,{token:token}).then((res)=>{
+       this.setState({get_shipping_address:res.data}) 
+       return res.data    
+      }).catch((error)=>{
+          return error
+      })
+   }	
+   closeBideModel(){
+        this.setState({
+            isopen:false
+        })
+        this.getShippingAddress()
+        
+    }
+    deleteAddress(id){
+        var token = localStorage.getItem('token')
+        var datas={
+            token:token,
+            address_id:id
+        }
+        var token= localStorage.getItem('token');
+        var result = axios.post(`/delete_address/`,datas).then((res)=>{
+            this.getShippingAddress()
+            toast(res.data.data);
+            return res.data
+      }).catch((error)=>{
+          return error
+      })
+    }
+     async componentDidMount(){
+        this.getShippingAddress();
+    }
+    addressModelOpen(){
+        this.setState({isopen:true,popupStatus:"address"})
+    }
     render(){
-    		const {isopen,user_information} = this.props;
+    		const {isopen,user_information,get_shipping_address} = this.props;
             return(
                <>
                 <BuyNowComponent
@@ -92,12 +98,14 @@ class BuyNow extends Component {
                 	{...this.state}
 						billingAddress = {this.billingAddress.bind(this)}
 						handleClickOpen = {this.handleClickOpen.bind(this)}
+						closeBideModel={this.closeBideModel.bind(this)}
+		            getShippingAddress={this.getShippingAddress.bind(this)}
+		            deleteAddress={this.deleteAddress.bind(this)}
+		            addressModelOpen={this.addressModelOpen.bind(this)}
                  />
 					<ToastContainer />
                </>
-
-                	
-            )
+         )
     }
 }
 

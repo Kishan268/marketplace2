@@ -21,8 +21,21 @@ class NavbarSection extends PureComponent {
     
 	render(){
         
-         const{isLogin,isopen,logOut,myAccount,handleClickOpen,LoginModelOpen,popupStatus,SignUpModelOpen,closeBideModel} = this.props
-         const tokenStorage = localStorage.getItem('token');
+         const{
+            isLogin,
+            isopen,
+            logOut,
+            myAccount,
+            handleClickOpen,
+            LoginModelOpen,
+            popupStatus,
+            SignUpModelOpen,
+            closeBideModel,
+            user_information
+        } = this.props
+        const userName = user_information ? user_information.name : 'sads'
+        // console.log(user_information)
+        const tokenStorage = localStorage.getItem('token');
 		return(
             <>
 
@@ -85,11 +98,13 @@ class NavbarSection extends PureComponent {
                                          </div>
                                      </div>*/}
                                     <ul>
+                                    
                                     {
                                     isLogin ?
                                      <div class="top-login3" >
+                                     
                                          <Nav>
-                                            <NavDropdown title={'Admin'} style={{textColor:'white'}}>
+                                            <NavDropdown title={userName} style={{textColor:'white'}}>
                                                 <NavDropdown.Item onClick={(()=>logOut())}>Logout</NavDropdown.Item>
                                                 <NavDropdown.Item onClick={()=>{myAccount()}} >Profile</NavDropdown.Item>
                                             </NavDropdown>
@@ -98,15 +113,15 @@ class NavbarSection extends PureComponent {
                                     </div> :
                                         <li>
 
-                                        <a>Login/SingUp<i className="fa fa-chevron-down"></i></a>
+                                        <a>Sing In/Sing Up<i className="fa fa-chevron-down"></i></a>
                                             <ul className="ht-dropdown ht-my_account dropleft">
                                                 <li className="active">
-                                                    <a  onClick={()=>{LoginModelOpen()}}>User</a>
+                                                    <a  onClick={()=>{LoginModelOpen()}}>Personal Use</a>
                                                  {/*   <Link to='/login'>Sing In</Link>*/}
 
                                                 </li>
                                                 <li>
-                                                    <a  onClick={()=>{SignUpModelOpen()}}>Merchant</a>
+                                                    <a  onClick={()=>{SignUpModelOpen()}}>Business Account</a>
                                                      {/*<Link to='/register'>Merchant</Link>*/}
 
                                                 </li>
@@ -125,7 +140,7 @@ class NavbarSection extends PureComponent {
                     width="500px"
                     margin-left="-100px"
                     isopen= {isopen}
-                    title= {popupStatus == 'loginModel' ? 'Login' : 'SignUp'}
+                    title= {popupStatus == 'loginModel' ? 'Personal Use' : 'Business Account'}
                     content = { popupStatus == 'loginModel' ? <LoginComponent {...this.props}/> : <UserRegisterComponent />} 
                 />
              

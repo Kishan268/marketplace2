@@ -17,7 +17,8 @@ class Checkout extends Component {
     state = {
         isopen : false,
         user_information : '',
-        orderDetails:{}
+        orderDetails:{},
+        get_shipping_address:{}
     };
     async getUserInfo (){
         var token= localStorage.getItem('token');
@@ -47,63 +48,72 @@ class Checkout extends Component {
         // this.props.history.push('/')
         window.location.href = '/'
     }
-    billingAddress(event){
+    billingAddress(values){
         const{handleClickOpen,closeBideModel,getCartData} = this.props
-        event.preventDefault()
-        
-         const token = localStorage.getItem('token');
-        // if (event.target.address_type.value =="default_address") {
-            var data= {
-                cart_id:event.target.cart_id.value,
-                order_type:event.target.order_type.value,
-                type_of_shiping:event.target.type_of_shiping.value,
-                token:token,
-            }
-            console.log(data)
-       /* }else{
-            var data= {
-                quantity:event.target.quantity.value,
-                f_name:event.target.f_name.value,
-                l_name:event.target.l_name.value,
-                country:event.target.country.value,
-                city:event.target.city.value,
-                state:event.target.state.value,
-                zip_code:event.target.zip_code.value,
-                email:event.target.email.value,
-                phone_no:event.target.phone_no.value,
-                alternative_phone_no:event.target.alternative_phone_no.value,
-                notes:event.target.notes.value,
-                address_type:'custome_address',
-                type_of_shiping:event.target.type_of_shiping.value,
-                cart_id:event.target.cart_id.value,
-                token:token,
-            
-            }
-            
-        }*/
+        const token = localStorage.getItem('token');
+        var data= {
+            address_id:values.address_id,
+            type_of_shiping:values.type_of_shiping,
+            token:token,
+        }
         var result= axios.post('/createOrder/',data).then((res)=>{
             closeBideModel()
             getCartData()
             toast(res.data.data);
-            this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
+            // this.timeout = setTimeout(() => this.setState({ redirect: true }), 5000);
             return res.data
         }).catch((error)=>{
             toast.error(error);
-
             console.log(error)
         });         
                 
     }
+    addressModelOpen(){
+        this.setState({isopen:true,popupStatus:"address"})
+    }
 
+    getShippingAddress(){
+        const {cardData} = this.props
+        const {user_id} =cardData
+        var token= localStorage.getItem('token');
+        var result = axios.post(`/get_shipping_address/`,{token:token}).then((res)=>{
+       this.setState({get_shipping_address:res.data})       
+      }).catch((error)=>{
+          return error
+      })
+    }
     async componentWillMount(){
         const{fetchCart} = this.props
         var token = localStorage.getItem('token')
         fetchCart(token)
         this.getUserInfo();
+        this.getShippingAddress();
+    }
+
+    closeBideModel(){
+        this.setState({
+            isopen:false
+        })
+        this.getShippingAddress()
+    }
+    deleteAddress(id){
+        var token = localStorage.getItem('token')
+        var datas={
+            token:token,
+            address_id:id
+        }
+        var token= localStorage.getItem('token');
+        var result = axios.post(`/delete_address/`,datas).then((res)=>{
+            this.getShippingAddress()
+            toast(res.data.data);
+            return res.data
+      }).catch((error)=>{
+          return error
+      })
     }
 
     render(){
-		const{cartData,user_information} = this.props
+		const{cardData,user_information,popupStatus,get_shipping_address} = this.props
         return(
            <>
             <CheckoutComponent 
@@ -112,6 +122,11 @@ class Checkout extends Component {
              checkOut={this.checkOut.bind(this)}
              continueShoping={this.continueShoping.bind(this)}
              billingAddress={this.billingAddress.bind(this)}
+             addressModelOpen={this.addressModelOpen.bind(this)}
+             closeBideModel={this.closeBideModel.bind(this)}
+             getShippingAddress={this.getShippingAddress.bind(this)}
+             deleteAddress={this.deleteAddress.bind(this)}
+
             />
             <ToastContainer />
            </>

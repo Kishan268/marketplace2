@@ -53,6 +53,8 @@ class UserController extends Controller
                 ], 404);
             }
         	if ($user->email_verified_at !=null && $user->user_role ==3) {
+                    User::where('id',$user->id)->update(['online_status'=>1]);
+
 	            // $token = $user->createToken('my-app-token')->plainTextToken;
                 $token = $user->createToken($this->generateRandomString())->accessToken;
 	            $response = [

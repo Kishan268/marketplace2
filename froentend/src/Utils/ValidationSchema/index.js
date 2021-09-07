@@ -36,34 +36,23 @@ export const SignupSchema = Yup.object().shape({
     }),
      
   });
-export const billingAddressForm = Yup.object().shape({
+export const ProfileSchema = Yup.object().shape({
     f_name: Yup.string()
       .max(50, 'Too Long!')
       .required('Please Enter First Name!'),
     l_name: Yup.string()
     .max(50, 'Too Long!')
     .required('Please Enter Last Name!'),
-    dob: Yup.string().required('Please Enter Date of Birth!'),
-     // gender: Yup.string().required('Select the Gender!'),
-    address: Yup.string().required('Please Enter Address!'),
-    // city: Yup.string().required('Please Select City!'),
-    // district_town: Yup.string().required('Please Select District!'),
-    // state: Yup.string().required('Please Select State!'),
-    // country: Yup.string().required('Please Select Country!'),
-    phone_no: Yup.string()
-    .min(10, 'Mobile Number should be 10 digits!')
-    .max(12, 'Mobile Number should be 10 digits!')
-    .required('Please Enter 10 digits mobile number!'),
-    zip: Yup.string()
-    .min(5, 'Zip Code should be 5 digits!')
-    .max(10, 'Zip Code should be 10 digits!')
-    .required('Please Zip Code!'),
     email: Yup.string().email('Invalid email').required('Please enter email!'),
-    password: Yup.string()
+    current_password: Yup.string()
     .min(6, 'Too Short!')
     .max(15, 'Too Long!')
-    .required('Please enter password!'),
-    password_confirmation: Yup.string().when("password", {
+    .required('Please enter current password!'),
+    new_password: Yup.string()
+    .min(6, 'Too Short!')
+    .max(15, 'Too Long!')
+    .required('Please enter new password!'),
+    confirm_password: Yup.string().when("password", {
     is: val => (val && val.length > 0 ? true : false),
     then: Yup.string().oneOf(
       [Yup.ref("password")],
@@ -72,13 +61,47 @@ export const billingAddressForm = Yup.object().shape({
     }),
      
   });
+export const billingAddressForm = Yup.object().shape({
+    full_name: Yup.string()
+      .max(50, 'Too Long!')
+      .required('Please Enter Full Name!'),
+     // gender: Yup.string().required('Select the Gender!'),
+    address: Yup.string().required('Please Enter Address!'),
+    city: Yup.string().required('Please Select City!'),
+    // district_town: Yup.string().required('Please Select District!'),
+    state: Yup.string().required('Please Select State!'),
+    // country: Yup.string().required('Please Select Country!'),
+    email: Yup.string().email('Invalid email').required('Please enter email!'),
+
+    phone_no: Yup.string()
+    .min(10, 'Mobile Number should be 10 digits!')
+    .max(12, 'Mobile Number should be 10 digits!')
+    .required('Please Enter 10 digits mobile number!'),
+    zip: Yup.string()
+    .min(5, 'Zip Code should be 5 digits!')
+    .max(10, 'Zip Code should be 10 digits!')
+    .required('Please Zip Code!'),
+    
+     
+  });
 
   export const LoginSchema = Yup.object().shape({
-     email: Yup.string().email('Invalid email').required('Please enter email!'),
+    email: Yup.string().email('Invalid email').required('Please enter email!'),
     password: Yup.string()
       .min(6, 'Password length must be 8!')
       .max(15, 'Your password will hold 15 number or character!')
       .required('Please Enter Password!'), 
+  });
+  export const SellerChatSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Please enter email!'),
+    name: Yup.string().required('Please enter your name!'),
+    message: Yup.string().required('Please enter your message!'),
+ 
+  });
+ export const CheckOutSchema = Yup.object().shape({
+    address_id: Yup.string().required('Please Select Address!'),
+    type_of_shiping: Yup.string().required('Please Select Payment Methode!'),
+
   });
 
   export const OtpSchema = Yup.object().shape({

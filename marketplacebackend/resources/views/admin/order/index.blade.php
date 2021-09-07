@@ -14,12 +14,13 @@
 			        	@endif
 						{{-- <a href="{{route('products.create')}}"class="btn btn-primary pull-right  btn-sm">Add</a> --}}
 					</div>
+					<div class="card-body"> 
 						<div class="table-responsive">
 							<table id="complex_header" class="table table-striped table-bordered display" style="width:100%" role="grid" aria-describedby="example1_info">
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Invoice Number</th>
+										<th>Order ID</th>
 										<th>Date</th>
 										<th>Customer Name</th>
 										<th>Location</th>
@@ -35,9 +36,9 @@
 									<tr>
 										<td>{{$count++}}</td>
 										<td>{{$order->invoice_number}}</td>
-										<td>{{$order->creatd_at}}</td>
+										<td>{{$order->created_at}}</td>
 										<td>{{$order->get_user ? $order->get_user->f_name:''}}-{{$order->get_user ? $order->get_user->l_name:''}}</td>
-										<td>{{$order->get_user ? $order->get_user->city:''}},{{$order->get_user ? $order->get_user->state:''}},{{$order->get_user ? $order->get_user->zip:''}},{{$order->get_user ? $order->get_user->country:''}}</td>
+										<td>{{$order->get_user ? $order->get_user->city:''}}&nbsp;{{$order->get_user ? $order->get_user->state:''}}&nbsp;{{$order->get_user ? $order->get_user->zip:''}}&nbsp;{{$order->get_user ? $order->get_user->country:''}}</td>
 										<td>${{$order->amount}}</td>
 										<td>{{$order->total_item}}</td>
 										<td><span class="badge badge-pill badge-primary-light">New Order</span></td>
@@ -51,6 +52,8 @@
 													<a class="dropdown-item" href="#">Accept Order</a>
 													<a class="dropdown-item" href="#">Reject Order</a>
 												  </div>
+												 
+												  <a href="{{route('order.show',$order->id)}}"> &nbsp;<i class="fa fa-eye" title="Show Details"></i></a>
 											    </div>
 								           {{--  <a href="{{route('order_destroy',$order->pro_id)}}" class="bg-danger text-white p-2 ml-2 rounded-circle" title="Delete" onclick="return confirm('Are you sure you want to delete user?');"><i class="fa fa-trash"></i></a>  --}}
 											
@@ -61,6 +64,7 @@
 								</tbody>
 							</table>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>

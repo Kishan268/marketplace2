@@ -77,7 +77,8 @@ class CartsRepository extends EloquentRepository{
 	public function getCartData(){
 
 		$userId = Auth::guard('api')->user()->id;
-		$data= Cart::with('cart_items','cart_items.products_detail')->where('user_id',$userId)->first();
+		$data= Cart::with('cart_items','cart_items.products_detail.pro_images')->where('user_id',$userId)->first();
+		return $data;
 		// if()
 		if($data === null){
 			return false;

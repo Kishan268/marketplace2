@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Category;
 use DB;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\Api\WishListResource;
 
 
 class WishListApiRepository extends EloquentRepository{
@@ -35,7 +36,10 @@ class WishListApiRepository extends EloquentRepository{
 
 	public function getWishList(){
 		$userId = Auth::guard('api')->user()->id;
-		return WishList::where('user_id',$userId)->with('get_products')->get();
+		return $data =  WishList::where('user_id',$userId)->with('get_products.pro_images')->get();
+		// return $data;
+		 return $res = WishListResource::collection($data);
+
 	}
 	public function deleteWishlistItem($id){
 		return WishList::find($id)->delete();

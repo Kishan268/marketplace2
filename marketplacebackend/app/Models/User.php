@@ -56,4 +56,7 @@ class User extends Authenticatable
     public function order_details(){
         return $this->hasMany(Order::class,'user_id','id');
     }
+    // public function get_users(){
+    //     return $this->hasMany(ChatWithSeller::class,'user_id');
+    // }
 }

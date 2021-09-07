@@ -10,6 +10,7 @@ import Popup from '../Popup/Popup.container.js'
 import ReCAPTCHA from "react-google-recaptcha";
 import { Formik, Form, Field } from 'formik';
 import {LoginSchema} from '../../Utils/ValidationSchema/index.js'
+import RegisterComponent from '../Register/UserRegister/UserRegister.container.js'
 
 class Login extends Component{
   constructor(props){
@@ -61,7 +62,7 @@ class Login extends Component{
                               <p style={{color:"red",fontSize:"14px"}}>{errors.email}</p>
                           </div>
                           <div className="col-md-12 form-group error-div">
-                            <label for="email">Email:</label>
+                            <label for="Password">Password:</label>
                               <Field  
                               type="password" 
                               name="password"
@@ -70,7 +71,7 @@ class Login extends Component{
                               <p style={{color:"red",fontSize:"14px"}}>{errors.password}</p>
                           </div>
                           <div className="col-md-12 mt-4 form-group">
-                            <input type="checkbox" />Remember Me
+                            <input type="checkbox" />&nbsp;Remember Me
                           </div>
                           <div className="col-md-12 mt-4 form-group">
                             <ReCAPTCHA
@@ -94,7 +95,7 @@ class Login extends Component{
     }
 
 	render(){
-    const {handleClickOpen,isopen,isVerified,closeBideModel} = this.props
+    const {handleClickOpen,isopen,isVerified,closeBideModel,SingUpOpen,popupStatus} = this.props
 
 		return (
 				<>
@@ -108,8 +109,11 @@ class Login extends Component{
                   <span>What's the main purpose for the account you're creating?</span>
                     <div class="top-form top-form-minicart flashmart-minicart2 mt-3">
                       <div class="top-minicart-icon ">
-                        <a onClick={(()=>handleClickOpen())}  className="btn btn-primary btn-lg btn-block"  size="lg">Personal use</a>
-                        <a  href="http://localhost:8000/login" className="btn btn-secondary btn-lg btn-block"  size="lg">Business membership</a>
+                        <a onClick={(()=>handleClickOpen())}  className="btn btn-primary btn-lg btn-block"  size="lg">Sing In</a>
+                        <a onClick={(()=>SingUpOpen())}  className="btn btn-secondary btn-lg btn-block"  size="lg">Sing Up</a>
+                        {
+                          /*<a  href="http://localhost:8000/login" className="btn btn-secondary btn-lg btn-block"  size="lg">Sing Up</a>*/
+                        }
                       </div>
                     </div>
                 </div>
@@ -117,9 +121,9 @@ class Login extends Component{
 						</div>
 					</div>
 				  <Popup
-            title="User Sign In" 
+            title={popupStatus=="sing_up_open"? "User Sing Up" :"User Sing In"} 
             isopen= {isopen}
-            content = {this.loginForm(this.props)}  
+            content = {popupStatus=="sing_up_open"?<RegisterComponent/> : this.loginForm(this.props)}  
           />
                   
 			</>

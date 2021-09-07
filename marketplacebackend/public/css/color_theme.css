@@ -8480,7 +8480,7 @@ Theme Danger Color
 .theme-danger .hover-success:hover, .theme-danger .hover-success:focus {
   color: #01b075 !important; }
 .theme-danger .text-danger {
-  color: #2d9bda !important; }
+  color: red !important; }
 .theme-danger a.text-danger:hover, .theme-danger a.text-danger:focus {
   color: #2d9bda !important; }
 .theme-danger .hover-danger:hover, .theme-danger .hover-danger:focus {

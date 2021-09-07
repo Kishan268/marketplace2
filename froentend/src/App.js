@@ -5,7 +5,7 @@ import {
     Route,
     browserHistory
   } from "react-router-dom";
-  import Loader from './Loader'
+  // import Loader from './Loader'
 
 import HeaderContainer from './containers/HeaderContainer'
 import HomeContainer from './containers/HomeContainer'
@@ -32,12 +32,17 @@ import WishListComponent from './Components/WishList/WishList.container.js'
 import ItemSearchComponent from './Components/ItemsSearch/SearchByCategories.container.js'
 import './App.css';
 import { StickyContainer, Sticky } from 'react-sticky';
-
-
+import OrderDetailsComponent from './Components/MyAccount/OrderDetails/OrderDetails.container.js'
+import TemplateProductsComponent from './Components/TemplateProducts/TemplateProducts.container.js'
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+// import axios from '../../Utils/axios.config.js'
 class App extends PureComponent {
 
   render(){  
     // console.log(this.props)
+            // return  <Loader />
+    
     return (
       <>
           <div class="main-wrapper">
@@ -48,23 +53,26 @@ class App extends PureComponent {
 
               <Route exact path="/">
                 <SlidebarSection />
-                <ShiphingAreaSectionComponent />
          
                 <ProductComponent />               
                 </Route>
                 <Route  exact path="/wish-list" > 
                 <WishListComponent /> 
                 </Route>
+               
+                <Route exact path="/order-details/:id" render={(props) => <OrderDetailsComponent {...props} /> }>
+            
+                </Route>
                 <Route  exact path="/Items/:id" render={(props) => <ItemSearchComponent {...props} /> } > 
                 </Route>
 
-               {/* <Route exact path="/login" >
-                                     <Protected Cmp={Login} />
-                                 </Route>
-                                 
-                                 <Route exact path="/register">
-                                     <RgisterComponent />
-                                 </Route> */}  
+               <Route exact path="/login" >
+                     <Protected Cmp={Login} />
+                 </Route>
+                 
+                 <Route exact path="/register">
+                     <RgisterComponent />
+                 </Route> 
                 <Route exact path="/user-register">
                     <UserRgisterComponent />
                 </Route>
@@ -72,6 +80,9 @@ class App extends PureComponent {
                     <UserLogin />
                 </Route>  
                 <Route exact path="/product-details/:id" render={(props) => <ProductDetailsComponent {...props} /> }>
+            
+                </Route>
+                <Route exact path="/search/:id" render={(props) => <TemplateProductsComponent {...props} /> }>
             
                 </Route>
                 

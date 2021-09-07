@@ -19,6 +19,11 @@ Route::get('/', function () {
 	
     return view('auth.login');
 });
+Route::get('/welcome', function () {
+    // return view('backend.home');
+    
+    return view('welcome');
+});
 Route::post("register",[UserController::class,'userRegister']);
 Route::get("verify/{token}",[App\Http\Controllers\VerifyController::class,'verifyUser']);
 
@@ -46,6 +51,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('category',App\Http\Controllers\Admin\master\CategoriesConroller::class);
 Route::resource('brands',App\Http\Controllers\Admin\master\BrandsController::class);
+Route::resource('template',App\Http\Controllers\Admin\master\TemplateController::class);
+Route::get('assign-products/{id}',[App\Http\Controllers\Admin\master\TemplateController::class,'assignProducts'])->name('assign_product');
+Route::post('assign-products',[App\Http\Controllers\Admin\master\TemplateController::class,'storeAssignProducts'])->name('store_assign_product');
+Route::delete('delete_assign_product/{id}',[App\Http\Controllers\Admin\master\TemplateController::class,'deleteAssignProduct'])->name('delete_assign_product');
 Route::resource('products',App\Http\Controllers\Admin\buyerseller\ProductController::class);
 Route::get('/product-status/{id}',[App\Http\Controllers\Admin\buyerseller\ProductController::class,'productStatus'])->name('product_status');
 Route::get('/product_approve/{id}',[App\Http\Controllers\Admin\buyerseller\ProductController::class,'productApprove'])->name('product_approve');
@@ -54,3 +63,5 @@ Route::resource('/buyerseller',App\Http\Controllers\Admin\buyerseller\BuyerSelle
 Route::get('/buyerseller_approve/{id}',[App\Http\Controllers\Admin\buyerseller\BuyerSellerController::class,'buyersellerAprove'])->name('buyerseller_approve');
 Route::get('/buyerseller_destroy/{id}',[App\Http\Controllers\Admin\buyerseller\BuyerSellerController::class,'buyerseller_destroy'])->name('buyerseller_destroy');
 Route::get('/orders',[App\Http\Controllers\OrdersController::class,'getOrder'])->name('orders');
+Route::get('/chat-with-user',[App\Http\Controllers\Admin\chatwithUser\ChatWithUserController::class,'chatWithUser'])->name('chat_with_user');
+Route::post('/user_messages',[App\Http\Controllers\Admin\chatwithUser\ChatWithUserController::class,'userMessages'])->name('user_messages');

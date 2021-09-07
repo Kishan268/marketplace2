@@ -23,7 +23,13 @@ class OrdersRepository extends EloquentRepository{
 	public function getOrder(){
          
         $user = Auth::user()->user_role;
+		if($user == 1){
+		$order =  Orders::with('get_order_items.get_product','get_user')->get();
+			
+		}else{
 		$order =  Orders::where('seller_id', Auth::user()->id)->with('get_order_items.get_product','get_user')->get();
+
+		}
 		// dd($order[0]->get_user->f_name);
 		return $order;
 

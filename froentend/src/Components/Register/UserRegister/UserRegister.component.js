@@ -68,7 +68,7 @@ class UserRegister extends Component {
 			               <div className="col-md-12 form-group">
 			                 <h3 className="font-weight-bold f-14">Personal Information</h3>
 			               </div>
-			               	<div className="col-md-6 form-group error-div">
+			               	<div className="col-md-3 form-group error-div">
 			                  <label>First Name:</label>
 			                  <Field 
 										    	type="text" 
@@ -78,7 +78,7 @@ class UserRegister extends Component {
                         <p style={{color:"red",fontSize:"14px"}}>{errors.f_name}</p>
 
 			               </div> 
-			                <div className="col-md-6 form-group error-div">
+			                <div className="col-md-3 form-group error-div">
 			                  <label>Last Name:</label>
 			                  <Field 
 										    	type="text" 
@@ -88,7 +88,7 @@ class UserRegister extends Component {
                         <p style={{color:"red",fontSize:"14px"}}>{errors.l_name}</p>
 
 			               </div> 
-			               <div className="col-md-6 form-group error-div">
+			               <div className="col-md-3 form-group error-div">
 			                  <label>Date of Birth:</label>
 			                 <Field 
 									    	type="date" 
@@ -98,7 +98,7 @@ class UserRegister extends Component {
                         <p style={{color:"red",fontSize:"14px"}}>{errors.dob}</p>
 
 			               </div>
-			                <div className="col-md-6 form-group error-div">
+			                <div className="col-md-3 form-group error-div">
 			                  <label>Phone number</label>
 			                   <Field 
 										    	type="number" 
@@ -108,10 +108,10 @@ class UserRegister extends Component {
                         <p style={{color:"red",fontSize:"14px"}}>{errors.phone_no}</p>
 
 			               </div> 
-			                <div className="col-md-6 form-group error-div">
+			                <div className="col-md-3 form-group error-div">
 			                  <label>Gender: </label>
 			                    <Field as="select"  name="gender"  
-			                     className="form-control">
+			                     className="form-control form-control-lg">
 			                     <option value="">Select Gender</option>
 			                     <option value="Male">Male</option>
 							             <option value="Female">Female</option>
@@ -120,7 +120,7 @@ class UserRegister extends Component {
                         <p style={{color:"red",fontSize:"14px"}}>{errors.gender}</p>
 
 			               </div>
-			               <div className="col-md-6 form-group error-div">
+			               <div className="col-md-3 form-group error-div">
 			                   <label>Address:</label>
 			                   <Field 
 										    	type="text" 
@@ -132,22 +132,22 @@ class UserRegister extends Component {
 
 			               </div> 
 			              
-			                <div className="col-md-6 form-group error-div">
+			                <div className="col-md-3 form-group error-div">
 			                  <label> Select City: </label>
-			                  <Field as="select" name="city" className="form-control">
+			                  <Field as="select" name="city" className="form-control form-control-lg">
 			                  	<option value="">Select City</option>
 			                  	<option value="Kaikohe">Kaikohe</option>
 							          </Field>
                         <p style={{color:"red",fontSize:"14px"}}>{errors.city}</p>
 			               </div>
-			               {/*<div className="col-md-6 form-group error-div">
+			               {/*<div className="col-md-3 form-group error-div">
 			               			                <label> District: </label>
 			               			                  <Select options = {stateOptions} name="district_town" />
 			               			                <p style={{color:"red",fontSize:"14px"}}>{errors.district_town}</p>
 			               			              </div>*/}
-									   <div className="col-md-6 form-group error-div">
+									   <div className="col-md-3 form-group error-div">
 			                  <label> State: </label>
-			                  <Field as="select" name="state" className="form-control">
+			                  <Field as="select" name="state" className="form-control form-control-lg">
 			                  <option value="">Select State</option>
 			                  <option value="Auckland">Auckland</option>
 							            
@@ -155,9 +155,9 @@ class UserRegister extends Component {
 			                  <p style={{color:"red",fontSize:"14px"}}>{errors.state}</p>
 			               </div>
 										
-										<div className="col-md-6 form-group error-div">
+										<div className="col-md-3 form-group error-div">
 			                <label>Country: </label>
-			               	<Field as="select"  name="country" className="form-control">
+			               	<Field as="select"  name="country" className="form-control form-control-lg">
 	               				<option value="">Select Country</option>
 	               				<option value="NZ">NZ</option>
 
@@ -165,12 +165,12 @@ class UserRegister extends Component {
 			               
 			                <p style={{color:"red",fontSize:"14px"}}>{errors.country}</p>
 			             </div>
-								   <div className="col-md-6 form-group error-div">
+								   <div className="col-md-3 form-group error-div">
 			                <label for="zip">Zip Code:</label>
 			                <Field 
 								    	type="text" 
 								    	name="zip"
-								    	className="form-control form-control-lg" 
+								    	className="form-control form-control-lg " 
 								    	placeholder="Enter zip code" />
 			                <p style={{color:"red",fontSize:"14px"}}>{errors.zip}</p>
 					         </div>
@@ -180,7 +180,7 @@ class UserRegister extends Component {
 			                <hr />
 			             <h3 className="font-weight-bold f-14">Security Information</h3>
 			             </div>
-			              <div className="col-md-6 form-group error-div">
+			              <div className="col-md-3 form-group error-div">
 			                <label for="email">Email:</label>
 			                 <Field 
 									    	type="text" 
@@ -191,7 +191,7 @@ class UserRegister extends Component {
 
 			             </div>
 			             
-			             <div className="col-md-6 form-group error-div">
+			             <div className="col-md-3 form-group error-div">
 			                <label>Password:</label>
 			                <Field 
 									    	type="text" 
@@ -201,7 +201,7 @@ class UserRegister extends Component {
 			                <p style={{color:"red",fontSize:"14px"}}>{errors.password}</p>
 
 			             </div>
-			             <div className="col-md-6 form-group error-div">
+			             <div className="col-md-3 form-group error-div">
 			                <label>Confirm Password: </label>
 			                 <Field 
 									    	type="text" 

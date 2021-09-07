@@ -126,9 +126,9 @@ margin-left: 4px;
     margin-bottom: 40px;
 }
 
-input.form-control.form-control-lg ,select{
+/*input.form-control.form-control-lg ,select{
     height: 70%;
-}
+}*/
 select.form-control.form-control-lg.required {
     height: 70%;
 }
@@ -176,5 +176,21 @@ button.qty_place_bid_btn{
     display: block;
 }
 .header-middle_area {
-    margin-top: 80px;
+    margin-top: 81px;
 }
+.shipping-address {
+    float: right;
+}
+/*.slick-slide.slick-active.slick-current {
+    border: solid rgb(255, 196, 0);
+}*/
+.logged-in {
+  color: green;
+}
+
+.logged-out {
+  color: red;
+}
+
+
+

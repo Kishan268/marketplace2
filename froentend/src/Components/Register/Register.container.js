@@ -3,6 +3,10 @@ import Registeromponent from './Register.component.js'
 
 class Rgister extends Component{
 
+	state = {
+		redirect: false,
+		isopen : false
+	};
 	closeBideModel(){
 		this.setState({
 			isopen:false
@@ -10,6 +14,8 @@ class Rgister extends Component{
 	}
 
 	render(){
+		const{isopen} = this.props
+		
 		return (
 				<>
 				<Registeromponent

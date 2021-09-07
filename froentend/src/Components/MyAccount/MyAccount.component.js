@@ -1,10 +1,16 @@
 import {Component} from 'react'
 import { Link } from "react-router-dom";
+import { Formik, Form, Field } from 'formik';
+import {ProfileSchema} from '../../Utils/ValidationSchema/index.js'
+import AddressForm from '../Checkout/AddressForm.container.js';
+import Popup from '../Popup/Popup.container.js'
 
 class MyAccount extends Component{
+
 	render(){
-        const {userInfo,Logout} = this.props;
+        const {closeBideModel,userInfo,Logout,get_shipping_address,updateProfile,deleteAddress,AddShippingAddress,isopen,handleChange} = this.props;
         const ordersDetails = userInfo.order_details
+        var shippingAddresses = get_shipping_address?get_shipping_address.data:''
 		return (
 				<>
 			<main class="page-content">
@@ -19,11 +25,14 @@ class MyAccount extends Component{
                                 <li class="nav-item">
                                     <a class="nav-link" id="account-orders-tab" data-toggle="tab" href="#account-orders" role="tab" aria-controls="account-orders" aria-selected="false">Orders</a>
                                 </li>
-                                <li class="nav-item">
+                                {/*<li class="nav-item">
                                     <a class="nav-link" id="account-address-tab" data-toggle="tab" href="#account-address" role="tab" aria-controls="account-address" aria-selected="false">Addresses</a>
-                                </li>
+                                </li>*/}
                                 <li class="nav-item">
                                     <a class="nav-link" id="account-details-tab" data-toggle="tab" href="#account-details" role="tab" aria-controls="account-details" aria-selected="false">Account Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="account-details-tab" data-toggle="tab" href="#account-details" role="tab" aria-controls="account-details" aria-selected="false">Bid Details</a>
                                 </li>
                                 <li class="nav-item">
                                     <Link class="nav-link" id="account-logout-tab" onClick={()=>{Logout()}} role="tab" aria-selected="false">Logout</Link>
@@ -47,7 +56,8 @@ class MyAccount extends Component{
                                             <table class="table table-bordered table-hover">
                                                 <tbody>
                                                     <tr>
-                                                        <th>ORDER</th>
+                                                        <th>S.No</th>
+                                                        <th>ORDER ID</th>
                                                         <th>DATE</th>
                                                         <th>STATUS</th>
                                                         <th>TOTAL</th>
@@ -55,83 +65,149 @@ class MyAccount extends Component{
                                                     </tr>
                                                     {ordersDetails ? ordersDetails.map((ordersDetail,index)=>(
 
-                                                    <tr>
+                                                    <tr key={index}>
+                                                        <td>{index+1}</td>
                                                         <td><a class="account-order-id" href="javascript:void(0)">{ordersDetail.invoice_number}</a></td>
                                                         <td>{ordersDetail.created_at}</td>
                                                         <td>On Hold</td>
                                                         <td>{ordersDetail.total_price} for {ordersDetail.total_item} items</td>
-                                                        <td><a href="javascript:void(0)" class="uren-btn uren-btn_dark uren-btn_sm"><span>View</span></a>
+                                                        <td>
+                                                        <Link to={`/order-details/${ordersDetail.id}`}  class="uren-btn uren-btn_dark uren-btn_sm"><span>View</span></Link >
                                                         </td>
                                                     </tr>
                                                     )) : ''}
-                                                    <tr>
-                                                        <td><a class="account-order-id" href="javascript:void(0)">#5356</a></td>
-                                                        <td>Mar 27, 2019</td>
-                                                        <td>On Hold</td>
-                                                        <td>£162.00 for 2 items</td>
-                                                        <td><a href="javascript:void(0)" class="uren-btn uren-btn_dark uren-btn_sm"><span>View</span></a>
-                                                        </td>
-                                                    </tr>
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="account-address" role="tabpanel" aria-labelledby="account-address-tab">
-                                    <div class="myaccount-address">
-                                        <p>The following addresses will be used on the checkout page by default.</p>
-                                        <div class="row">
-                                            <div class="col">
-                                                <h4 class="small-title">BILLING ADDRESS</h4>
-                                                <address>
-                                                    1234 Heaven Stress, Beverly Hill OldYork UnitedState of Lorem
-                                                </address>
-                                            </div>
-                                            <div class="col">
-                                                <h4 class="small-title">SHIPPING ADDRESS</h4>
-                                                <address>
-                                                    1234 Heaven Stress, Beverly Hill OldYork UnitedState of Lorem
-                                                </address>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                              {/*  <div class="tab-pane fade" id="account-address" role="tabpanel" aria-labelledby="account-address-tab">
+                                                                 
+                                                              </div>*/}
                                 <div class="tab-pane fade" id="account-details" role="tabpanel" aria-labelledby="account-details-tab">
+                                     
                                     <div class="myaccount-details">
-                                        <form action="#" class="uren-form">
+                                     <Formik
+                                         initialValues={{...userInfo}}
+                                         validationSchema={ProfileSchema}
+                                         onSubmit={values => {
+                                          updateProfile(values)
+                                         }}
+                                    >
+                                      {({ errors, touched }) => (
+                                        <Form className="uren-form">
                                             <div class="uren-form-inner">
                                                 <div class="single-input single-input-half">
                                                     <label for="account-details-firstname">First Name*</label>
-                                                    <input type="text" id="account-details-firstname" value={userInfo.f_name}/>
+                                                    <Field type="text" 
+                                                    name="f_name"
+                                                />
+                                                <p style={{color:"red",fontSize:"14px"}}>{errors.f_name}</p>
+
                                                 </div>
                                                 <div class="single-input single-input-half">
                                                     <label for="account-details-lastname">Last Name*</label>
-                                                    <input type="text" id="account-details-lastname" value={userInfo.l_name}/>
+                                                    <Field type="text" 
+                                                    id="account-details-lastname" 
+                                                    name="l_name"
+                                                    />
+
+                                                <p style={{color:"red",fontSize:"14px"}}>{errors.l_name}</p>
+
                                                 </div>
                                                 <div class="single-input">
                                                     <label for="account-details-email">Email*</label>
-                                                    <input type="email" id="account-details-email" value={userInfo.email}/>
+                                                    <Field type="email" 
+                                                    id="account-details-email"
+                                                    name="email"
+                                                    />
+                                                <p style={{color:"red",fontSize:"14px"}}>{errors.email}</p>
+
                                                 </div>
                                                 <div class="single-input">
                                                     <label for="account-details-oldpass">Current Password(leave blank to leave
                                                         unchanged)</label>
-                                                    <input type="password" id="account-details-oldpass"/>
+                                                    <Field type="current_password" 
+                                                    name="current_password"
+
+                                                    id="account-details-oldpass"/>
+                                                <p style={{color:"red",fontSize:"14px"}}>{errors.current_password}</p>
+
                                                 </div>
                                                 <div class="single-input">
                                                     <label for="account-details-newpass">New Password (leave blank to leave
                                                         unchanged)</label>
-                                                    <input type="password" id="account-details-newpass"/>
+                                                    <Field type="password" 
+                                                    name="new_password"
+                                                    id="account-details-newpass"/>
+                                                <p style={{color:"red",fontSize:"14px"}}>{errors.new_password}</p>
+
                                                 </div>
                                                 <div class="single-input">
                                                     <label for="account-details-confpass">Confirm New Password</label>
-                                                    <input type="password" id="account-details-confpass"/>
+                                                    <Field type="password" 
+                                                    name="confirm_password"
+                                                    id="account-details-confpass"/>
+                                                <p style={{color:"red",fontSize:"14px"}}>{errors.confirm_password}</p>
+
                                                 </div>
                                                 <div class="single-input">
                                                     <button class="uren-btn uren-btn_dark" type="submit"><span>SAVE
                                                     CHANGES</span></button>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </Form>  
+                                      )}
+                                    </Formik>
+                                    </div>
+                                    <hr />
+                                    <div class="myaccount-address">
+                                        <p>The following addresses will be used on the checkout page by default.</p>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h4 class="small-title">PERSONAL ADDRESS</h4>
+                                                <address>
+                                                    {userInfo.name}&nbsp;
+                                                    {userInfo.billing_address}&nbsp;
+                                                    {userInfo.l_name}&nbsp;
+                                                    {userInfo.l_name}&nbsp;
+                                                    {userInfo.city}&nbsp;
+                                                    {userInfo.state}&nbsp;
+                                                    {userInfo.zip_code}&nbsp;
+                                                    {userInfo.email}&nbsp;
+                                                    {userInfo.phone_no}&nbsp;
+                                                </address>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="myaccount-address">
+                                    <h4 class="small-title">SHIPPING ADDRESS</h4>
+                                    <button className="btn btn-primary" onClick={()=>{AddShippingAddress()}}>Add New Address</button>
+                                        <p>The following addresses will be used on the checkout page by default.</p>
+                                        <div class="row">
+                                        {shippingAddresses ? shippingAddresses.map((shippingAddresses,index)=>(
+                                            <div class="col-md-6">
+                                                <div className="card">
+                                                    <a onClick={()=>{deleteAddress(shippingAddresses)}}><i className="fa fa-trash text-danger"></i></a>
+                                                    <a onClick={()=>{AddShippingAddress()}}><i className="fa fa-edit text-warning"></i></a>
+                                                    <address>
+                                                        {shippingAddresses.f_name}&nbsp;
+                                                        {shippingAddresses.city}&nbsp;
+                                                        {shippingAddresses.state}&nbsp;
+                                                        {shippingAddresses.zip_code}&nbsp;
+                                                        {shippingAddresses.email}&nbsp;
+                                                        {shippingAddresses.phone_no}&nbsp;
+                                                        {shippingAddresses.alternative_phone_no}
+                                                    </address>
+                                                </div>
+                                           </div>
+                                            
+                                        )):''
+                                    }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -140,9 +216,15 @@ class MyAccount extends Component{
                 </div>
             </div>
         </main>
-
-				</>
-			)
+       <Popup
+        width="800px"
+        margin-left="-100px"
+        isopen= {isopen}
+        title= {'New Address'}
+        content = {  <AddressForm {...this.props}/> } 
+      />
+    	</>
+    )
 	}
 }
 

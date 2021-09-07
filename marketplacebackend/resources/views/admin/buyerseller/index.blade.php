@@ -14,8 +14,10 @@
 			                {{$message}}
 			            </div>
 			        	@endif
-						<a href="{{route('products.create')}}"class="btn btn-primary pull-right mt-2 btn-sm">Add</a>
+						{{-- <a href="{{route('products.create')}}"class="btn btn-primary pull-right mt-2 btn-sm">Add</a> --}}
 					</div>
+					
+        			 <div class="card-body">
 						<div class="table-responsive">
 							<table id="complex_header" class="table table-striped table-bordered display" style="width:100%">
 								<thead>
@@ -58,6 +60,7 @@
 									
 								</tbody>
 							</table>
+						</div>
 						</div>
 					</div>
 				</div>

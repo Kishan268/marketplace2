@@ -16,47 +16,51 @@
          {{-- @role('super_admin') --}}
                 
                 <li class="treeview">
-                  <a href="#">
-                    <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                    <span>Order</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
+                   <a href="#">
+                  <i class="icon-Clipboard-check">
+                  <span class="fa fa-users"></span></i>
+                  <span>Orders</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
                   <ul class="treeview-menu">
-                    <li><a href="{{url('orders')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Order List</a></li>
-                    <li><a href="order_details.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Order Details</a></li>
+                    <li><a href="{{url('orders')}}"><i class="fa fa-list"><span class="path1"></span><span class="path2"></span></i>Order List</a></li>
+                    {{-- <li><a href="order_details.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Order Details</a></li> --}}
                   </ul>
                 </li>
                 <li class="treeview">
-                  <a href="#">
-                    <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                  
+                   <a href="#">
+                  <i class="icon-Clipboard-check">
+                    <span class="fa fa-users"></span></i>
                     <span>Products Management</span>
                     <span class="pull-right-container">
-                      <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                  </a>
+                    <i class="fa fa-angle-right pull-right"></i>
+                  </span>
+                </a>
                   <ul class="treeview-menu">
-                    <li><a href="{{route('products.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Product List</a></li>
-                    <li><a href="{{route('products.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add Product</a></li>
+                    <li><a href="{{route('products.index')}}"><i class="fa fa-list"><span class="path1"></span><span class="path2"></span></i>Product List</a></li>
+                    <li><a href="{{route('products.create')}}"><i class="fa fa-plus"><span class="path1"></span><span class="path2"></span></i>Add Product</a></li>
                   </ul>
                 </li> 
               <li class="treeview">
                 <a href="#">
-                  <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                  <i class="icon-Clipboard-check">
+                    <span class="fa fa-users"></span></i>
                   <span>Seller/Buyer</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-right pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="{{route('buyerseller.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> List</a></li>
-                  <li><a href="{{route('buyerseller.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add </a></li>
+                  <li><a href="{{route('buyerseller.index')}}"><i class="fa fa-list"><span class="path1"></span><span class="path2"></span></i> List</a></li>
+                  <li><a href="{{route('buyerseller.create')}}"><i class="fa fa-plus"><span class="path1"></span><span class="path2"></span></i>Add </a></li>
                 </ul>
               </li> 
               <li class="treeview">
                 <a href="#">
-                  <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                  <i class="icon-Clipboard-check"><span class="fa fa-users"></span><span class="path2"></span><span class="path3"></span></i>
                   <span>Master</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-right pull-right"></i>
@@ -65,6 +69,7 @@
                 <ul class="treeview-menu">
                   <li><a href="{{route('category.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i> Categories</a></li>
                   <li><a href="{{route('brands.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Brands </a></li>
+                  <li><a href="{{route('template.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Template </a></li>
                 </ul>
               </li> 
                 
@@ -74,34 +79,54 @@
                 
                 <li class="treeview">
                   <a href="#">
-                    <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                    <i class="icon-Clipboard-check">
+                      <span class="fa fa-first-order"></span>
+                      <span class="path2"></span>
+                      <span class="path3"></span>
+                    </i>
                     <span>Order</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-right pull-right"></i>
                     </span>
                   </a>
                   <ul class="treeview-menu">
-                    <li><a href="{{url('orders')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Order List</a></li>
+                    <li><a href="{{url('orders')}}"><i class="fa fa-list"><span class="path1"></span><span class="path2"></span></i>Order List</a></li>
                     <li><a href="order_details.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Order Details</a></li>
                   </ul>
                 </li>
                 <li class="treeview">
                   <a href="#">
-                    <i class="icon-Clipboard-check"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                    <i class="icon-Clipboard-check"><span class="fa fa-product-hunt"></span><span class="path2"></span><span class="path3"></span></i>
                     <span>Products Management</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-right pull-right"></i>
                     </span>
                   </a>
                   <ul class="treeview-menu">
-                    <li><a href="{{route('products.index')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Product List</a></li>
-                    <li><a href="{{route('products.create')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add Product</a></li>
+                    <li><a href="{{route('products.index')}}"><i class="fa fa-list"><span class="path1"></span><span class="path2"></span></i>Product List</a></li>
+                    <li><a href="{{route('products.create')}}"><i class="fa fa-plus"><span class="path1"></span><span class="path2"></span></i>Add Product</a></li>
                   </ul>
                 </li> 
             
                
                
          @endrole
+          <li class="treeview">
+             <a href="#">
+                <i class="icon-Clipboard-check">
+                  <span class="fa fa-users"></span></i>
+                <span>Messages</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-right pull-right"></i>
+                </span>
+              </a>
+            <ul class="treeview-menu">
+              <li><a href="{{route('chat_with_user')}}"><i class="fa fa-list"><span class="path1"></span><span class="path2"></span></i>Inbox</a></li>
+              
+            </ul>
+          </li> 
+
+
          {{-- @endrole --}}
 
 

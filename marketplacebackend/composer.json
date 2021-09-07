@@ -16,6 +16,7 @@
         "laravel/ui": "^3.2",
         "mews/captcha": "^3.2",
         "nesbot/carbon": "^2.51",
+        "predis/predis": "^1.1",
         "santigarcor/laratrust": "^6.3"
     },
     "require-dev": {

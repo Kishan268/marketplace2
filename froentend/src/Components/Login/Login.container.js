@@ -8,6 +8,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import {saveToken} from '../../store/User/user.action.js'
 import {updateCart,fetchCart} from '../../store/addToCart/addToCart.action.js'
 import axios from '../../Utils/axios.config.js'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:7000')
 
 const mapStateToProps = state => ({
 
@@ -21,19 +24,28 @@ class Login extends Component{
 
 	state = {
 		redirect: false,
+		user_id: '',
 		isopen : false
 	};
 
     handleClickOpen(){ 
         this.setState({isopen:true})
+    }  
+    SingUpOpen(){ 
+        this.setState({isopen:true,popupStatus:"sing_up_open"})
     } 
 
 	UserLogin(value){
-		const{saveToken,handleClickOpen,updateCart,closeBideModel} = this.props
+		const{saveToken,handleClickOpen,updateCart,closeBideModel,popupStatus} = this.props
 
 		axios.post('/login/',value).then((result)=>{
 
 		if (result.data.token ) {
+			socket.on('connect',()=>{
+	    		socket.emit('user_connected',result.data.user.id)
+			})
+			this.setState({user_id:result.data.user.id});
+			// console.log(result.data.user.id)
 			saveToken(result.data.token)
 			this.setState({isopen:false})
 			const tokenStore = localStorage.setItem('token',result.data.token);
@@ -58,7 +70,13 @@ class Login extends Component{
 			isopen:false
 		})
 	}
+	componentDidMount(){
+   		const {user_id} = this.state
+		socket.on('connect',()=>{
+	    	socket.emit('user_connected',user_id)
+		})
 
+	}
 	render(){
 		return (
 				<>
@@ -67,6 +85,7 @@ class Login extends Component{
 						{...this.state}
 						UserLogin = {this.UserLogin.bind(this)}
 						handleClickOpen = {this.handleClickOpen.bind(this)}
+						SingUpOpen = {this.SingUpOpen.bind(this)}
 						closeBideModel = {this.closeBideModel.bind(this)}
 					/>
 					<ToastContainer />

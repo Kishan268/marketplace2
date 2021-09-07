@@ -36,6 +36,8 @@ class Car extends Component {
             getCartData,
             handleClickOpenCheckOut
         } = this.props
+
+        const API_URL = 'http://3.20.234.60/storage/'
         
         if(!cardData || cardData.length===0 || isLoading){
             return this.renderEmptyCart()
@@ -43,7 +45,7 @@ class Car extends Component {
 
         return(
             <>
-               <div class="uren-cart-area">
+        <div class="uren-cart-area">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -69,13 +71,16 @@ class Car extends Component {
                                                 <button onClick={(()=>deleteCartItem(value.id))} href="javascript:void(0)"><i class="fa fa-trash text-danger" title="Remove"></i></button>
                                             </td>
                                             <td class="uren-product-thumbnail">
-                                                <a href="javascript:void(0)">
-                                                    <img src={value.image_path} alt="Uren's Cart Thumbnail" width="50px" height ="50px"/>
-                                                </a>
+                                                <Link to={`/product-details/${value.product_id}`} href="javascript:void(0)">
+                                                  <img src={API_URL+value.products_detail?value.products_detail.pro_images[0].doc_path:''} alt="Uren's Cart Thumbnail" width="50px" height ="50px"/>
+                                                                                               
+                                                </Link>
                                             </td>
                                             <td class="uren-product-name">
-                                                <a href="javascript:void(0)">{value.name}</a></td>
-                                            <td class="uren-product-price"><span class="amount">${value.unit_price}</span></td>
+                                                <Link to={`/product-details/${value.products_detail?value.products_detail.pro_id:''}`}  href="javascript:void(0)">{value.products_detail?value.products_detail.name:''}</Link>
+                                            </td>
+
+                                            <td class="uren-product-price"><span class="amount">${value.unit_price?value.unit_price:''}</span></td>
                                             <td class="quantity">
                                                 <div class="input-group btn-block" style={{maxWidth: '200px'}}>
                                                     <span class="input-group-btn">

@@ -16,6 +16,7 @@
 			            </div>
 			        	@endif
 					</div>
+        			 <div class="card-body">
 					<form action="{{route('category.store')}}" method="post" autocomplete="off" enctype="multipart/form-data">
 						@csrf
 						@include('admin.master.category.form')
@@ -28,6 +29,7 @@
 		    	</form>
 				</div>
 			</div>		
+		</div> 
 		</div> 
 	</section>
 	</div>

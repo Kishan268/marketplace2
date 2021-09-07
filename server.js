@@ -14,6 +14,36 @@ app.use('/public', express.static(__dirname + '/public'));
 
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
+const server = require('http').createServer(app)
+// const io = require('socket.io')(server,{
+//     cors:{
+//         origin:'*',
+//     }
+// })
+// io.on('connection', socket =>{
+//     // console.log('connection made successfully')
+//     socket.on('message',payload => {
+//         // console.log('Message received on server: ', payload)
+//          io.emit('sendtoclient',payload)
+// 						// console.log(payload)
+//         var chatWithSeller =  axios.post(`http://localhost:8000/api/chat_with_selller/`,payload).then((result)=>{
+//         io.emit('message',result.data)
+
+// 					return result.data
+// 					}).catch((error)=>{
+// 						return error
+// 					})
+// 					// return res.json(chatWithSeller)
+// 			})
+//     socket.on('desconnect',function(socket){
+//     	console.log('desconnect')
+//     })
+			  
+// })
+
+// server.listen(7000,()=>{
+//     console.log('I am listening at port: 7000)');
+// })
 module.exports = function(app) {
   app.use(
     '/',
@@ -37,6 +67,7 @@ var corsOptions = {
   optionsSuccessStatus: 204,
 };
 
+// const base_url = 'http://localhost:8000/api/'
 const base_url = 'http://3.20.234.60/api'
 
 app.use(express.urlencoded());
@@ -171,7 +202,7 @@ app.post('/post_order',async function(req,res,next){
 
 app.post('/createOrder',async function(req,res,next){
 	var token = req.body.token
-// dd('sads');
+	delete req.body.token
 	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 	var data = await axios.post(base_url+'/createOrder',req.body)
 	.then((res)=>{
@@ -274,4 +305,95 @@ app.post('/get_items_by_category/',async function(req,res){
 	})
 
 	return res.json(get_items_by_category)
+})
+app.post('/shipping_address/',async function(req,res){
+		var token = req.body.token
+		delete req.body.token
+		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+	var billingAddress = await axios.post(base_url+'/shipping_address/',req.body).then((result)=>{
+		return (result.data)
+	}).catch((error)=>{
+			console.log(error)
+	})
+
+	return res.json(billingAddress)
+})
+app.post('/get_shipping_address/',async function(req,res){
+	// var user_id = req.body.user_id
+	var token = req.body.token
+	delete req.body.token
+	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+	var getBillingAddress = await axios.get(base_url+`/get_shipping_address/`).then((result)=>{
+	return (result.data)
+}).catch((error)=>{
+		console.log(error)
+})
+
+return res.json(getBillingAddress)
+})
+app.post('/delete_address/',async function(req,res){
+	var address_id = req.body.address_id
+	var token = req.body.token
+	delete req.body.token
+	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+	var deleteAddress = await axios.get(base_url+`/delete_address/${address_id}`).then((result)=>{
+	return (result.data)
+}).catch((error)=>{
+		console.log(error)
+})
+
+return res.json(deleteAddress)
+})
+app.post('/get_order_details/',async function(req,res){
+	var orederId = req.body.id
+	var token = req.body.token
+	delete req.body.token
+	axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+	var deleteAddress = await axios.get(base_url+`/get_order_details/${orederId}`).then((result)=>{
+	return (result.data)
+}).catch((error)=>{
+		console.log(error)
+})
+
+return res.json(deleteAddress)
+})
+app.get('/get_template/',async function(req,res){
+	var getTemplate = await axios.get(base_url+`/get_template/`).then((result)=>{
+	return (result.data)
+}).catch((error)=>{
+		console.log(error)
+})
+
+return res.json(getTemplate)
+})
+app.post('/get_template_products/',async function(req,res){
+	var template = req.body.template
+	var getTemplateProducts = await axios.get(base_url+`/get_template_products/${template}`).then((result)=>{
+	return (result.data)
+}).catch((error)=>{
+		console.log(error)
+})
+
+return res.json(getTemplateProducts)
+})
+app.post('/chat_with_selller/',async function(req,res){
+	var token = req.body.token
+	delete req.body.token
+	var chatWithSeller = await axios.post(base_url+`/chat_with_selller/`,req.body).then((result)=>{
+	return (result.data)
+}).catch((error)=>{
+		console.log(error)
+})
+
+return res.json(chatWithSeller)
+})
+app.post('/get_messages/',async function(req,res){
+
+	var getMessage = await axios.post(`http://localhost:8000/api/get_messages/`,req.body).then((result)=>{
+	return (result.data)
+}).catch((error)=>{
+		console.log(error)
+})
+
+return res.json(getMessage)
 })

@@ -112,6 +112,8 @@ class ProductsRepository extends EloquentRepository{
 		$data['brand'] = $request->brand;
 		$data['short_des'] = $request->short_des;
 		$data['type'] = $request->type;
+		$data['status'] = "A";
+
 		$data['color'] = json_encode($request->color);
 		$data['size'] = json_encode(explode(',', $request->size));
 		// dd($data );
