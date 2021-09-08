@@ -2,7 +2,7 @@ import {Component} from "react";
 import io from 'socket.io-client'
 import axios from 'axios'
 import ChatWithSellerComponet from './ChatWithSeller.component.js'	
-const socket = io('http://localhost:7000')
+const socket = io('http://localhost:4000')
 
 // const name = 'User '+parseInt(Math.random()*10)
 

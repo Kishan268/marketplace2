@@ -5,7 +5,7 @@ import './ChatWithSeller.css'
 import Popup from '../Popup/Popup.container.js'
 import io from 'socket.io-client'
 import axios from 'axios'
-const socket = io('http://localhost:7000')
+const socket = io('http://localhost:4000')
 
 class ChatWithSeller extends Component{
  

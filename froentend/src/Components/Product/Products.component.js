@@ -4,12 +4,15 @@ import {useHistory , useParams,Link} from "react-router-dom";
 import LoginComponent from '../Login/UserLogin/UserLogin.container.js';
 import Popup from '../Popup/Popup.container.js'
 import Slider from "react-slick";
+
 var settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4
+    slidesToShow: 3,
+    slidesToScroll: 4,
+    autoplay:true,
+    slidesPerRow:1
   };
 class Products extends Component{
    

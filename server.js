@@ -15,35 +15,47 @@ app.use('/public', express.static(__dirname + '/public'));
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const server = require('http').createServer(app)
-// const io = require('socket.io')(server,{
-//     cors:{
-//         origin:'*',
-//     }
-// })
-// io.on('connection', socket =>{
-//     // console.log('connection made successfully')
-//     socket.on('message',payload => {
-//         // console.log('Message received on server: ', payload)
-//          io.emit('sendtoclient',payload)
-// 						// console.log(payload)
-//         var chatWithSeller =  axios.post(`http://localhost:8000/api/chat_with_selller/`,payload).then((result)=>{
-//         io.emit('message',result.data)
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  }
+});
 
-// 					return result.data
-// 					}).catch((error)=>{
-// 						return error
-// 					})
-// 					// return res.json(chatWithSeller)
-// 			})
-//     socket.on('desconnect',function(socket){
-//     	console.log('desconnect')
-//     })
-			  
-// })
+const users =[];
+const users2 =[];
+io.on("connection",(socket)=>{
+	console.log('dfdf')
+    socket.on('message',(payload)=>{
+      
+      users2[payload.user_id] = socket.id;
+      console.log(users2)
+      io.sockets.emit('sendtoclient',{payload:payload,users:users2});
+      var data = axios.post('http://localhost:8000/api/chat_with_selller',payload).then((res)=>{
+      return res.data
+      }).catch((error)=>{
+        return error
+      })
+  // socket.broadcast.emit('sendtoclient',message)
+})
+  socket.on('user_connected',(user_id)=>{
+  users[user_id] = socket.id;
+  io.emit('updateUserStatus',users)
+  // console.log(user_id);
+
+  })
+  socket.on("disconnect",()=>{
+    var i = users.indexOf(socket.id);
+    users.splice(i,1,0);
+    io.emit('updateUserStatus',users)
+    // console.log(users)
+  });
+
+})
 
 // server.listen(7000,()=>{
 //     console.log('I am listening at port: 7000)');
 // })
+
 module.exports = function(app) {
   app.use(
     '/',

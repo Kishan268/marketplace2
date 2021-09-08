@@ -9,7 +9,8 @@ class PlaceBid extends Component {
     render(){
 
         const {products,billingAddress,handleClickOpen,isopen,placeBidFrom,user_information} = this.props
-        const img_url = 'http://localhost:8000/storage';
+        const img_url = 'http://3.20.234.60/storage';
+		console.log(products)
         return(
             <>
             <div className="row">
@@ -19,18 +20,18 @@ class PlaceBid extends Component {
 				 <input  name="product_id" type="hidden" value={products.pro_id}/>
                <div className="row">
                     <div className="col-md-5">
-                    	<div className="row">
+                    	<div className="row ml-2">
 	                    	{products.pro_images!=null ? 
-	                			<img src={img_url+'/'+products.pro_images[0].doc_name} />
-	                		: <img src="https://picsum.photos/200/300" width='500px' height='200px'/>
+	                			<img src='https://i.pinimg.com/originals/87/be/c1/87bec12ab301f78eeccbffa5154924b8.jpg' />
+	                		: <img src="https://i.pinimg.com/originals/87/be/c1/87bec12ab301f78eeccbffa5154924b8.jpg" width='500px' height='200px'/>
 	                		}
                     	</div>
                     </div>
                     <div className="col-md-7 card-wrapper card-body">
-                    	<div className="row">
-                			<h3>{products.name}</h3><br /><br />
-                			<span>Price </span><br />
-                			<h4>${products.price}</h4>
+                    	<div className="row ml-4 mr-3">
+                			<h3 className="bidTitle ">{products.name}</h3><br /><br />
+                			<span>Price <strong>${products.price}</strong></span>
+                			
                     	</div>
                     </div>
 
@@ -38,24 +39,25 @@ class PlaceBid extends Component {
 					    <div className="form-group ">
 						  <h4 className="control-label " for="your-bid">Your bid</h4>
 						   <div className="input-group-addon">
-								<i className="fa fa-dollar"></i> 
-						   		<input className="form-control"  name="your_bid_price" type="text" value={products.price+1}/>
+						   		<input className="form-control" style={{width:'65%'}}  name="your_bid_price" type="text" value={products.price+1}/>
 						   </div>
 						</div>
 					    <div className="form-group ">
-						  <h4 className="control-label " for="your-bid">Choose a shipping option</h4>
-						   	<input className=""  name="shipping_option" type="radio" value={user_information.country+user_information.billing_address}/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buyer must pick-up <br/>Seller is located in {user_information.country},{user_information.billing_address} 
+						  <h5 className="control-label " for="your-bid">Choose a shipping option</h5>
+						   	<input className="chooseShiping-option"  name="shipping_option" type="radio" value={user_information.country+user_information.billing_address}/>
+							   <span className="sellerLocated">Buyer must pick-up</span> <br/><span className="sellerLocated">Seller is located in {user_information.country},{user_information.billing_address} </span>
 						</div>
 					</div>
                 
 					<div className="col-md-12">
-						<h4>Seller accepts payment by </h4>
-						<input type="checkbox" name="payment_methode" value="Case on Delivery" />&nbsp;&nbsp;&nbsp;Case on Delivery
-						<h5> </h5>
-						<span>If you win, you are legally obligated to complete your purchase </span>
+						<h5>Seller accepts payment by </h5>
+						<input type="checkbox" className="chooseShiping-option" name="payment_methode" value="Case on Delivery" />
+						<span className="caseOndeliveryBid">Case on Delivery</span>
+						
+						<div className="completePurchase">If you win, you are legally obligated to complete your purchase </div>
 						  <div className="form-group mt-4">
-							<h4>Reminders</h4>
-							 <input className=""  name="reminder_email" type="checkbox" value="reminder_email"/>&nbsp;&nbsp;&nbsp;&nbsp;Email me if I'm outbid
+							<h5>Reminders</h5>
+							 <input className=""  name="reminder_email" type="checkbox" value="reminder_email"/><span className="caseOndeliveryBid">Email me if I'm outbid</span>
 						</div>
 					</div>
 					<div className="col-md-4">

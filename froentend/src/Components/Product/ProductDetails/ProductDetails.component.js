@@ -62,7 +62,22 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
   };
 
 	render(){
-	 		const{user_information,place,ChatWithSeller,closeBideModel,LoginModelOpen,products,productsImg,userDetails,addToCartHandler,addAndRemoveProduct,isRemove,showError,handleClickOpenBuyNow,isopen,placeBidClickOpen,popupStatus} = this.props
+	 		const{ user_information,
+				   place,
+				   ChatWithSeller,
+				   closeBideModel,
+				   LoginModelOpen,
+				   products,
+				   productsImg,
+				   userDetails,
+				   addToCartHandler,
+				   addAndRemoveProduct,
+				   isRemove,
+				   showError,
+				   handleClickOpenBuyNow,
+				   isopen,
+				   placeBidClickOpen,
+				   popupStatus} = this.props
 	 		// const{closeBideModel,LoginModelOpen,products,productsImg,userDetails,addToCartHandler,addAndRemoveProduct,isRemove,showError,handleClickOpenBuyNow,isopen,placeBidClickOpen,popupStatus} = this.props
 	 		const API_URL = 'http://3.20.234.60/storage/'
 	 		const{bid_option} = products
@@ -70,15 +85,9 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 
 			return (
 				<>
-				
-				 <div>
-			        <input type="text" value={latitude} />
-			        <input type="text" value={longitude} />
-			      </div>
-				 
 				<div class ="container" >
 					<section class="mt-3 ">
-					<h2 class="">Product Details </h2>
+					
 					<div class="row mt-5">
 						<div class="col-md-8 mb-4 mb-md-0">
 							<div id="mdb-lightbox-ui"></div>
@@ -107,7 +116,7 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 									<div className="row mt-2">
 										</div>
 										: <div className="row mt-2">
-											<div className="col-sm-6 productQty">{products ? products.qty:0}available</div>
+											<div className="col-sm-6 productQty">{products ? products.qty:0} available</div>
 											<div className="col-sm-6">
 												<div class="input-group btn-block" style={{maxWidth: '200px'}}>
 													<span class="input-group-btn">
@@ -155,9 +164,9 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 												</button>
 												
 											</div>
-											<div className="col-sm-12">
-												<h4>Reserve met</h4>
-												<h5> <a href="">0 Bid so far-View history</a> </h5>
+											<div className="col-sm-12 center">
+												<h4 className="productDetails-head-font">Reserve met</h4>
+												<h5 className="productDetails-head-font"> <a href="">0 Bid so far-View history</a> </h5>
 											</div>	
 										</div>
 
@@ -178,9 +187,9 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 												</button>
 												
 											</div>
-											<div className="col-sm-12">
-												<h4>Reserve met</h4>
-												<h5> <a href="">0 Bid so far-View history</a> </h5>
+											<div className="col-sm-12 center">
+												<h4 className="productDetails-head-font">Reserve met</h4>
+												<h5 className="productDetails-head-font"> <a href="">0 Bid so far-View history</a> </h5>
 											</div>	
 										</div>
 									</>
@@ -188,7 +197,7 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 									}
 								</div>	
 							</div>
-							<div class="card  mt-2" >
+							{/* <div class="card  mt-2" >
 								<div class="card-body" >
 								<i class="favoratButtn btn-sm pr-2"></i>
 									<h3>Posted in</h3>
@@ -198,7 +207,7 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
                         			</div>
 
 								</div>
-							</div>
+							</div> */}
 							<hr/>
 						</div>
 					</div>

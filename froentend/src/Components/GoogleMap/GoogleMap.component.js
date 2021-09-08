@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
+import { Map, GoogleApiWrapper, InfoWindow, Marker,Circle } from 'google-maps-react';
 
 const mapStyles = {
   width: '100%',
@@ -29,7 +29,7 @@ state = {
     }
   };
   render() {
-
+    const coords = { lat: -21.805149, lng: -49.0921657 };
     return (
       
      <Map
@@ -43,19 +43,19 @@ state = {
           }
         }
       >
-        <Marker
-          onClick={this.onMarkerClick}
-          name={'Indore India'}
-        />
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
-          <div>
-            <h4>{this.state.selectedPlace.name}</h4>
-          </div>
-        </InfoWindow>
+        
+        <Circle
+        radius={1200}
+        center={coords}
+        onMouseover={() => console.log('mouseover')}
+        onClick={() => console.log('click')}
+        onMouseout={() => console.log('mouseout')}
+        strokeColor='transparent'
+        strokeOpacity={0}
+        strokeWeight={5}
+        fillColor='#FF0000'
+        fillOpacity={0.2}
+      />
       </Map>
     );
   }

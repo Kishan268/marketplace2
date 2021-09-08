@@ -185,12 +185,12 @@
 }
 
 .productDetails_proName{
-  font-size: 26px;
+  font-size:23px;
     font-weight: 500;
   }
 
   .productPrice{
-    font-size: 28px;
+    font-size: 24px;
     color: #0c2a5c;
   }
 
@@ -204,6 +204,46 @@
 
   .productQty{
     color: darkgray !important;
+    font-size: 15px;
+  }
+
+  .image-gallery-content .image-gallery-slide .image-gallery-image {
+      max-height: calc(80vh - 240px) !important;
+  }
+
+  .productDetailsHeading{
+    font-weight: 400;
+  }
+
+  .center{
+    text-align: center !important;
+  }
+
+  .sellerLocated{
+    margin-left: 5.5%;
+    font-size: 16px;
+  }
+
+  .completePurchase{
+    margin-left: 3.5%;
+    font-size: 16px;
+  }
+
+  .caseOndeliveryBid{
+    margin-left: 1.5%;
+    font-size: 16px;
+  }
+
+  .productDetails-head-font{
+    font-size: 16px;
+  }
+
+  .bidTitle{
+    font-size: 23px;
+  }
+
+  .chooseShiping-option{
+    margin-top: 1.5%;
   }
 /*end Cart*/
 /*  */

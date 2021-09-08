@@ -68,50 +68,50 @@ class UserRegister extends Component {
 			               <div className="col-md-12 form-group">
 			                 <h3 className="font-weight-bold f-14">Personal Information</h3>
 			               </div>
-			               	<div className="col-md-3 form-group error-div">
+			               	<div className="col-md-4 form-group error-div">
 			                  <label>First Name:</label>
 			                  <Field 
 										    	type="text" 
 										    	name="f_name"
-										    	className="form-control form-control-lg" 
+										    	className="form-control form-control-sm" 
 									    		placeholder="Enter First name" / >
                         <p style={{color:"red",fontSize:"14px"}}>{errors.f_name}</p>
 
 			               </div> 
-			                <div className="col-md-3 form-group error-div">
+			                <div className="col-md-4 form-group error-div">
 			                  <label>Last Name:</label>
 			                  <Field 
 										    	type="text" 
 										    	name="l_name"
-										    	className="form-control form-control-lg" 
+										    	className="form-control form-control-sm" 
 										    	placeholder="Enter Last name" />
                         <p style={{color:"red",fontSize:"14px"}}>{errors.l_name}</p>
 
 			               </div> 
-			               <div className="col-md-3 form-group error-div">
+			               <div className="col-md-4 form-group error-div">
 			                  <label>Date of Birth:</label>
 			                 <Field 
 									    	type="date" 
 									    	name="dob"
-									    	className="form-control form-control-lg" 
+									    	className="form-control form-control-sm" 
 									    	placeholder="Enter Date of Birth:" />
                         <p style={{color:"red",fontSize:"14px"}}>{errors.dob}</p>
 
 			               </div>
-			                <div className="col-md-3 form-group error-div">
+			                <div className="col-md-4 form-group error-div">
 			                  <label>Phone number</label>
 			                   <Field 
 										    	type="number" 
 										    	name="phone_no"
-										    	className="form-control form-control-lg" 
+										    	className="form-control form-control-sm" 
 										    	placeholder="Enter Phone number" />
                         <p style={{color:"red",fontSize:"14px"}}>{errors.phone_no}</p>
 
 			               </div> 
-			                <div className="col-md-3 form-group error-div">
+			                <div className="col-md-4 form-group error-div">
 			                  <label>Gender: </label>
 			                    <Field as="select"  name="gender"  
-			                     className="form-control form-control-lg">
+			                     className="form-control form-control-sm">
 			                     <option value="">Select Gender</option>
 			                     <option value="Male">Male</option>
 							             <option value="Female">Female</option>
@@ -120,21 +120,21 @@ class UserRegister extends Component {
                         <p style={{color:"red",fontSize:"14px"}}>{errors.gender}</p>
 
 			               </div>
-			               <div className="col-md-3 form-group error-div">
+			               <div className="col-md-4 form-group error-div">
 			                   <label>Address:</label>
 			                   <Field 
 										    	type="text" 
 										    	name="address"
-										    	className="form-control form-control-lg" 
+										    	className="form-control form-control-sm" 
 										    	placeholder="Enter Address" />
 										    	 
                         <p style={{color:"red",fontSize:"14px"}}>{errors.address}</p>
 
 			               </div> 
 			              
-			                <div className="col-md-3 form-group error-div">
+			                <div className="col-md-4 form-group error-div">
 			                  <label> Select City: </label>
-			                  <Field as="select" name="city" className="form-control form-control-lg">
+			                  <Field as="select" name="city" className="form-control form-control-sm">
 			                  	<option value="">Select City</option>
 			                  	<option value="Kaikohe">Kaikohe</option>
 							          </Field>
@@ -145,9 +145,9 @@ class UserRegister extends Component {
 			               			                  <Select options = {stateOptions} name="district_town" />
 			               			                <p style={{color:"red",fontSize:"14px"}}>{errors.district_town}</p>
 			               			              </div>*/}
-									   <div className="col-md-3 form-group error-div">
+									   <div className="col-md-4 form-group error-div">
 			                  <label> State: </label>
-			                  <Field as="select" name="state" className="form-control form-control-lg">
+			                  <Field as="select" name="state" className="form-control form-control-sm">
 			                  <option value="">Select State</option>
 			                  <option value="Auckland">Auckland</option>
 							            
@@ -155,9 +155,9 @@ class UserRegister extends Component {
 			                  <p style={{color:"red",fontSize:"14px"}}>{errors.state}</p>
 			               </div>
 										
-										<div className="col-md-3 form-group error-div">
+										<div className="col-md-4 form-group error-div">
 			                <label>Country: </label>
-			               	<Field as="select"  name="country" className="form-control form-control-lg">
+			               	<Field as="select"  name="country" className="form-control form-control-sm">
 	               				<option value="">Select Country</option>
 	               				<option value="NZ">NZ</option>
 
@@ -165,12 +165,12 @@ class UserRegister extends Component {
 			               
 			                <p style={{color:"red",fontSize:"14px"}}>{errors.country}</p>
 			             </div>
-								   <div className="col-md-3 form-group error-div">
+								   <div className="col-md-4 form-group error-div">
 			                <label for="zip">Zip Code:</label>
 			                <Field 
 								    	type="text" 
 								    	name="zip"
-								    	className="form-control form-control-lg " 
+								    	className="form-control form-control-sm " 
 								    	placeholder="Enter zip code" />
 			                <p style={{color:"red",fontSize:"14px"}}>{errors.zip}</p>
 					         </div>
@@ -180,23 +180,23 @@ class UserRegister extends Component {
 			                <hr />
 			             <h3 className="font-weight-bold f-14">Security Information</h3>
 			             </div>
-			              <div className="col-md-3 form-group error-div">
+			              <div className="col-md-4 form-group error-div">
 			                <label for="email">Email:</label>
 			                 <Field 
 									    	type="text" 
 									    	name="email"
-									    	className="form-control form-control-lg" 
+									    	className="form-control form-control-sm" 
 									    	placeholder="Enter Email" />
 			                <p style={{color:"red",fontSize:"14px"}}>{errors.email}</p>
 
 			             </div>
 			             
-			             <div className="col-md-3 form-group error-div">
+			             <div className="col-md-4 form-group error-div">
 			                <label>Password:</label>
 			                <Field 
 									    	type="text" 
 									    	name="password"
-									    	className="form-control form-control-lg" 
+									    	className="form-control form-control-sm" 
 									    	placeholder="Enter Password" />
 			                <p style={{color:"red",fontSize:"14px"}}>{errors.password}</p>
 
@@ -206,7 +206,7 @@ class UserRegister extends Component {
 			                 <Field 
 									    	type="text" 
 									    	name="password_confirmation"
-									    	className="form-control form-control-lg required" 
+									    	className="form-control form-control-sm required" 
 									    	placeholder="Re-Type Password" />
 			                <p style={{color:"red",fontSize:"14px"}}>{errors.password_confirmation}</p>
 
@@ -219,7 +219,7 @@ class UserRegister extends Component {
 			              />
 			            </div>
 		              <div className="form-group">
-		                <button disabled={!this.state.isVerified} className="btn float-left btn-warning login_btn" >Submit</button>
+		                <button disabled={!this.state.isVerified} className="btn float-left btn-warning btn-sm login_btn" >Submit</button>
 		              </div>
 			             
 			          </div>
