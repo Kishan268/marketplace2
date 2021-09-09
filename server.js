@@ -52,16 +52,10 @@ io.on("connection",(socket)=>{
 
 })
 
-<<<<<<< HEAD
-// server.listen(7000,()=>{
-//     console.log('I am listening at port: 7000)');
-// })
 
-=======
 server.listen(7000,()=>{
     console.log('I am listening at port: 7000)');
 })
->>>>>>> 41d9dedd39b5b1dc71e30036b4d90a85ad851caa
 module.exports = function(app) {
   app.use(
     '/',
@@ -414,4 +408,17 @@ app.post('/get_messages/',async function(req,res){
 })
 
 return res.json(getMessage)
+})
+
+app.post('/get_bids/',async function(req,res){
+	var bidId = req.body.id
+	// var token = req.body.token
+	// delete req.body.token
+	var getBids = await axios.get(base_url+`/get_bids/${bidId}`).then((result)=>{
+	return (result.data)
+}).catch((error)=>{
+		console.log(error)
+})
+
+return res.json(getBids)
 })

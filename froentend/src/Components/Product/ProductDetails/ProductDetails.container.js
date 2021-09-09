@@ -97,7 +97,7 @@ class ProductDetails extends Component{
 					toast.warning(res.data.data);
             	}
             	else{
-            		console.log(res.data)
+            		// console.log(res.data)
 					 addToCartHandler(res.data.data)
 					toast("Item added successfully!");
             	}
@@ -146,6 +146,19 @@ class ProductDetails extends Component{
       })
        	await this.setState({user_information:userInfo})	
     }
+    async getBids(){
+        // var token = localStorage.getItem('token');
+		var id = this.props.match.params.id
+		var data = {
+			id:id
+		};
+        var productBids = await axios.post(`/get_bids/`,data).then((res)=>{
+        return res.data
+      }).catch((error)=>{
+          return error
+      })
+       	await this.setState({product_bids:productBids})	
+    }
 
 	closeBideModel(){
 		this.setState({
@@ -154,6 +167,7 @@ class ProductDetails extends Component{
 	}
 	componentWillMount(){
 		this.getProduct()
+		this.getBids()
 	}
 	componentDidMount(){
 		this.getUserInfo()
@@ -161,7 +175,14 @@ class ProductDetails extends Component{
 	}
 
 	render(){
-		const {isLoading,productData,isopen,LoginModelOpen,ChatWithSeller} = this.state
+		const {
+			isLoading,
+			productData,
+			isopen,
+			LoginModelOpen,
+			ChatWithSeller,
+			product_bids
+		} = this.state
 		// console.log(this.state)
 		if(isLoading){
 			return (

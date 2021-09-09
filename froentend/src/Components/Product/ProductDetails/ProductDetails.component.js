@@ -77,12 +77,15 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 				   handleClickOpenBuyNow,
 				   isopen,
 				   placeBidClickOpen,
-				   popupStatus} = this.props
+				   popupStatus,
+				   product_bids
+				} = this.props
 	 		// const{closeBideModel,LoginModelOpen,products,productsImg,userDetails,addToCartHandler,addAndRemoveProduct,isRemove,showError,handleClickOpenBuyNow,isopen,placeBidClickOpen,popupStatus} = this.props
 	 		const API_URL = 'http://3.20.234.60/storage/'
 	 		const{bid_option} = products
 	 		const { latitude, longitude } = this.state
-
+// console.log(product_bids)
+const product_bidss = product_bids ? product_bids.data :''
 			return (
 				<>
 				<div class ="container" >
@@ -151,6 +154,8 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 										<i class="fa fa-shopping-cart btn-sm pr-2"></i>Add to cart</button>
 										<button onClick={()=>{placeBidClickOpen({product_id:products.pro_id,quantity:products.buyQty,price:products.price,discount:products.discount})}} type="button" class="btn btn-warning btn-sm qty-cart_btn  mb-2">
 										<i class="fa fa-gavel pr-2"></i>Place bid</button>
+										<h5 className="productDetails-head-font"> <a href="">{product_bidss? product_bidss.length:0} Bid so far-View history</a> </h5>
+
 										</div>
 									</>
 									:'' 
@@ -166,7 +171,8 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 											</div>
 											<div className="col-sm-12 center">
 												<h4 className="productDetails-head-font">Reserve met</h4>
-												<h5 className="productDetails-head-font"> <a href="">0 Bid so far-View history</a> </h5>
+												<h5 className="productDetails-head-font"> <a href="">{product_bidss? product_bidss.length:0} Bid so far-View history</a> </h5>
+												
 											</div>	
 										</div>
 
@@ -189,7 +195,7 @@ const AnyReactComponent = ({ India }) => <div>{India}</div>;
 											</div>
 											<div className="col-sm-12 center">
 												<h4 className="productDetails-head-font">Reserve met</h4>
-												<h5 className="productDetails-head-font"> <a href="">0 Bid so far-View history</a> </h5>
+												<h5 className="productDetails-head-font"> <a href="">{product_bidss? product_bidss.length:0} Bid so far-View history</a> </h5>
 											</div>	
 										</div>
 									</>

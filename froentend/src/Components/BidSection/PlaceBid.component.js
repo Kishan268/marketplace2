@@ -8,9 +8,13 @@ class PlaceBid extends Component {
     
     render(){
 
-        const {products,billingAddress,handleClickOpen,isopen,placeBidFrom,user_information} = this.props
-        const img_url = 'http://3.20.234.60/storage';
-		console.log(products)
+        const {products,billingAddress,handleClickOpen,isopen,placeBidFrom,user_information,product_bids} = this.props
+        const img_url = 'http://localhost:8000/storage/';
+// let lastElement = [product_bids.data.your_bid_price.length - 1];
+
+// console.log(lastElement);
+
+		const proPrice =products.discounted_price ?products.discounted_price+1 :0;
         return(
             <>
             <div className="row">
@@ -22,7 +26,7 @@ class PlaceBid extends Component {
                     <div className="col-md-5">
                     	<div className="row ml-2">
 	                    	{products.pro_images!=null ? 
-	                			<img src='https://i.pinimg.com/originals/87/be/c1/87bec12ab301f78eeccbffa5154924b8.jpg' />
+	                			<img src={img_url+products.pro_images[0].doc_path} width='500px' height='200px'/>
 	                		: <img src="https://i.pinimg.com/originals/87/be/c1/87bec12ab301f78eeccbffa5154924b8.jpg" width='500px' height='200px'/>
 	                		}
                     	</div>
@@ -30,7 +34,8 @@ class PlaceBid extends Component {
                     <div className="col-md-7 card-wrapper card-body">
                     	<div className="row ml-4 mr-3">
                 			<h3 className="bidTitle ">{products.name}</h3><br /><br />
-                			<span>Price <strong>${products.price}</strong></span>
+                			<strong className="productPrice">${products ? products.discounted_price : ''}</strong><br/>
+                             <span class="old-price text-danger" >&nbsp;Was ${products.price}</span>
                 			
                     	</div>
                     </div>
@@ -39,7 +44,7 @@ class PlaceBid extends Component {
 					    <div className="form-group ">
 						  <h4 className="control-label " for="your-bid">Your bid</h4>
 						   <div className="input-group-addon">
-						   		<input className="form-control" style={{width:'65%'}}  name="your_bid_price" type="text" value={products.price+1}/>
+						   		<input className="form-control" style={{width:'65%'}}  name="your_bid_price" type="text" value={products.price+10}/>
 						   </div>
 						</div>
 					    <div className="form-group ">

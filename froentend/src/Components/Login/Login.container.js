@@ -10,7 +10,7 @@ import {updateCart,fetchCart} from '../../store/addToCart/addToCart.action.js'
 import axios from '../../Utils/axios.config.js'
 import io from 'socket.io-client'
 
-const socket = io('http://localhost:4000')
+const socket = io('http://localhost:7000')
 
 const mapStateToProps = state => ({
 

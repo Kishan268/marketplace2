@@ -94,7 +94,7 @@ class TemplateProducts extends Component{
 		 </div>
         </div>    
     </div>
-     <Popup
+    <Popup
         width="800px"
         margin-left="-100px"
         isopen= {isopen}
@@ -102,7 +102,7 @@ class TemplateProducts extends Component{
         content = { <LoginComponent {...this.props}/>} 
     />
 	</>
-		)
+	)
 	}
 }
 export default TemplateProducts

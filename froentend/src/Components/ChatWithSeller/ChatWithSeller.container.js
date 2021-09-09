@@ -2,7 +2,7 @@ import {Component} from "react";
 import io from 'socket.io-client'
 import axios from 'axios'
 import ChatWithSellerComponet from './ChatWithSeller.component.js'	
-const socket = io('http://localhost:4000')
+const socket = io('http://localhost:7000')
 
 // const name = 'User '+parseInt(Math.random()*10)
 
@@ -14,27 +14,7 @@ class ChatWithSeller extends Component{
 		isopen:false
 	}
 
-  // const [message, setMessage] = useState('')
-  // const [chat, setChat] = useState([])
-  // const [email, setEmail] = useState('')
-  // const [name, setName] = useState('')
-  // const [user_id, setUserId] = useState('')
-  // const [seller_id, setSellerId] = useState('')
-  // const [userInfo, setUserInfo] =useState(props.user_information);
-  // const [userDetails, setUserDetails] =useState(props.userDetails);
-  // const [userMessage, setUserMessage] =useState([]);
-  // const token = localStorage.getItem('token')
-
-// useEffect((props) => {
-//     socket.on('message', payload => {
-//       setChat([...chat, payload])
-//       // setUserInfo(userInfo)
-//       // setChat([...chat, payload.data])
-//     })
-//  	// getMessages(props)
-
-
-//   })
+ 
   sendMessage(e){
   	const {user_information, userDetails} = this.props
     e.preventDefault();
@@ -52,24 +32,7 @@ class ChatWithSeller extends Component{
 
   };
 
-  //  sendMessageLocalUser(e){
-  // 	const {user_information, userDetails} = this.props
-  //   // var token = localStorage.getItem('token')
 
-  //   e.preventDefault();
-  //   var seller_id = userDetails.id
-  //   var email = e.target.email.value
-  //   var name = e.target.name.value
-  //   var message = e.target.message.value
-  //   var data ={
-  //   	email:email,
-  //   	name:name
-  //   };
-  //   this.setState({local_data:data})
-  //   var result = socket.emit('message',{name,email,message,seller_id})
-
-  //   // getMessages()
-  // };
   getMessages(e){
   	const {user_information, userDetails,message} = this.props
   	const {local_data} = this.state
@@ -86,13 +49,13 @@ class ChatWithSeller extends Component{
     		user_id:user_id
     	}
 	}
-	else{
-		var data ={
-			seller_id:userDetails.id,
-			email:local_data?local_data.email:'',
-			name:local_data?local_data.name:''
-		}
-	}
+	// else{
+	// 	var data ={
+	// 		seller_id:userDetails.id,
+	// 		email:local_data?local_data.email:'',
+	// 		name:local_data?local_data.name:''
+	// 	}
+	// }
     var result =  axios.post('http://localhost:4000/get_messages',data).then((res)=>{
     	// console.log(res.data)
     	this.setState({get_messages:res.data})

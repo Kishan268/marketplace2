@@ -37,6 +37,7 @@ Route::get("get_template/",[App\Http\Controllers\API\TemplateController::class,'
     Route::post("chat_with_selller",[App\Http\Controllers\API\ChatWithSellerController::class,'storeMessage']);
     Route::post("get_messages",[App\Http\Controllers\API\ChatWithSellerController::class,'getMessage']);
     Route::post("chat_with_user",[App\Http\Controllers\API\ChatWithSellerController::class,'chatWithUser']);
+Route::get("get_bids/{id}",[App\Http\Controllers\API\PlaceBidController::class,'getPlaceBid'])->name('get_bids');
 
 
 Route::group(['middleware' => 'auth:api'], function(){

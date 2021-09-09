@@ -22,4 +22,11 @@ class PlaceBidController extends Controller
                 'data' => $data
             ], 200);
     }
+    public function getPlaceBid($id){
+        
+        $data = $this->placeBid->getPlaceBid($id);
+        return Response::json([
+                'data' => $data
+            ], 200);
+    }
 }

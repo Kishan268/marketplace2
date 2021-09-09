@@ -126,6 +126,11 @@ class OrderApiRepository extends EloquentRepository{
 		PlaceBid::create($data);
 			return 'Bid Placed successfully...';
 	}
+	public function getPlaceBid($id){
+		// $userId = Auth::guard('api')->user()->id;
+
+		return PlaceBid::where('product_id',$id)->get();
+	}
 	public function storeShippingAddress(Request $request){
 
 		// return $request->all();
