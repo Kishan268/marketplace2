@@ -20,6 +20,8 @@ class SearchBar extends Component {
                                 <form onSubmit={((event)=>itemsSearch(event))} className="hm-searchbox">
                                     <select className="nice-select select-search-category" name="category_name" /*onChange={ (val) => this.changeCategory(val.target.value) }*/ >
                                         <option value="0">All Categories</option>
+                                        <option value="all-products">Get all products</option>
+
                                         {
                                             all_categories_data ? categoriesDatas.map((categoriesData,index)=>(
 

@@ -57,6 +57,8 @@ class Categories extends Component {
                                 <div id="cate-toggle" className="category-menu-list" >
                            
                                 <ul >
+                                    <li><Link to={`/Items/all-products`}>Get all product list</Link> </li>
+
                                    {
                                     categoriesDatas  ? categoriesDatas.map((categoriesData ,index)=>(
 
@@ -70,12 +72,12 @@ class Categories extends Component {
 
                                             <li className="right-menu cat-mega-title">
                                                 <Link to={`/Items/${categoriesData.catg_name}`} >{subcategory.catg_name}</Link>
-                                                <ul >
-                                                    <li><a href="shop-left-sidebar.html">Aluminum Nonstick</a></li>
-                                                    <li><a href="shop-left-sidebar.html">Calphalon</a></li>
-                                                    <li><a href="shop-left-sidebar.html">Contemporary</a></li>
-                                                    <li><a href="shop-left-sidebar.html">Hard-Anodized</a></li>
-                                                </ul>
+                                               {/* <ul >
+                                                   <li><a href="shop-left-sidebar.html">Aluminum Nonstick</a></li>
+                                                   <li><a href="shop-left-sidebar.html">Calphalon</a></li>
+                                                   <li><a href="shop-left-sidebar.html">Contemporary</a></li>
+                                                   <li><a href="shop-left-sidebar.html">Hard-Anodized</a></li>
+                                               </ul>*/}
                                             </li>
                                             )):''
                                    }

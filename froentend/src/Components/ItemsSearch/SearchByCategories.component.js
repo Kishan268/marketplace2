@@ -33,22 +33,24 @@ class SearchByCategories extends Component{
                             <div class="category-module uren-sidebar_categories">
                                 <div class="category-module_heading">
                                     <h5>Categories ({subcategoryData ? subcategoryData.categories[0].catg_name : ''})</h5>
+                                    <Link to={`/Items/all-products`}>Get all product list</Link>
                                 </div>
                                 <div class="module-body">
                                     <ul class="module-list_item">
+
                        			 	{subcategoryData ? subcategoryData.subcategories.map((subcategory,index)=>(
 
                                         <li>
-                                            <a href="javascript:void(0)">{subcategory.catg_name} <span>()</span></a>
+                                            <a href="javascript:void(0)">{subcategory.catg_name} <span>(0)</span></a>
                                             
-                                            <ul class="module-sub-list_item">
+                                          {/*  <ul class="module-sub-list_item">
 
-                                                <li>
-                                                    <a href="javascript:void(0)"> -<span>()</span></a>
-                                                    
-                                                </li>
-                                                
-                                            </ul>
+                                              <li>
+                                                  <a href="javascript:void(0)"> -<span>(0)</span></a>
+                                                  
+                                              </li>
+                                              
+                                          </ul>*/}
                                         </li>
                                         )):''}
                                        {/* <li>
@@ -65,7 +67,7 @@ class SearchByCategories extends Component{
                                     </ul>
                                 </div>
                             </div>
-                            <div class="uren-sidebar_categories">
+                            {/*<div class="uren-sidebar_categories">
                                 <div class="uren-categories_title">
                                     <h5>Price</h5>
                                 </div>
@@ -79,8 +81,8 @@ class SearchByCategories extends Component{
                                         <button type="button">Filter</button> 
                                     </div>
                                 </div>
-                            </div>
-                            <div class="uren-sidebar_categories">
+                            </div>*/}
+{/*                            <div class="uren-sidebar_categories">
                                 <div class="uren-categories_title">
                                     <h5>Color</h5>
                                 </div>
@@ -120,15 +122,15 @@ class SearchByCategories extends Component{
                                         <a href="javascript:void(0)">Walton <span>(0)</span></a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div>*/}
                         </div>
-                        <div class="sidebar-banner_area">
+                        {/*<div class="sidebar-banner_area">
                             <div class="banner-item img-hover_effect">
                                 <a href="javascript:void(0)">
                                     <img src="assets/images/shop/1.jpg" alt="Uren's Shop Banner Image" />
                                 </a>
                             </div>
-                        </div>
+                        </div>*/}
                     </div>
                     <div class="col-lg-9 col-md-7 order-1 order-lg-2 order-md-2">
                        {/* <div class="shop-toolbar">

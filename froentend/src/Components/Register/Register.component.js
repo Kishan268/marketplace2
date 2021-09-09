@@ -34,8 +34,8 @@ class Rgister  extends Component {
 			                    <div class="top-form top-form-minicart flashmart-minicart2 mt-3">
 			                      <div class="top-minicart-icon ">
 			                       	{/*<a onClick={(()=>this.handleClickOpen())} className="btn btn-primary btn-lg btn-block"  size="lg">Personal use</a>*/}
-			                 		<a href="http://localhost:8000/login"  className="btn btn-primary btn-lg btn-block"  size="lg" target="_blank"> Sing In</a>
-			                 		<a href="http://localhost:8000/register"  className="btn btn-secondary btn-lg btn-block"  size="lg" target="_blank"> Sing Up</a>
+			                 		<a href="http://localhost:8000/login"  className="btn btn-primary btn-lg btn-block"  size="lg" target="_blank"> Sign In</a>
+			                 		<a href="http://localhost:8000/register"  className="btn btn-secondary btn-lg btn-block"  size="lg" target="_blank"> Sign Up</a>
 
 			                       </div>
 			                       <div className="row mt-2">

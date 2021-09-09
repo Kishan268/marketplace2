@@ -24,7 +24,7 @@ const io = require('socket.io')(server, {
 const users =[];
 const users2 =[];
 io.on("connection",(socket)=>{
-	console.log('dfdf')
+
     socket.on('message',(payload)=>{
       
       users2[payload.user_id] = socket.id;
@@ -52,10 +52,16 @@ io.on("connection",(socket)=>{
 
 })
 
+<<<<<<< HEAD
 // server.listen(7000,()=>{
 //     console.log('I am listening at port: 7000)');
 // })
 
+=======
+server.listen(7000,()=>{
+    console.log('I am listening at port: 7000)');
+})
+>>>>>>> 41d9dedd39b5b1dc71e30036b4d90a85ad851caa
 module.exports = function(app) {
   app.use(
     '/',
