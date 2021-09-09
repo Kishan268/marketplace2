@@ -24,17 +24,18 @@ const io = require('socket.io')(server, {
 const users =[];
 const users2 =[];
 io.on("connection",(socket)=>{
+
     socket.on('message',(payload)=>{
       
       users2[payload.user_id] = socket.id;
       console.log(users2)
-      io.sockets.emit('sendtoclient',{payload:payload,users:users2});
+      // io.sockets.emit('sendtoclient',{payload:payload,users:users2});
       var data = axios.post('http://localhost:8000/api/chat_with_selller',payload).then((res)=>{
-      return res.data
+  		io.sockets.emit('sendtoclient',{payload:res.data,users:users2})
+      // return res.data
       }).catch((error)=>{
         return error
       })
-  // socket.broadcast.emit('sendtoclient',message)
 })
   socket.on('user_connected',(user_id)=>{
   users[user_id] = socket.id;

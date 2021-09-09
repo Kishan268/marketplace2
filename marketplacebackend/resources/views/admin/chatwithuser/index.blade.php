@@ -36,7 +36,7 @@
                                 <ul class="users">
                                     @foreach($users as $user)
                                     @php $stat = $user->is_terms ==1 ? 'online' : 'away'; @endphp
-                                    <li class="person " id="user-id{{$user->id}}" data-chat="person2" data-id={{$user->id}} data-email={{$user->email}} data-name={{$user->name}}>
+                                    <li class="person" id="user-id{{$user->id}}" data-chat="person2" data-id={{$user->id}} data-email={{$user->email}} data-name={{$user->name}}>
                                     {{-- <li class="person active-user" data-chat="person2"> --}}
                                         <div class="user">
                                             {{-- <span class={{$user->is_terms ==1 ? "logged-in" : "logged-out" }}>●</span> --}}
@@ -56,10 +56,13 @@
                             <div class="selected-user mt-2">
                                 <span>To: <span class="name name-selected-user"></span></span>
                             </div>
-                            <div class="chat-container  chat-content">
-                                <ul class="chat-box1 chatContainerScroll scroll ">
-                                   
-                                </ul>
+                                <div class="chat-container chat-content">
+                                    <div class="" id="user-id">
+                                        <ul class="chat-box1 chatContainerScroll scroll">
+                                           
+                                        </ul>
+                                    </div>
+
                                 <div class="form-group mt-3 mb-0 message-type" style="display: none;">
                                     <div class="chat-section">
                                         <div class="chat-box1">
@@ -95,10 +98,12 @@ $('.person').on('click',function(){
     $('.message-type').show();
 
     const userId = $(this).attr("data-id")
+    console.log(userId)
     const senderName = $(this).attr("data-name")
    $('.name-selected-user').html(senderName)
 
     $('#user-id'+userId).addClass("active-user");
+    // $('.chat-content').attr('#user-id'+userId);
     // $('#user-id').removeClass("active-user");
 
     const name = 'User '+parseInt(Math.random()*10)
@@ -106,49 +111,58 @@ $('.person').on('click',function(){
     const userName = "{{ Auth::user()->name }}";
     var sellerId ="{{ Auth::user()->id }}";
     var sellerEmail ="{{ Auth::user()->email }}";
-    
     socket.on('test');
-
     const chatInput = $('#chatInput');
+            chatInput.keypress(function(e){
+                const message = $(this).html();
+                const data ={
+                    message:message,
+                    user_id:userId,
+                    email:sellerEmail,
+                    seller_id:sellerId,
+                    name:userName,
 
-    chatInput.keypress(function(e){
+                }
+                if (e.which===13 && !e.shiftKey) {
+                    socket.emit('message',data)
+                
+                    chatInput.html('');
 
-        const message = $(this).html();
-        const data ={
-            message:message,
-            user_id:userId,
-            email:sellerEmail,
-            seller_id:sellerId,
-            name:userName,
-
-        }
-        if (e.which===13 && !e.shiftKey) {
-            socket.emit('message',data)
-        
-            chatInput.html('');
-
-            return false;
-        }
-    });
-
+                    return false;
+                }
+            });
+    $('#user-id').removeClass();
+    $('#user-id').addClass('user-id'+userId);
     socket.on('sendtoclient',(data)=>{
-        console.log(data.users)
-        $.each(data.users, function(key,val){
+       /* $.each(data.payload, function(key,val){
             if (val !==null && val !==0) {
-                if (userId == key) {
-                    const ids = data.payload.email == sellerEmail ? 'chat-left' :'chat-right';
+        console.log(val)
+console.log(val)
+console.log(userId)*/
+                if (userId == data.payload.data.user_id && data.payload.data.message !='' && data.payload.data.message !=null){
+                console.log(data.payload.data.message)
+                console.log('.user-id'+userId+' ul')
+                console.log('server'+data.payload.data.user_id)
+                    const ids = data.payload.data.email == sellerEmail ? 'chat-left' :'chat-right';
                     var now = new Date(Date.now());
                     var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+                     $('.user-id'+data.payload.data.user_id+' ul' ).append( "<li class='"+ids+"'><div class='chat-avatar'><img src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin'><div class='chat-name'>"+data.payload.data.name+"</div></div> <div class='chat-text'>"+data.payload.data.message+"</div><div class='chat-hour'>"+formatted+" <span class='fa fa-check-circle'></span></div></li>" );
+                    // $(".chat-content" ).append( "<li class='"+ids+"'><div class='chat-avatar'><img src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin'><div class='chat-name'>"+data.payload.data.name+"</div></div> <div class='chat-text'>"+data.payload.data.message+"</div><div class='chat-hour'>"+formatted+" <span class='fa fa-check-circle'></span></div></li>" );
+                }
+                else{
+                    console.log('.user-id1'+userId+' ul')
+                console.log('server1'+data.payload.data.user_id)
+                    const ids = data.payload.data.email == sellerEmail ? 'chat-left' :'chat-right';
+                    const now = new Date(Date.now());
+                    const formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
-                    $( ".chat-content ul" ).append( "<li class='"+ids+"'><div class='chat-avatar'><img src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin'><div class='chat-name'>"+data.payload.name+"</div></div> <div class='chat-text'>"+data.payload.message+"</div><div class='chat-hour'>"+formatted+" <span class='fa fa-check-circle'></span></div></li>" );
+                     $('.user-id'+data.payload.data.user_id+' ul' ).append( "<li class='"+ids+"'><div class='chat-avatar'><img src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin'><div class='chat-name'>"+data.payload.data.name+"</div></div> <div class='chat-text'>"+data.payload.data.message+"</div><div class='chat-hour'>"+formatted+" <span class='fa fa-check-circle'></span></div></li>" );                    
                 }
                 // let $userIcon = $('.user-icon-'+key);
-                // console.log('io'+key)
-                // console.log('local'+userId)
                 // $userIcon.addClass('text-success online');
                 // $userIcon.attr('title','Online');
-            }
-        })
+           /* }
+        })*/
 
         // if(data.email == sellerEmail){
           
